@@ -27,6 +27,8 @@ model Order {
   userId  Int?
   user    User?       @relation(fields: [userId], references: [id])
   items   OrderItem[]
+  address Address?    @relation(fields: [addressId], references: [id])
+  addressId Int?
 }
 
 model OrderItem {
@@ -39,15 +41,22 @@ model OrderItem {
   order    Order  @relation(fields: [orderId], references: [id])
 }
 
-model User { //Make into adresse
+model Address { //Make into adresse
   id      Int     @id @default(autoincrement())
-  name    String
   address String
   zipcode String
   city    String
-  email   String
   phone   String
-  orders  Order[]
+  Order Order[]
+}
+
+model User{
+  id      Int     @id @default(autoincrement())
+  name     String
+  email    String  @unique
+  password String
+  orders   Order[]
+  isAdmin Boolean @default(false)
 }
 
 model Category {
