@@ -5,7 +5,7 @@
   "license": "ISC",
   "private": true,
   "scripts": {
-    "postinstall": "plugga init && prisma db push",
+    "postinstall": "prisma db push",
     "dev": "next dev --turbopack --port 5173",
     "build": "next build",
     "start": "next start",
@@ -39,7 +39,6 @@
     "zod": "^3.24.2"
   },
   "devDependencies": {
-    "@plugga-tech/react-webshop-ts": "^1.1.12",
     "@prisma/client": "^6.4.1",
     "@types/node": "^22.13.9",
     "@types/react": "^19.0.10",
