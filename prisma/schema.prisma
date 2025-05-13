@@ -11,15 +11,14 @@ datasource db {
 }
 
 model Product {
-  id            String    @id @default(cuid())
-  articleNumber String    @unique @default(cuid())
+  id            String @id @default(cuid())
+  articleNumber String @unique @default(cuid())
   title         String
   description   String
   image         String
   price         Float
-  weight        Int       @default(0)
-  categoryId    String
-  category      Category? @relation(fields: [categoryId], references: [id])
+  stock        Int    @default(0)
+  categories    Category[]
 }
 
 model Order {
@@ -40,7 +39,7 @@ model OrderItem {
   order    Order  @relation(fields: [orderId], references: [id])
 }
 
-model User {
+model User { //Make into adresse
   id      Int     @id @default(autoincrement())
   name    String
   address String
@@ -55,4 +54,4 @@ model Category {
   id       String    @id @default(cuid())
   name     String
   products Product[]
-}
+} //Kolla upp many to many i kategori till produkt
