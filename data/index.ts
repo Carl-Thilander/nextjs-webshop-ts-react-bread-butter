@@ -9,7 +9,7 @@ export interface Product {
   title: string;
   description: string;
   price: number;
-  weight: number;
+  stock: number;
 }
 
 export interface CartItem extends Product {
@@ -19,97 +19,111 @@ export interface CartItem extends Product {
 /* Lägg till era produkter här */
 export const products: Product[] = [
   {
-    id: "1234",
-    articleNumber: "1234",
-    image: "/images/rustiktragbrod.png",
-    title: "Rustikt rågbröd",
+    id: "cuid1",
+    articleNumber: "cuid1",
+    image: "https://www.pexels.com/sv-se/foto/904616/",
+    title: "Moonlight Jasmine Oolong",
     description:
-      "Ett rustikt rågbröd som påminner om det farmor brukade baka. Bakat med surdeg och en lång jästid för en djupare smak och en härligt seg och knaprig skorpa.",
-    price: 50,
-    weight: 700,
+      "A silky smooth oolong harvested under the full moon and scented with night-blooming jasmine. Perfect for introspective evenings and mysterious glances.",
+    price: 120,
+    stock: 6,
   },
   {
-    id: "1356",
-    articleNumber: "1356",
-    image: "/images/brytbrod.png",
-    title: "Brytbröd",
-    description:
-      "Ett litet brytbröd med olivolja, perfekt att dela vid middagsbordet. Den luftiga inkråmet och den gyllene skorpan gör det till en favorit till soppor och sallader.",
-    price: 40,
-    weight: 500,
-  },
-  {
-    id: "2345",
-    articleNumber: "2345",
-    image: "/images/levain.png",
-    title: "Levain",
-    description:
-      "Klassisk surdegs-Levain, precis så som du vill ha det – segt, saftigt och smakrikt. Perfekt till både frukost och som bas för en rustik smörgås med pålägg.",
-    price: 65,
-    weight: 600,
-  },
-  {
-    id: "2346",
-    articleNumber: "2346",
-    image: "/images/litenlevain.png",
-    title: "Liten Levain",
-    description:
-      "Klassisk surdegs-Levain, den lite mindre modellen som passar perfekt för en eller två personer. Samma fantastiska smak och textur, men i ett mer behändigt format.",
-    price: 40,
-    weight: 400,
-  },
-  {
-    id: "3456",
-    articleNumber: "3456",
-    image: "/images/surdegslimpavete.png",
-    title: "Surdegslimpa Vete",
-    description:
-      "En saftig surdegslimpa bakad på vetemjöl, med en knaprig yta och en mild, nötig smak. Perfekt att skiva tunt och rosta eller att njuta av som det är med smör och ost.",
-    price: 60,
-    weight: 620,
-  },
-  {
-    id: "4567",
-    articleNumber: "4567",
+    id: "cuid2",
+    articleNumber: "cuid2",
     image:
-      "https://images.pexels.com/photos/2067430/pexels-photo-2067430.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-    title: "Surdegsbaguette",
+      "https://www.pexels.com/sv-se/foto/hander-kvinna-avslappning-te-8329306/",
+    title: "Velvet Earl Grey Supreme",
     description:
-      "Oui oui, den är inte bara baguette, den är sur också! En krispig och luftig baguette med lång jästid som ger en djup och balanserad smak.",
-    price: 50,
-    weight: 550,
+      "Not your average Earl! This bold black tea is blended with Italian bergamot and a hint of vanilla. Regal, refined, and just a little scandalous.",
+    price: 95,
+    stock: 10,
   },
   {
-    id: "5678",
-    articleNumber: "5678",
+    id: "cuid3",
+    articleNumber: "cuid3",
     image:
-      "https://images.pexels.com/photos/7693917/pexels-photo-7693917.jpeg?auto=compress&cs=tinysrgb&w=600",
-    title: "Frukostkombo",
+      "https://images.pexels.com/photos/1660416/pexels-photo-1660416.jpeg?auto=compress&cs=tinysrgb&w=800",
+    title: "Kyoto Dewdrop Sencha",
     description:
-      "Den ena gillar ljust, den andra mörkt... Här får du två goda fröbröd som passar perfekt till frukostbordet. Ett balanserat val för den som vill ha variation på morgonen.",
+      "A first-flush Japanese sencha kissed by early morning dew. Grassy, vibrant, and perfect for turning your kitchen into a Zen garden.",
+    price: 110,
+    stock: 5,
+  },
+  {
+    id: "cuid4",
+    articleNumber: "cuid4",
+    image:
+      "https://images.pexels.com/photos/1833316/pexels-photo-1833316.jpeg?auto=compress&cs=tinysrgb&w=800",
+    title: "Smoky Himalayan Whisper",
+    description:
+      "Dark, mysterious, and slightly smoky, this black tea from the Himalayan foothills is a secret best shared with an old book and a cozy blanket.",
+    price: 105,
+    stock: 3,
+  },
+  {
+    id: "cuid5",
+    articleNumber: "cuid5",
+    image:
+      "https://images.pexels.com/photos/1638280/pexels-photo-1638280.jpeg?auto=compress&cs=tinysrgb&w=600",
+    title: "Ruby Chai Carnival",
+    description:
+      "A wild dance of Ceylon black tea, cinnamon, cardamom, and pink peppercorns. Sweet, spicy, and ready to party in your teacup.",
     price: 100,
-    weight: 1000,
+    stock: 8,
   },
   {
-    id: "6789",
-    articleNumber: "6789",
+    id: "cuid6",
+    articleNumber: "cuid6",
     image:
-      "https://images.pexels.com/photos/7175448/pexels-photo-7175448.jpeg?auto=compress&cs=tinysrgb&w=600",
-    title: "Valnötsbröd",
+      "https://images.pexels.com/photos/6508126/pexels-photo-6508126.jpeg?auto=compress&cs=tinysrgb&w=800",
+    title: "Lavender Cream Darjeeling",
     description:
-      "Vårt prisvinnande valnötsbröd låter det vattnas i munnen! Fullproppat med rostade valnötter som ger en nötig, fyllig smak och en härligt krispig skorpa.",
-    price: 65,
-    weight: 650,
+      "An elegant twist on a classic. Delicate second-flush Darjeeling meets soothing lavender and a swirl of cream flavor. Afternoon tea just got an upgrade.",
+    price: 115,
+    stock: 7,
   },
   {
-    id: "1357",
-    articleNumber: "1357",
+    id: "cuid7",
+    articleNumber: "cuid7",
     image:
-      "https://images.pexels.com/photos/31009555/pexels-photo-31009555/free-photo-of-rustikt-brod-med-keramiska-burkar-pa-traskiva.jpeg?auto=compress&cs=tinysrgb&w=1200",
-    title: "Surdegsfralla",
+      "https://images.pexels.com/photos/1417945/pexels-photo-1417945.jpeg?auto=compress&cs=tinysrgb&w=800",
+    title: "Dragon’s Breath Green",
     description:
-      "En vanlig j*vla fralla, fast bättre, såklart. Luftig, krispig och med precis lagom tuggmotstånd – perfekt med smör och ost eller som bas till en matig macka.",
-    price: 45,
-    weight: 450,
+      "A fierce and fiery green tea with ginger and citrus peel. Like a dragon waking up slowly... and then roaring with zest.",
+    price: 90,
+    stock: 9,
+  },
+  {
+    id: "cuid8",
+    articleNumber: "cuid8",
+    image: "https://www.pexels.com/sv-se/foto/1772124/",
+    title: "Rose Gold Rooibos",
+    description:
+      "A caffeine-free South African rooibos with rose petals and a dash of gold luster. For glamorous nights in and golden sunsets.",
+    price: 85,
+    stock: 12,
+  },
+  {
+    id: "cuid9",
+    articleNumber: "cuid9",
+    image:
+      "https://images.pexels.com/photos/1627958/pexels-photo-1627958.jpeg?auto=compress&cs=tinysrgb&w=800",
+    title: "Blueberry Basil Bliss",
+    description:
+      "An herbal infusion that pairs juicy blueberries with fresh basil for a sweet-savory surprise. It's like a garden party in your mug.",
+    price: 80,
+    stock: 6,
+  },
+  {
+    id: "cuid10",
+    articleNumber: "cuid10",
+    image:
+      "https://images.pexels.com/photos/2101187/pexels-photo-2101187.jpeg?auto=compress&cs=tinysrgb&w=800",
+    title: "Midnight Matcha Mystique",
+    description:
+      "A ceremonial-grade matcha that’s as dark and smooth as a velvet cloak. Earthy, deep, and ideal for late-night creative sparks.",
+    price: 130,
+    stock: 4,
   },
 ];
