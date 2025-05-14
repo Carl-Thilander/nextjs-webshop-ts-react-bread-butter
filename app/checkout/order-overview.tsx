@@ -86,7 +86,7 @@ export default function OrderOverview() {
                 <TableCell colSpan={3} align="right">
                   <strong>Totalt</strong>
                 </TableCell>
-                <TableCell align="right" data-cy="total-price">
+                <TableCell align="right">
                   <strong>{totalSum.toFixed(2)} kr</strong>
                 </TableCell>
               </TableRow>

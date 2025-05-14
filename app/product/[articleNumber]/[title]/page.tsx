@@ -8,7 +8,7 @@ interface Props {
   params: { articleNumber: string; title: string };
 }
 
-export default async function ProductPage  ({ params }: Props) {
+export default async function ProductPage({ params }: Props) {
   const { articleNumber, title } = params;
   if (!articleNumber) {
     return <h1>Produkten hittades inte</h1>;
@@ -36,7 +36,6 @@ export default async function ProductPage  ({ params }: Props) {
         overflow: "visible",
         marginY: 2,
       }}
-      data-cy="product"
     >
       <GoBackButton />
       <Box
@@ -83,19 +82,14 @@ export default async function ProductPage  ({ params }: Props) {
           <Typography
             variant="h1"
             sx={{ fontSize: { sx: 40, sm: 40, md: 50 } }}
-            data-cy="product-title"
           >
             {product.title}
           </Typography>
-          <Typography variant="h6" sx={{ mt: 2 }} data-cy="product-price">
+          <Typography variant="h6" sx={{ mt: 2 }}>
             Pris: {product.price} kr
           </Typography>
 
-          <Typography
-            variant="body1"
-            sx={{ mt: 2 }}
-            data-cy="product-description"
-          >
+          <Typography variant="body1" sx={{ mt: 2 }}>
             {product.description}
           </Typography>
           <Typography variant="h6" sx={{ py: 2, fontSize: "15px" }}>
@@ -110,12 +104,10 @@ export default async function ProductPage  ({ params }: Props) {
               mt: 2,
             }}
           >
-            <AddToCartButton product={product} data-cy="product-buy-button" />
+            <AddToCartButton product={product} />
           </Box>
         </Box>
       </Box>
     </Container>
   );
-};
-
-
+}

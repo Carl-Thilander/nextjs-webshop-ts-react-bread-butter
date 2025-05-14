@@ -137,7 +137,6 @@ export function CartProvider(props: PropsWithChildren) {
               fontWeight: "bold",
               padding: "6px 16px",
             }}
-            data-cy="added-to-cart-toast"
           >
             <Typography variant="body1">{toastMessage}</Typography>
           </Alert>

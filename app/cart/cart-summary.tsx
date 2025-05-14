@@ -20,7 +20,7 @@ export default function CartSummary() {
         <Typography variant="h5" sx={{ paddingX: 2 }}>
           Delsumma:
         </Typography>
-        <Typography data-cy="total-price" variant="h5" sx={{ paddingX: 2 }}>
+        <Typography variant="h5" sx={{ paddingX: 2 }}>
           {totalSum.toFixed(2)} kr
         </Typography>
       </Box>
@@ -52,7 +52,6 @@ export default function CartSummary() {
         </Link>
         <Link href="/checkout">
           <Button
-            data-cy="cart-link"
             variant="contained"
             color="primary"
             sx={{

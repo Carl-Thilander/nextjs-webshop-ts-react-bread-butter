@@ -68,58 +68,57 @@ Ni ska vid presentationstillfället hålla i en muntlig presentation för klasse
 
 ## Kravlista
 
-### Lista på data-cy som ska finnas i koden för Godkänt
+### Lista på attribut som ska finnas i koden för Godkänt
 
-- `data-cy="product"` produkt-korten/raden på startsidan & adminsidan.
-- `data-cy="product-id"` artikelnumret på en produkt.
-- `data-cy="product-title"` titeln på en produkt.
-- `data-cy="product-price"` priset på en produkt.
-- `data-cy="product-description"` beskrivningen av en produkt.
-- `data-cy="product-buy-button"` lägg till i kundvagnen knappen.
-- `data-cy="added-to-cart-toast"` toast som visas när en produkt läggs till i kundvagnen.
-
----
-
-- `data-cy="open-cart-sidebar"` knapp som öppnar kundvagnen i en sidomeny. (valfri)
-- `data-cy="cart-link"` knappen för att gå till kundvagnen/kassasidan.
-- `data-cy="cart-items-count-badge"` siffran intill kundvagnsikonen som visar antalet tillagda produkter.
-- `data-cy="cart-item"` en produktrad på kassasidan.
-- `data-cy="increase-quantity-button"` knappen för att öka antalet av en produkt på kassasida.
-- `data-cy="decrease-quantity-button"` knappen för att minska antalet av en produkt på kassasida.
-- `data-cy="product-quantity"` antalet valda produkter av samma typ på kassasida.
-- `data-cy="total-price"` totala priset för alla produkter i kundvagnen.
+- Produkt-korten/raden på startsidan & adminsidan.
+- Artikelnumret på en produkt.
+- Titeln på en produkt.
+- Priset på en produkt.
+- Beskrivningen av en produkt.
+- Lägg till i kundvagnen knappen.
+- Toast som visas när en produkt läggs till i kundvagnen.
 
 ---
 
-- `data-cy="customer-form"` formulär för att fylla i kunduppgifter på checkout-sidan.
-- `data-cy="customer-name"` kundens namn (som fylls i på checkout-sidan).
-- `data-cy="customer-address"` kundens gatuadress (som fylls i på checkout-sidan).
-- `data-cy="customer-zipcode"` kundens postnummer (som fylls i på checkout-sidan).
-- `data-cy="customer-city"` kundens stad (som fylls i på checkout-sidan).
-- `data-cy="customer-email"` kundens emailadress (som fylls i på checkout-sidan).
-- `data-cy="customer-phone"` kundens telefonnummer (som fylls i på checkout-sidan).
-- `data-cy="customer-name-error"` felmeddelande vid felaktigt angivet namn.
-- `data-cy="customer-address-error"` felmeddelande vid felaktigt angiven adress.
-- `data-cy="customer-zipcode-error"` felmeddelande vid felaktigt angivet postnummer.
-- `data-cy="customer-city-error"` felmeddelande vid felaktigt angiven stad.
-- `data-cy="customer-email-error"` felmeddelande vid felaktigt angiven emailadress.
-- `data-cy="customer-phone-error"` felmeddelande vid felaktigt angivet telefonnummer.
+- Knapp som öppnar kundvagnen i en sidomeny. (valfri)
+- Knappen för att gå till kundvagnen/kassasidan.
+- Siffran intill kundvagnsikonen som visar antalet tillagda produkter.
+- En produktrad på kassasidan.
+- Knappen för att öka antalet av en produkt på kassasida.
+- Knappen för att minska antalet av en produkt på kassasida.
+- Antalet valda produkter av samma typ på kassasida.
+- Totala priset för alla produkter i kundvagnen.
 
 ---
 
-- `data-cy="admin-link"` den länk/knapp som går till admin.
-- `data-cy="admin-add-product"` edit-knappen för admin som ska editera en produkt.
-- `data-cy="admin-edit-product"` edit-knappen för admin som ska editera en produkt.
-- `data-cy="admin-remove-product"` den knapp som ska kunna radera en produkt.
-- `data-cy="confirm-delete-button"` konfirmera att man vill radera en produkt.
+- Formulär för att fylla i kunduppgifter på checkout-sidan.
+- Kundens namn (som fylls i på checkout-sidan).
+- Kundens gatuadress (som fylls i på checkout-sidan).
+- Kundens postnummer (som fylls i på checkout-sidan).
+- Kundens stad (som fylls i på checkout-sidan).
+- Kundens emailadress (som fylls i på checkout-sidan).
+- Kundens telefonnummer (som fylls i på checkout-sidan).
+- Felmeddelande vid felaktigt angivet namn.
+- Felmeddelande vid felaktigt angiven adress.
+- Felmeddelande vid felaktigt angivet postnummer.
+- Felmeddelande vid felaktigt angiven stad.
+- Felmeddelande vid felaktigt angiven emailadress.
+- Felmeddelande vid felaktigt angivet telefonnummer.
 
 ---
 
-- `data-cy="product-form"` formuläret för att lägga till eller editera en produkt.
-- `data-cy="product-title-error"` felmeddelande vid felaktigt angiven titel.
-- `data-cy="product-description-error"` felmeddelande vid felaktigt angiven beskrivning.
-- `data-cy="product-price-error"` felmeddelande vid felaktigt angivet pris.
-- `data-cy="product-image-error"` felmeddelande vid felaktigt angiven bild.
+- Den länk/knapp som går till admin.
+- Edit-knappen för admin som ska editera en produkt.
+- Den knapp som ska kunna radera en produkt.
+- Konfirmera att man vill radera en produkt.
+
+---
+
+- Formuläret för att lägga till eller editera en produkt.
+- Felmeddelande vid felaktigt angiven titel.
+- Felmeddelande vid felaktigt angiven beskrivning.
+- Felmeddelande vid felaktigt angivet pris.
+- Felmeddelande vid felaktigt angiven bild.
 
 ### Krav för Godkänt
 
