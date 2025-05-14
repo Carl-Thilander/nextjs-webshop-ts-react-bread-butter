@@ -15,7 +15,6 @@ export default function CartItemComponent({ cartItem }: Props) {
 
   return (
     <Card
-      data-cy="cart-item"
       sx={{
         maxWidth: { xs: "295px", sm: "100%" },
         position: "relative",
@@ -74,7 +73,6 @@ export default function CartItemComponent({ cartItem }: Props) {
             }}
           >
             <Typography
-              data-cy="product-title"
               gutterBottom
               variant="body2"
               component="div"

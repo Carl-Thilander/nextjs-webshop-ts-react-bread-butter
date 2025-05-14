@@ -33,7 +33,6 @@ export default function MyDrawer() {
           alignItems: "center",
           justifyContent: "center",
         }}
-        data-cy="open-cart-sidebar"
       >
         <CartBadge />
       </IconButton>

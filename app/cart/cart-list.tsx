@@ -18,11 +18,7 @@ export default function CartList() {
       }}
     >
       {cartItems.map((cartItem) => (
-        <CartItemComponent
-          data-cy="cart-item"
-          key={cartItem.id}
-          cartItem={cartItem}
-        />
+        <CartItemComponent key={cartItem.id} cartItem={cartItem} />
       ))}
     </Box>
   );

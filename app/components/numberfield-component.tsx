@@ -44,17 +44,12 @@ export default function PublicNumberField({
             alignItems: "center",
           }}
         >
-          <Typography
-            variant="h6"
-            sx={{ align: "center" }}
-            data-cy="product-price"
-          >
+          <Typography variant="h6" sx={{ align: "center" }}>
             {price * quantity} kr
           </Typography>
           <NumberField.Group style={{ display: "flex" }}>
             <NumberField.Decrement
               onClick={() => updateQuantity(id, -1)}
-              data-cy="decrease-quantity-button"
               style={{
                 display: "flex",
                 width: "2rem",
@@ -74,7 +69,6 @@ export default function PublicNumberField({
               <MinusIcon />
             </NumberField.Decrement>
             <div
-              data-cy="product-quantity"
               style={{
                 height: "1.25rem",
                 width: "3rem",
@@ -96,7 +90,6 @@ export default function PublicNumberField({
 
             <NumberField.Increment
               onClick={() => updateQuantity(id, 1)}
-              data-cy="increase-quantity-button"
               style={{
                 display: "flex",
                 width: "2rem",
@@ -107,9 +100,10 @@ export default function PublicNumberField({
                 borderBottomRightRadius: "0.375rem",
                 border: "1px solid #9C8173",
                 backgroundColor: "transparent",
+                backgroundClip: "padding-box",
                 color: "#111827",
                 userSelect: "none",
-                boxShadow: "0px 4px 5px -2px grey",
+                boxShadow: "4px 4px 5px -2px grey",
               }}
             >
               <PlusIcon />

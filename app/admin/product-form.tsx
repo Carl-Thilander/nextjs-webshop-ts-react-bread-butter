@@ -1,7 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import ClearRoundedIcon from '@mui/icons-material/ClearRounded';
+import ClearRoundedIcon from "@mui/icons-material/ClearRounded";
 import {
   Box,
   Button,
@@ -54,7 +54,6 @@ export default function ProductForm({ product }: Props) {
     } else {
       await createProduct(data);
       form.reset();
-      
     }
     router.push("/admin");
   };
@@ -74,10 +73,7 @@ export default function ProductForm({ product }: Props) {
           lg: 600,
         },
       }}
-      data-cy="product-form"
     >
-      
-      
       <Typography
         variant="h1"
         sx={{
@@ -85,17 +81,16 @@ export default function ProductForm({ product }: Props) {
           justifyContent: "space-between",
           margin: 2,
         }}
-        >
+      >
         <span></span>
         {isEdit ? "Redigera en produkt" : "Lägg till en produkt"}
 
         <Link href="/admin/">
-          <IconButton >
-            <ClearRoundedIcon sx={{ fontSize: 30}} />
+          <IconButton>
+            <ClearRoundedIcon sx={{ fontSize: 30 }} />
           </IconButton>
         </Link>
       </Typography>
-        
 
       <FormLabel
         sx={{
@@ -115,13 +110,8 @@ export default function ProductForm({ product }: Props) {
         type="url"
         fullWidth
         variant="outlined"
-        slotProps={{ htmlInput: { "data-cy": "product-image" } }}
         error={!!errors.image}
-        helperText={
-          errors.image ? (
-            <span data-cy="product-image-error">{"Ange en giltig Url"}</span>
-          ) : null
-        }
+        helperText={errors.image ? <span>{"Ange en giltig Url"}</span> : null}
         {...form.register("image")}
       />
 
@@ -143,14 +133,9 @@ export default function ProductForm({ product }: Props) {
         type="text"
         fullWidth
         variant="outlined"
-        slotProps={{ htmlInput: { "data-cy": "product-title" } }}
         error={!!errors.description}
         helperText={
-          errors.title ? (
-            <span data-cy="product-title-error">
-              {"Produktnamn får inte vara tom"}
-            </span>
-          ) : null
+          errors.title ? <span>{"Produktnamn får inte vara tom"}</span> : null
         }
         {...register("title")}
       />
@@ -194,13 +179,10 @@ export default function ProductForm({ product }: Props) {
         type="number"
         fullWidth
         variant="outlined"
-        slotProps={{ htmlInput: { "data-cy": "product-price" } }}
         error={!!errors.description}
         helperText={
           errors.price ? (
-            <span data-cy="product-price-error">
-              {"Du måste skriva in ett pris över 0:-"}
-            </span>
+            <span>{"Du måste skriva in ett pris över 0:-"}</span>
           ) : null
         }
         {...register("price")}
@@ -224,13 +206,10 @@ export default function ProductForm({ product }: Props) {
         type="text"
         fullWidth
         variant="outlined"
-        slotProps={{ htmlInput: { "data-cy": "product-description" } }}
         error={!!errors.description}
         helperText={
           errors.description ? (
-            <span data-cy="product-description-error">
-              {"Besrkivningen får inte vara tom"}
-            </span>
+            <span>{"Besrkivningen får inte vara tom"}</span>
           ) : null
         }
         {...register("description")}
@@ -240,20 +219,21 @@ export default function ProductForm({ product }: Props) {
           display: "flex",
           flexDirection: "row",
           alignItems: "center",
-          justifyContent:"center"
+          justifyContent: "center",
         }}
       >
-        
-        <Button sx={{
-          mt: 3,
-          width: 200,
-          height: 50,
-          bgcolor: "primary.main",
-          color: "text.primary",
-          "&:hover": { bgcolor: "primary.dark", color: "background.paper" },
-          }} 
-      type="submit">
-        Spara
+        <Button
+          sx={{
+            mt: 3,
+            width: 200,
+            height: 50,
+            bgcolor: "primary.main",
+            color: "text.primary",
+            "&:hover": { bgcolor: "primary.dark", color: "background.paper" },
+          }}
+          type="submit"
+        >
+          Spara
         </Button>
       </Box>
     </Box>

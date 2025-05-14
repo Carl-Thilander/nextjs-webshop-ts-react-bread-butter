@@ -39,12 +39,7 @@ const Header = () => {
             gap: 2,
           }}
         >
-          <IconButton
-            data-cy="admin-link"
-            color="inherit"
-            component={Link}
-            href="/admin"
-          >
+          <IconButton color="inherit" component={Link} href="/admin">
             <AccountCircleIcon
               sx={{
                 fontSize: { sx: 20, md: 40 },

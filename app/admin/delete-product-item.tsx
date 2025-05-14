@@ -24,11 +24,7 @@ export default function DeleteButton({ product }: ProductCardProps) {
   return (
     <>
       {/* Knapp som visar alert */}
-      <IconButton
-        onClick={handleClick}
-        data-cy="admin-remove-product"
-        sx={{ color: "#9C8173" }}
-      >
+      <IconButton onClick={handleClick} sx={{ color: "#9C8173" }}>
         <Delete />
       </IconButton>
 

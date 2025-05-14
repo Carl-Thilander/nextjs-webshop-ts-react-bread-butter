@@ -32,7 +32,6 @@ const AddToCartButton: React.FC<AddToCartButtonProps> = ({
         color: "text.primary",
         "&:hover": { bgcolor: "primary.dark", color: "background.paper" },
       }}
-      data-cy="product-buy-button"
     >
       {label}
     </Button>

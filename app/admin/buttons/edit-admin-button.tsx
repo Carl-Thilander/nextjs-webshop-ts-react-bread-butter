@@ -14,7 +14,7 @@ export default function EditButton({ product }: Props) {
       href={`/admin/product/${product.articleNumber}`}
       key={product.articleNumber}
     >
-      <IconButton data-cy="admin-edit-product" sx={{ color: "#9C8173" }}>
+      <IconButton sx={{ color: "#9C8173" }}>
         <Edit />
       </IconButton>
     </Link>

@@ -7,7 +7,6 @@ const CartBadge = () => {
 
   return (
     <Badge
-      data-cy="cart-items-count-badge"
       badgeContent={cartCount}
       invisible={cartCount === 0}
       sx={{

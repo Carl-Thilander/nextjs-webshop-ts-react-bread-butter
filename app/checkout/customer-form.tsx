@@ -130,7 +130,6 @@ export default function CustomerForm() {
       <Box sx={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
         <Box
           component="form"
-          data-cy="customer-form"
           sx={{
             width: "100%",
             maxWidth: "500px",
@@ -156,7 +155,6 @@ export default function CustomerForm() {
             </FormLabel>
             <TextField
               size="small"
-              slotProps={{ htmlInput: { "data-cy": "customer-name" } }}
               sx={{
                 backgroundColor: "background.paper",
                 borderRadius: "0.5rem",
@@ -170,9 +168,7 @@ export default function CustomerForm() {
               autoComplete="name"
               helperText={
                 errors.name ? (
-                  <FormHelperText data-cy="customer-name-error">
-                    {errors.name}
-                  </FormHelperText>
+                  <FormHelperText>{errors.name}</FormHelperText>
                 ) : null
               }
             />
@@ -190,7 +186,6 @@ export default function CustomerForm() {
             </FormLabel>
             <TextField
               size="small"
-              slotProps={{ htmlInput: { "data-cy": "customer-address" } }}
               sx={{
                 backgroundColor: "background.paper",
                 borderRadius: "0.5rem",
@@ -204,9 +199,7 @@ export default function CustomerForm() {
               error={Boolean(errors.address)}
               helperText={
                 errors.address ? (
-                  <FormHelperText data-cy="customer-address-error">
-                    {errors.address}
-                  </FormHelperText>
+                  <FormHelperText>{errors.address}</FormHelperText>
                 ) : null
               }
             />
@@ -231,7 +224,6 @@ export default function CustomerForm() {
               </FormLabel>
               <TextField
                 size="small"
-                slotProps={{ htmlInput: { "data-cy": "customer-zipcode" } }}
                 sx={{
                   backgroundColor: "background.paper",
                   borderRadius: "0.5rem",
@@ -245,9 +237,7 @@ export default function CustomerForm() {
                 error={Boolean(errors.zipcode)}
                 helperText={
                   errors.zipcode ? (
-                    <FormHelperText data-cy="customer-zipcode-error">
-                      {errors.zipcode}
-                    </FormHelperText>
+                    <FormHelperText>{errors.zipcode}</FormHelperText>
                   ) : null
                 }
               />
@@ -264,7 +254,6 @@ export default function CustomerForm() {
               </FormLabel>
               <TextField
                 size="small"
-                slotProps={{ htmlInput: { "data-cy": "customer-city" } }}
                 sx={{
                   backgroundColor: "background.paper",
                   borderRadius: "0.5rem",
@@ -278,9 +267,7 @@ export default function CustomerForm() {
                 error={Boolean(errors.city)}
                 helperText={
                   errors.city ? (
-                    <FormHelperText data-cy="customer-city-error">
-                      {errors.city}
-                    </FormHelperText>
+                    <FormHelperText>{errors.city}</FormHelperText>
                   ) : null
                 }
               />
@@ -306,7 +293,6 @@ export default function CustomerForm() {
             </FormLabel>
             <TextField
               size="small"
-              slotProps={{ htmlInput: { "data-cy": "customer-email" } }}
               sx={{
                 backgroundColor: "background.paper",
                 borderRadius: "0.5rem",
@@ -320,9 +306,7 @@ export default function CustomerForm() {
               error={Boolean(errors.email)}
               helperText={
                 errors.email ? (
-                  <FormHelperText data-cy="customer-email-error">
-                    {errors.email}
-                  </FormHelperText>
+                  <FormHelperText>{errors.email}</FormHelperText>
                 ) : null
               }
             />
@@ -339,7 +323,6 @@ export default function CustomerForm() {
             </FormLabel>
             <TextField
               size="small"
-              slotProps={{ htmlInput: { "data-cy": "customer-phone" } }}
               sx={{
                 backgroundColor: "background.paper",
                 borderRadius: "0.5rem",
@@ -353,9 +336,7 @@ export default function CustomerForm() {
               error={Boolean(errors.phone)}
               helperText={
                 errors.phone ? (
-                  <FormHelperText data-cy="customer-phone-error">
-                    {errors.phone}
-                  </FormHelperText>
+                  <FormHelperText>{errors.phone}</FormHelperText>
                 ) : null
               }
             />

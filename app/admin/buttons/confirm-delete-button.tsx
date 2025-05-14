@@ -20,7 +20,6 @@ export default function ConfirmDeleteProduct(props: Props) {
         "&:hover": { backgroundColor: "#E8DACD" },
       }}
       onClick={() => deleteProduct(props.product.id)}
-      data-cy="confirm-delete-button"
     >
       Ta bort
     </Button>
