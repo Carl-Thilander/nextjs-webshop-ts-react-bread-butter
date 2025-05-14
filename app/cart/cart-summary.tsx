@@ -1,6 +1,6 @@
 "use client";
 import { Box, Button, Container, Link, Typography } from "@mui/material";
-import { useCart } from "../provider";
+import { useCart } from "@/hooks/useCart";
 
 export default function CartSummary() {
   const { totalSum } = useCart();

@@ -4,7 +4,7 @@ import { Delete } from "@mui/icons-material";
 import { Box, Button, Card, Typography } from "@mui/material";
 import CardMedia from "@mui/material/CardMedia";
 import PublicNumberField from "../components/numberfield-component";
-import { useCart } from "../provider";
+import { useCart } from "@/hooks/useCart";
 
 interface Props {
   cartItem: CartItem;
@@ -35,7 +35,7 @@ export default function CartItemComponent({ cartItem }: Props) {
         <Box
           sx={{
             display: "flex",
-            flexDirection: {xs: "column", sm: "row"},
+            flexDirection: { xs: "column", sm: "row" },
             alignItems: "center",
             mb: 1,
           }}

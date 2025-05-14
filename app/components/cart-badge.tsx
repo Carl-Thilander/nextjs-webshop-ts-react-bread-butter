@@ -1,11 +1,9 @@
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { Badge } from "@mui/material";
-import { useCart } from "../provider";
+import { useCart } from "@/hooks/useCart";
 
 const CartBadge = () => {
   const { cartCount } = useCart(); // Dynamically get the cart count
-
- 
 
   return (
     <Badge

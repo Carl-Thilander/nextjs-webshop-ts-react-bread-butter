@@ -1,7 +1,7 @@
 "use client";
 
 import { Box } from "@mui/material";
-import { useCart } from "../provider";
+import { useCart } from "@/hooks/useCart";
 import CartItemComponent from "./cart-item";
 
 export default function CartList() {
@@ -14,7 +14,7 @@ export default function CartList() {
         overflowY: { xs: "visible", sm: "auto" },
         maxHeight: { xs: "none", sm: "100%" },
         width: "100%",
-        maxWidth: { xs: "300px", sm: "100%" },      
+        maxWidth: { xs: "300px", sm: "100%" },
       }}
     >
       {cartItems.map((cartItem) => (

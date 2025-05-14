@@ -12,7 +12,7 @@ import { useState } from "react";
 import CartList from "../cart/cart-list";
 import CartSummary from "../cart/cart-summary";
 import CartBadge from "../components/cart-badge";
-import { useCart } from "../provider";
+import { useCart } from "@/hooks/useCart";
 
 export default function MyDrawer() {
   const [open, setOpen] = useState(false);

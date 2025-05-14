@@ -1,7 +1,7 @@
 import { NumberField } from "@base-ui-components/react/number-field";
 import { Box, Typography } from "@mui/material";
 
-import { useCart } from "../provider";
+import { useCart } from "@/hooks/useCart";
 
 export default function PublicNumberField({
   id,
@@ -13,12 +13,11 @@ export default function PublicNumberField({
   const { cartItems, updateQuantity } = useCart();
   const cartItem = cartItems.find((cartItem) => cartItem.id === id); // find product in cart
 
-   const quantity = cartItem?.quantity || 0; // default to 1 if not found
+  const quantity = cartItem?.quantity || 0; // default to 1 if not found
 
   // const quantity = cartItem?.quantity;
 
   // const { removeFromCart } = useCart();
-  
 
   // useEffect(() => {
   //   if (quantity === 0) {
@@ -37,7 +36,7 @@ export default function PublicNumberField({
           alignItems: "flex-start",
           gap: "0.25rem",
         }}
-        >
+      >
         <Box
           sx={{
             display: "flex",
@@ -45,7 +44,11 @@ export default function PublicNumberField({
             alignItems: "center",
           }}
         >
-          <Typography variant="h6" sx={{ align: "center" }} data-cy="product-price">
+          <Typography
+            variant="h6"
+            sx={{ align: "center" }}
+            data-cy="product-price"
+          >
             {price * quantity} kr
           </Typography>
           <NumberField.Group style={{ display: "flex" }}>
