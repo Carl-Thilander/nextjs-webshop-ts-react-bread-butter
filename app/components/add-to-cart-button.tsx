@@ -2,7 +2,7 @@
 
 import { Button } from "@mui/material";
 import { Product } from "@prisma/client";
-import { useCart } from "../provider";
+import { useCart } from "@/hooks/useCart";
 
 interface AddToCartButtonProps {
   label?: string;

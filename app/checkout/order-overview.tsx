@@ -8,9 +8,9 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Typography
+  Typography,
 } from "@mui/material";
-import { useCart } from "../provider";
+import { useCart } from "@/hooks/useCart";
 
 export default function OrderOverview() {
   const { cartItems, totalSum } = useCart();

@@ -14,7 +14,6 @@ interface ContextValues {
   cartItems: CartItem[];
   cartCount: number;
   totalSum: number;
-  //for the numberfield component
   updateQuantity: (id: string, amount: number) => void;
   addToCart: (item: Product) => void;
   removeFromCart: (itemId: string) => void;
@@ -24,12 +23,10 @@ interface ContextValues {
 
 const CartContext = createContext({} as ContextValues);
 
-export default function CartProvider(props: PropsWithChildren) {
-  // state
+export function CartProvider(props: PropsWithChildren) {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
-  const [toastMessage, setToastMessage] = useState<string | null>(null); // Snackbar state
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
 
-  // läser in cartItems från LocalStorage vid varje omladdning av sidan
   useEffect(() => {
     const cart = localStorage.getItem("cart");
     if (cart) {
@@ -37,7 +34,6 @@ export default function CartProvider(props: PropsWithChildren) {
     }
   }, []);
 
-  // Uppdatera localStorage varje gång cartItems ändras (t.ex läggs till i cart, tas bort från cart etc)
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cartItems));
   }, [cartItems]);
@@ -46,7 +42,6 @@ export default function CartProvider(props: PropsWithChildren) {
     setToastMessage(message);
   };
 
-  // methods
   const addToCart = (item: Product) => {
     setCartItems((prevItems) => {
       const existingItemIndex = prevItems.findIndex(
@@ -69,19 +64,11 @@ export default function CartProvider(props: PropsWithChildren) {
       }
     });
 
-    // Sätt toast och visa
     showToast("Produkten har lagts till i kundvagnen!");
   };
 
   const removeFromCart = (id: string) => {
-    setCartItems((prevCart) =>
-      // skapa en array utan id't
-      prevCart.filter(
-        (item) =>
-          // behåll bara de items som INTE har det id som skickades in
-          item.id !== id
-      )
-    );
+    setCartItems((prevCart) => prevCart.filter((item) => item.id !== id));
   };
 
   const updateQuantity = (id: string, amount: number) => {
@@ -90,7 +77,7 @@ export default function CartProvider(props: PropsWithChildren) {
         .map((item) =>
           item.id === id ? { ...item, quantity: item.quantity + amount } : item
         )
-        .filter((item) => item.quantity !== 0); // Ta bort produkter som är exakt 0
+        .filter((item) => item.quantity !== 0);
     });
   };
 
@@ -99,14 +86,12 @@ export default function CartProvider(props: PropsWithChildren) {
     localStorage.removeItem("cart");
   };
 
-  //total items in cart
   const cartCount = cartItems.reduce((total, item) => total + item.quantity, 0);
 
   useEffect(() => {
     console.log("cartCount updated:", cartCount);
-  }, [cartCount]); // Körs varje gång cartCount ändras
+  }, [cartCount]);
 
-  //total price
   const totalSum = cartItems.reduce(
     (sum, item) => sum + item.quantity * item.price,
     0
@@ -162,4 +147,4 @@ export default function CartProvider(props: PropsWithChildren) {
   );
 }
 
-export const useCart = () => useContext(CartContext);
+export default CartContext;

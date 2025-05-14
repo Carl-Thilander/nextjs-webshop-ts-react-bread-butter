@@ -16,7 +16,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { z } from "zod";
 import { createOrder, createUser } from "../admin/action";
-import { useCart } from "../provider";
+import { useCart } from "@/hooks/useCart";
 
 const customerSchema = z.object({
   name: z.string().min(1, "Du måste fylla i ditt namn"),
