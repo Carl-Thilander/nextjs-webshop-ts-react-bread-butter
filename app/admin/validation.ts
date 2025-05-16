@@ -1,42 +1,44 @@
 import { z } from "zod";
 
 export const productSchema = z.object({
-  title: z.string().min(1, "Produktnamn får inte vara tomt"),
-  description: z.string().min(1, "Beskrivning får inte vara tom"),
-  price: z.number().positive("Pris måste vara större än 0"),
-  stock: z.number().int().nonnegative("Lagersaldo får inte vara negativt"),
-  categories: z.array(z.string().cuid()).min(1, "Minst en kategori krävs"),
-  image: z.string().url("Bild måste vara en giltig URL"),
+  title: z.string().min(1, "Product name cannot be empty"),
+  description: z.string().min(1, "Description cannot be empty"),
+  price: z.number().positive("Price must be greater than 0"),
+  stock: z.number().int().nonnegative("Stock cannot be negative"),
+  categories: z
+    .array(z.string().cuid())
+    .min(1, "At least one category is required"),
+  image: z.string().url("Image must be a valid URL"),
 });
 
 export const userSchema = z.object({
-  name: z.string().min(1, "Namn får inte vara tomt"),
-  address: z.string().min(1, "Adress får inte vara tom"),
-  zipcode: z.string().regex(/^\d{5}$/, "Postkoden måste vara exakt 5 siffror"),
-  city: z.string().min(1, "Stad får inte vara tom"),
-  email: z.string().email("Ogiltig e-postadress"),
-  phone: z.string().regex(/^\+?\d{7,15}$/, "Ogiltigt telefonnummer"),
-  // password: z.string().min(6, "Lösenord måste vara minst 6 tecken"), // om det behövs
+  name: z.string().min(1, "Name cannot be empty"),
+  address: z.string().min(1, "Address cannot be empty"),
+  zipcode: z.string().regex(/^\d{5}$/, "Zip code must be exactly 5 digits"),
+  city: z.string().min(1, "City cannot be empty"),
+  email: z.string().email("Invalid email address"),
+  phone: z.string().regex(/^\+?\d{7,15}$/, "Invalid phone number"),
+  // password: z.string().min(6, "Password must be at least 6 characters"), // if needed
 });
 
 // Category validation
 export const categorySchema = z.object({
-  name: z.string().min(1, "Kategorinamn får inte vara tomt"),
+  name: z.string().min(1, "Category name cannot be empty"),
 });
 
 // OrderItem validation
 export const orderItemSchema = z.object({
-  image: z.string().url("Bild måste vara en giltig URL"),
-  title: z.string().min(1, "Produktnamn får inte vara tomt"),
-  price: z.number().positive("Pris måste vara större än 0"),
-  quantity: z.number().int().positive("Antal måste vara minst 1"),
+  image: z.string().url("Image must be a valid URL"),
+  title: z.string().min(1, "Product name cannot be empty"),
+  price: z.number().positive("Price must be greater than 0"),
+  quantity: z.number().int().positive("Quantity must be at least 1"),
 });
 
 // Order validation
 export const orderSchema = z.object({
-  userId: z.number().int().positive("Ogiltigt användar-ID"),
+  userId: z.number().int().positive("Invalid user ID"),
   items: z
     .array(orderItemSchema)
-    .min(1, "Ordern måste innehålla minst en produkt"),
-  addressId: z.number().int().positive("Ogiltigt adress-ID").optional(),
+    .min(1, "Order must contain at least one product"),
+  addressId: z.number().int().positive("Invalid address ID").optional(),
 });
