@@ -18,7 +18,6 @@ import z from "zod";
 import { createProduct, updateProduct } from "./action";
 
 const ProductSchema = z.object({
-  weight: z.coerce.number().optional(),
   description: z.string().min(1),
   title: z.string().min(1),
   image: z.string().url(),
@@ -140,26 +139,7 @@ export default function ProductForm({ product }: Props) {
         {...register("title")}
       />
 
-      <FormLabel
-        sx={{
-          textAlign: "left",
-          fontWeight: "bold",
-          color: "text.primary",
-        }}
-      >
-        {" "}
-        Vikt i gram
-      </FormLabel>
-
-      <TextField
-        title="Vikt"
-        margin="normal"
-        id="Vikt"
-        type="number"
-        fullWidth
-        variant="outlined"
-        {...register("weight")}
-      />
+      
 
       <FormLabel
         sx={{
