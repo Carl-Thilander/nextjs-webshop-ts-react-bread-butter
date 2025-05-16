@@ -18,7 +18,6 @@ import z from "zod";
 import { createProduct, updateProduct } from "./action";
 
 const ProductSchema = z.object({
-  weight: z.coerce.number().optional(),
   description: z.string().min(1),
   title: z.string().min(1),
   image: z.string().url(),
