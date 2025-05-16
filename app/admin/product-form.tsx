@@ -37,7 +37,6 @@ export default function ProductForm({ product }: Props) {
       description: "",
       image: "",
       price: 0,
-      weight: undefined,
     },
     resolver: zodResolver(ProductSchema),
   });
@@ -149,16 +148,6 @@ export default function ProductForm({ product }: Props) {
         {" "}
         Vikt i gram
       </FormLabel>
-
-      <TextField
-        title="Vikt"
-        margin="normal"
-        id="Vikt"
-        type="number"
-        fullWidth
-        variant="outlined"
-        {...register("weight")}
-      />
 
       <FormLabel
         sx={{
