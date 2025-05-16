@@ -13,15 +13,22 @@ const theme = createTheme({
   },
   palette: {
     primary: {
-      main: "#BA9E8F",
+      main: "#D0E3B2", // main buttons
     },
+    secondary: {
+      main: "#BCE784", // alternate buttons
+    },
+    success: {
+      main: "#52B788", // third accentuating button color
+    },
+
     background: {
-      default: "#A0A596",
-      paper: "#FAF2E9",
+      default: "#FAFAFA", // white-ish
+      paper: "#F6F5F3", //beighe-ish
     },
     text: {
-      primary: "#3E291E",
-      secondary: "#9C8173",
+      primary: "#61371E", // the color for h1 etc
+      secondary: "#0a0a0a", // for normal text, it's a very dark brown
     },
   },
   components: {
