@@ -1,0 +1,25 @@
+### Create Product
+POST http://localhost:3000/api/products
+Content-Type: application/json
+
+{
+  "title": "Test Coffee",
+  "description": "A test product",
+  "price": 199,
+  "stock": 10,
+  "categories": ["coffee"],
+  "image": "https://example.com/image.jpg"
+}
+
+### Create User
+POST http://localhost:3000/api/users
+Content-Type: application/json
+
+{
+  "name": "Test User",
+  "address": "Testgatan 1",
+  "zipcode": "12345",
+  "city": "Teststad",
+  "email": "test@example.com",
+  "phone": "0701234567"
+}
