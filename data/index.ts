@@ -10,6 +10,7 @@ export interface Product {
   description: string;
   price: number;
   stock: number;
+  categories: string[];
 }
 
 export interface CartItem extends Product {
@@ -27,6 +28,7 @@ export const products: Product[] = [
       "A silky smooth oolong harvested under the full moon and scented with night-blooming jasmine. Perfect for introspective evenings and mysterious glances.",
     price: 120,
     stock: 6,
+    categories: ["Herbal", "Decaf"],
   },
   {
     id: "cuid2",
@@ -38,6 +40,7 @@ export const products: Product[] = [
       "Not your average Earl! This bold black tea is blended with Italian bergamot and a hint of vanilla. Regal, refined, and just a little scandalous.",
     price: 95,
     stock: 10,
+    categories: ["Herbal", "Decaf"],
   },
   {
     id: "cuid3",
@@ -49,6 +52,7 @@ export const products: Product[] = [
       "A first-flush Japanese sencha kissed by early morning dew. Grassy, vibrant, and perfect for turning your kitchen into a Zen garden.",
     price: 110,
     stock: 5,
+    categories: ["Herbal", "Decaf"],
   },
   {
     id: "cuid4",
@@ -60,6 +64,7 @@ export const products: Product[] = [
       "Dark, mysterious, and slightly smoky, this black tea from the Himalayan foothills is a secret best shared with an old book and a cozy blanket.",
     price: 105,
     stock: 3,
+    categories: ["Decaf"],
   },
   {
     id: "cuid5",
@@ -71,6 +76,7 @@ export const products: Product[] = [
       "A wild dance of Ceylon black tea, cinnamon, cardamom, and pink peppercorns. Sweet, spicy, and ready to party in your teacup.",
     price: 100,
     stock: 8,
+    categories: ["Herbal"],
   },
   {
     id: "cuid6",
@@ -82,6 +88,7 @@ export const products: Product[] = [
       "An elegant twist on a classic. Delicate second-flush Darjeeling meets soothing lavender and a swirl of cream flavor. Afternoon tea just got an upgrade.",
     price: 115,
     stock: 7,
+    categories: ["Herbal", "Decaf"],
   },
   {
     id: "cuid7",
@@ -93,6 +100,7 @@ export const products: Product[] = [
       "A fierce and fiery green tea with ginger and citrus peel. Like a dragon waking up slowly... and then roaring with zest.",
     price: 90,
     stock: 9,
+    categories: ["Jasmine"],
   },
   {
     id: "cuid8",
@@ -103,6 +111,7 @@ export const products: Product[] = [
       "A caffeine-free South African rooibos with rose petals and a dash of gold luster. For glamorous nights in and golden sunsets.",
     price: 85,
     stock: 12,
+    categories: ["Jasmine", "Decaf"],
   },
   {
     id: "cuid9",
@@ -114,6 +123,7 @@ export const products: Product[] = [
       "An herbal infusion that pairs juicy blueberries with fresh basil for a sweet-savory surprise. It's like a garden party in your mug.",
     price: 80,
     stock: 6,
+    categories: ["Jasmine", "Caffeine"],
   },
   {
     id: "cuid10",
@@ -125,5 +135,6 @@ export const products: Product[] = [
       "A ceremonial-grade matcha that’s as dark and smooth as a velvet cloak. Earthy, deep, and ideal for late-night creative sparks.",
     price: 130,
     stock: 4,
+    categories: ["Herbal", "Decaf"],
   },
 ];

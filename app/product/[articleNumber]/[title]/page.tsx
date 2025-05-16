@@ -5,7 +5,7 @@ import Image from "next/image";
 import AddToCartButton from "../../../components/add-to-cart-button";
 
 interface Props {
-  params: { articleNumber: string; title: string };
+  params: { articleNumber: string; title: string,  };
 }
 
 export default async function ProductPage({ params }: Props) {
@@ -18,7 +18,8 @@ export default async function ProductPage({ params }: Props) {
   // hitta produkt med articleNumber
 
   const product = await db.product.findUnique({
-    where: { articleNumber: articleNumber },
+    where: { articleNumber },
+    include: { categories: true },
   });
 
   if (!product) {
@@ -85,6 +86,10 @@ export default async function ProductPage({ params }: Props) {
           >
             {product.title}
           </Typography>
+          <Typography variant="h6" sx={{ py: 2, fontSize: "15px" }}>
+            
+            Category: {product.categories.map((cat) => cat.name).join(", ")}
+          </Typography>
           <Typography variant="h6" sx={{ mt: 2 }}>
             Pris: {product.price} kr
           </Typography>
@@ -92,9 +97,7 @@ export default async function ProductPage({ params }: Props) {
           <Typography variant="body1" sx={{ mt: 2 }}>
             {product.description}
           </Typography>
-          <Typography variant="h6" sx={{ py: 2, fontSize: "15px" }}>
-            Vikt: {product.weight} g
-          </Typography>
+          
 
           <Box
             sx={{

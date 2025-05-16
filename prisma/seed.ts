@@ -2,21 +2,32 @@ import { products } from "@/data";
 import { db } from "./db";
 
 async function main() {
-  for (const { id, ...product } of products) {
+  await db.product.deleteMany();
+  await db.category.deleteMany();
+  for (const { id, categories, ...product } of products) {
     await db.product.upsert({
       where: { articleNumber: product.articleNumber },
       update: {},
-      create: product,
+      create: {
+        ...product,
+        categories: {
+          connectOrCreate: (categories ?? [])
+            .filter((catName) => catName && catName.trim() !== "")
+            .map((catName) => ({
+              where: { name: catName }, // <-- FIXED: use name, not id
+              create: { name: catName },
+            })),
+        },
+      },
     });
   }
 }
 
 main()
-  .then(async () => {
-    await db.$disconnect();
-  })
-  .catch(async (e) => {
+  .catch((e) => {
     console.error(e);
-    await db.$disconnect();
     process.exit(1);
+  })
+  .finally(async () => {
+    await db.$disconnect();
   });
