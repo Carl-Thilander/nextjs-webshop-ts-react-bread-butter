@@ -18,3 +18,25 @@ export const userSchema = z.object({
   phone: z.string().regex(/^\+?\d{7,15}$/, "Ogiltigt telefonnummer"),
   // password: z.string().min(6, "Lösenord måste vara minst 6 tecken"), // om det behövs
 });
+
+// Category validation
+export const categorySchema = z.object({
+  name: z.string().min(1, "Kategorinamn får inte vara tomt"),
+});
+
+// OrderItem validation
+export const orderItemSchema = z.object({
+  image: z.string().url("Bild måste vara en giltig URL"),
+  title: z.string().min(1, "Produktnamn får inte vara tomt"),
+  price: z.number().positive("Pris måste vara större än 0"),
+  quantity: z.number().int().positive("Antal måste vara minst 1"),
+});
+
+// Order validation
+export const orderSchema = z.object({
+  userId: z.number().int().positive("Ogiltigt användar-ID"),
+  items: z
+    .array(orderItemSchema)
+    .min(1, "Ordern måste innehålla minst en produkt"),
+  addressId: z.number().int().positive("Ogiltigt adress-ID").optional(),
+});
