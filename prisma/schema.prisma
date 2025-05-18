@@ -25,6 +25,7 @@ model Order {
   id      String      @id @default(cuid())
   orderNr String?
   userId  Int?
+  date    DateTime @default(now())
   user    User?       @relation(fields: [userId], references: [id])
   items   OrderItem[]
   address Address?    @relation(fields: [addressId], references: [id])
