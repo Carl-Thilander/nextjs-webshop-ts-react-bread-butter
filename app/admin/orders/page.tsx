@@ -1,4 +1,5 @@
 import { Container } from "@mui/material";
+import AdminOrderTable from "./orders";
 
 export default async function AllOrders() {
   return (
