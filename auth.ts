@@ -51,8 +51,8 @@ export const config = {
     },
   },
   pages: {
-    signIn: "/api/auth/signin",
-    error: "/api/auth/error",
+    signIn: "/auth/signin",
+    error: "/auth/error",
   },
 } satisfies NextAuthConfig;
 
