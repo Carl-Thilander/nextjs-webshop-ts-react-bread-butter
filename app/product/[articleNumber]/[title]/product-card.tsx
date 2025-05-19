@@ -19,7 +19,7 @@ export default async function ProductCard({ product }: ProductCardProps) {
       sx={{
         width: "100%",
         maxWidth: 200,
-        height: 350,
+        height: 380,
         backgroundColor: "background.paper",
         boxShadow: "none",
         display: "grid",
@@ -33,7 +33,7 @@ export default async function ProductCard({ product }: ProductCardProps) {
       <CardMedia
         component="img"
         sx={{
-          height: 150,
+          height: 200,
           width: 150,
           mx: "auto",
           mt: "1rem",
