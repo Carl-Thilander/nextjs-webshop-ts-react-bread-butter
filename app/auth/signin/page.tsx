@@ -2,19 +2,12 @@
 
 import { signIn } from "next-auth/react";
 import { useSearchParams } from "next/navigation";
-import { useEffect } from "react";
 import { Button, Container, Typography, Box, Paper } from "@mui/material";
 import GoogleIcon from "@mui/icons-material/Google";
 
 export default function SignIn() {
   const searchParams = useSearchParams();
   const callbackUrl = searchParams?.get("callbackUrl") || "/";
-
-  // Auto-redirect to Google sign-in
-  useEffect(() => {
-    // We can optionally auto-redirect if needed
-    // signIn("google", { callbackUrl });
-  }, [callbackUrl]);
 
   return (
     <Container maxWidth="sm" sx={{ pt: 8 }}>

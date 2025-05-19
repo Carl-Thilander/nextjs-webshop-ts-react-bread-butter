@@ -25,26 +25,43 @@ export const config = {
     async jwt({ token, user, account }) {
       // Initial sign in
       if (account && user) {
-        // Check in database if user is admin
-        const dbUser = await db.user.findUnique({
-          where: { email: user.email || "" },
-        });
+        try {
+          // Check if user exists in database
+          let dbUser = await db.user.findUnique({
+            where: { email: user.email || "" },
+          });
 
-        if (dbUser) {
-          token.isAdmin = dbUser.isAdmin || false;
-        } else {
-          // No user in DB yet, check by email
-          token.isAdmin = user.email === "tomasis7@gmail.com";
+          // If user doesn't exist, create them
+          if (!dbUser && user.email) {
+            dbUser = await db.user.create({
+              data: {
+                email: user.email,
+                name: user.name || "",
+                password: "", // Empty password for OAuth users
+                isAdmin: user.email === "tomasis7@gmail.com",
+              },
+            });
+          } else if (dbUser) {
+            // Update existing user
+            dbUser = await db.user.update({
+              where: { id: dbUser.id },
+              data: {},
+            });
+          }
+
+          // Update token with user data
+          token.isAdmin = dbUser?.isAdmin || false;
+          token.id = dbUser?.id;
+        } catch (error) {
+          console.error("Error in JWT callback:", error);
         }
-
-        return token;
       }
 
-      // Return previous token if the user already exists
       return token;
     },
     async session({ session, token }) {
       if (session.user) {
+        session.user.id = token.id;
         session.user.isAdmin = !!token.isAdmin;
       }
       return session;
