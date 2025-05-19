@@ -1,10 +1,10 @@
 "use client";
 import { CartItem } from "@/data";
+import { useCart } from "@/hooks/useCart";
 import { Delete } from "@mui/icons-material";
 import { Box, Button, Card, Typography } from "@mui/material";
 import CardMedia from "@mui/material/CardMedia";
 import PublicNumberField from "../components/numberfield-component";
-import { useCart } from "@/hooks/useCart";
 
 interface Props {
   cartItem: CartItem;
@@ -85,9 +85,7 @@ export default function CartItemComponent({ cartItem }: Props) {
             >
               {cartItem.title}
             </Typography>
-            <Typography variant="body2" sx={{ mb: 0.5 }}>
-              {cartItem.weight} g
-            </Typography>
+
             <Typography variant="body2" sx={{ fontWeight: "medium" }}>
               {cartItem.price} kr
             </Typography>

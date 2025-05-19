@@ -61,7 +61,6 @@ export default function AdminItem({ product }: ProductCardProps) {
 
           <Typography variant="body2">{product.articleNumber}</Typography>
         </Box>
-        <Typography variant="body2">Vikt: {product.weight} g</Typography>
         <Typography variant="body2">{product.price} kr</Typography>
 
         {/* Beskrivning */}
