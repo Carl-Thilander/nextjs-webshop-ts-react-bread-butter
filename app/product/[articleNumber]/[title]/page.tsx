@@ -97,7 +97,7 @@ export default async function ProductPage({ params }: Props) {
           <Typography variant="body1" sx={{ mt: 2 }}>
             {product.description}
           </Typography>
-          
+
 
           <Box
             sx={{

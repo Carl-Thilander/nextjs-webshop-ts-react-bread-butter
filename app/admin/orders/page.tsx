@@ -1,10 +1,7 @@
 import { Container } from "@mui/material";
+import AdminOrderTable from "./order-table";
 
-export default async function AdminLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default async function AllOrders() {
   return (
     <Container
       sx={{
@@ -18,7 +15,7 @@ export default async function AdminLayout({
         padding: 4,
       }}
     >
-      {children}
+      <AdminOrderTable />
     </Container>
   );
 }

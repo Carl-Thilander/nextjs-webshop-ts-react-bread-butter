@@ -37,7 +37,6 @@ export default function ProductForm({ product }: Props) {
       description: "",
       image: "",
       price: 0,
-      weight: undefined,
     },
     resolver: zodResolver(ProductSchema),
   });
@@ -139,8 +138,6 @@ export default function ProductForm({ product }: Props) {
         {...register("title")}
       />
 
-      
-
       <FormLabel
         sx={{
           textAlign: "left",
@@ -148,7 +145,7 @@ export default function ProductForm({ product }: Props) {
           color: "text.primary",
         }}
       >
-        {" "}
+       
         Pris i kronor
       </FormLabel>
 
