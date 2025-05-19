@@ -6,19 +6,19 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "sqlite" //Här ska de står postgresql
   url      = env("DATABASE_URL")
 }
 
 model Product {
-  id            String @id @default(cuid())
-  articleNumber String @unique @default(cuid())
+  id            String     @id @default(cuid())
+  articleNumber String     @unique @default(cuid())
   title         String
   description   String
   image         String
   price         Float
-  stock        Int    @default(0)
-  categories    Category[]
+  stock         Int        @default(0)
+  categories    Category[] @relation("ProductCategories")
 }
 
 model Order {
@@ -29,6 +29,7 @@ model Order {
   user    User?       @relation(fields: [userId], references: [id])
   items   OrderItem[]
   address Address?    @relation(fields: [addressId], references: [id])
+
   addressId Int?
 }
 
@@ -42,26 +43,28 @@ model OrderItem {
   order    Order  @relation(fields: [orderId], references: [id])
 }
 
-model Address { //Make into adresse
+model Address {
   id      Int     @id @default(autoincrement())
   address String
   zipcode String
   city    String
   phone   String
-  Order Order[]
+  Order   Order[]
 }
 
-model User{
-  id      Int     @id @default(autoincrement())
+model User {
+  id       Int     @id @default(autoincrement())
   name     String
   email    String  @unique
   password String
   orders   Order[]
-  isAdmin Boolean @default(false)
+  isAdmin  Boolean @default(false)
 }
 
 model Category {
-  id       String    @id @default(cuid())
-  name     String
-  products Product[]
-} //Kolla upp many to many i kategori till produkt
+  id       Int       @id @default(autoincrement())
+  name     String    @unique
+  products Product[] @relation("ProductCategories")
+}
+
+//Kolla upp many to many i kategori till produkt

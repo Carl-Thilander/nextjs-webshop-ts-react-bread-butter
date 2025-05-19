@@ -145,18 +145,7 @@ export default function ProductForm({ product }: Props) {
           color: "text.primary",
         }}
       >
-        {" "}
-        Vikt i gram
-      </FormLabel>
-
-      <FormLabel
-        sx={{
-          textAlign: "left",
-          fontWeight: "bold",
-          color: "text.primary",
-        }}
-      >
-        {" "}
+       
         Pris i kronor
       </FormLabel>
 

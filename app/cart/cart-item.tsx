@@ -1,10 +1,10 @@
 "use client";
 import { CartItem } from "@/data";
+import { useCart } from "@/hooks/useCart";
 import { Delete } from "@mui/icons-material";
 import { Box, Button, Card, Typography } from "@mui/material";
 import CardMedia from "@mui/material/CardMedia";
 import PublicNumberField from "../components/numberfield-component";
-import { useCart } from "@/hooks/useCart";
 
 interface Props {
   cartItem: CartItem;
