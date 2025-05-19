@@ -35,7 +35,7 @@ const Hero = () => {
         }}
       >
         <Image
-          src="/images/hero.jpg"
+          src="/images/hero.png"
           alt="Hero image"
           priority={true} // Viktig bild, Next.js optimerar laddning
           quality={90} // Förbättrar bildkvaliteten
@@ -57,12 +57,11 @@ const Hero = () => {
           variant="h1"
           sx={{
             fontSize: "60px",
-            fontWeight: "bold",
             color: "background.paper",
             textShadow: "3px 3px 6px rgba(65, 6, 1, 0.5)",
           }}
         >
-          Välkommen till Bread&Butter
+          Welcome to Bean & Leaf
         </Typography>
         <Typography
           variant="h5"
@@ -72,7 +71,7 @@ const Hero = () => {
             textShadow: "5px 5px 8px rgba(65, 6, 1, 0.5)",
           }}
         >
-          Ekologiskt hantverksbröd direkt till din dörr
+          Exclusive coffee beans and tea leaves, shipping worldwide!
         </Typography>
       </Box>
     </Box>

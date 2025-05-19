@@ -53,12 +53,12 @@ export default async function ProductCard({ product }: ProductCardProps) {
           maxWidth: "90%",
         }}
       >
-        <Typography
+        {/* <Typography
           component="span"
           sx={{ color: "text.secondary", fontSize: 9 }}
         >
           {product.categories.map((cat) => cat.name).join(", ")}
-        </Typography>
+        </Typography> */}
         <Typography gutterBottom component="div" sx={{ fontSize: 14 }}>
           {product.title}
         </Typography>
