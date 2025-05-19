@@ -1,4 +1,4 @@
-import { Card, CardMedia } from "@mui/material";
+import { Card, CardMedia, Typography } from "@mui/material";
 import { Category } from "@prisma/client";
 
 type CategoryCardProps = {
@@ -31,8 +31,21 @@ export default async function CategoryCard({ category }: CategoryCardProps) {
           borderRadius: "0.5rem",
           zIndex: 1,
         }}
-        image={category.image}
+        image={category.imageURL}
       />
+      <Typography
+        variant="h6"
+        sx={{
+          position: "absolute",
+          color: "white",
+          textAlign: "center",
+          fontWeight: "bold",
+          fontSize: "1.5rem",
+        }}
+      >
+        {" "}
+        {category.name}
+      </Typography>
     </Card>
   );
 }

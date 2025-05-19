@@ -1,5 +1,5 @@
 import { db } from "@/prisma/db";
-import { Container } from "@mui/material";
+import { Container, Link } from "@mui/material";
 import CategoryCard from "./category-card";
 
 export default async function CategorySection() {
@@ -8,7 +8,7 @@ export default async function CategorySection() {
     <Container
       sx={{
         display: "flex",
-        justifyContent: "center",
+        justifyContent: "space-between",
         alignItems: "center",
         minHeight: "20vh",
         borderBottom: "2px solid #9C8173",
@@ -25,7 +25,7 @@ export default async function CategorySection() {
         }}
       >
         {categories.map((category) => (
-          <div
+          <Link
             key={category.id}
             style={{
               textDecoration: "none",
@@ -35,7 +35,7 @@ export default async function CategorySection() {
             }}
           >
             <CategoryCard category={category} />
-          </div>
+          </Link>
         ))}
       </Container>
     </Container>

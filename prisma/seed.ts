@@ -11,12 +11,10 @@ async function main() {
       create: {
         ...product,
         categories: {
-          connectOrCreate: (categories ?? [])
-            .filter((catName) => catName && catName.trim() !== "")
-            .map((catName) => ({
-              where: { name: catName }, // <-- FIXED: use name, not id
-              create: { name: catName },
-            })),
+          connectOrCreate: categories.map(({ name, imageURL }) => ({
+            where: { name }, // <-- FIXED: use name, not id
+            create: { name, imageURL }, // <-- FIXED: use imageURL, not image
+          })),
         },
       },
     });

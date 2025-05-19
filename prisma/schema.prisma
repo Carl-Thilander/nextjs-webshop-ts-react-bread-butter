@@ -25,7 +25,7 @@ model Order {
   id      String      @id @default(cuid())
   orderNr String?
   userId  Int?
-  date    DateTime @default(now())
+  date    DateTime    @default(now())
   user    User?       @relation(fields: [userId], references: [id])
   items   OrderItem[]
   address Address?    @relation(fields: [addressId], references: [id])
@@ -65,6 +65,7 @@ model Category {
   id       Int       @id @default(autoincrement())
   name     String    @unique
   products Product[] @relation("ProductCategories")
+  imageURL String
 }
 
 //Kolla upp many to many i kategori till produkt
