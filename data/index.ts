@@ -3,138 +3,196 @@
  * OBS: Kan utökas men inte ändras pga cypress.
  **/
 export interface Product {
-  id: string;
-  articleNumber: string;
-  image: string;
-  title: string;
-  description: string;
-  price: number;
-  stock: number;
-  categories: string[];
+	id: string;
+	articleNumber: string;
+	image: string;
+	title: string;
+	description: string;
+	price: number;
+	stock: number;
+	categories: string[];
 }
 
 export interface CartItem extends Product {
-  quantity: number;
+	quantity: number;
 }
 
 /* Lägg till era produkter här */
 export const products: Product[] = [
-  {
-    id: "cuid1",
-    articleNumber: "cuid1",
-    image: "https://www.pexels.com/sv-se/foto/904616/",
-    title: "Moonlight Jasmine Oolong",
-    description:
-      "A silky smooth oolong harvested under the full moon and scented with night-blooming jasmine. Perfect for introspective evenings and mysterious glances.",
-    price: 120,
-    stock: 6,
-    categories: ["Herbal", "Decaf"],
-  },
-  {
-    id: "cuid2",
-    articleNumber: "cuid2",
-    image:
-      "https://www.pexels.com/sv-se/foto/hander-kvinna-avslappning-te-8329306/",
-    title: "Velvet Earl Grey Supreme",
-    description:
-      "Not your average Earl! This bold black tea is blended with Italian bergamot and a hint of vanilla. Regal, refined, and just a little scandalous.",
-    price: 95,
-    stock: 10,
-    categories: ["Herbal", "Decaf"],
-  },
-  {
-    id: "cuid3",
-    articleNumber: "cuid3",
-    image:
-      "https://images.pexels.com/photos/1660416/pexels-photo-1660416.jpeg?auto=compress&cs=tinysrgb&w=800",
-    title: "Kyoto Dewdrop Sencha",
-    description:
-      "A first-flush Japanese sencha kissed by early morning dew. Grassy, vibrant, and perfect for turning your kitchen into a Zen garden.",
-    price: 110,
-    stock: 5,
-    categories: ["Herbal", "Decaf"],
-  },
-  {
-    id: "cuid4",
-    articleNumber: "cuid4",
-    image:
-      "https://images.pexels.com/photos/1833316/pexels-photo-1833316.jpeg?auto=compress&cs=tinysrgb&w=800",
-    title: "Smoky Himalayan Whisper",
-    description:
-      "Dark, mysterious, and slightly smoky, this black tea from the Himalayan foothills is a secret best shared with an old book and a cozy blanket.",
-    price: 105,
-    stock: 3,
-    categories: ["Decaf"],
-  },
-  {
-    id: "cuid5",
-    articleNumber: "cuid5",
-    image:
-      "https://images.pexels.com/photos/1638280/pexels-photo-1638280.jpeg?auto=compress&cs=tinysrgb&w=600",
-    title: "Ruby Chai Carnival",
-    description:
-      "A wild dance of Ceylon black tea, cinnamon, cardamom, and pink peppercorns. Sweet, spicy, and ready to party in your teacup.",
-    price: 100,
-    stock: 8,
-    categories: ["Herbal"],
-  },
-  {
-    id: "cuid6",
-    articleNumber: "cuid6",
-    image:
-      "https://images.pexels.com/photos/6508126/pexels-photo-6508126.jpeg?auto=compress&cs=tinysrgb&w=800",
-    title: "Lavender Cream Darjeeling",
-    description:
-      "An elegant twist on a classic. Delicate second-flush Darjeeling meets soothing lavender and a swirl of cream flavor. Afternoon tea just got an upgrade.",
-    price: 115,
-    stock: 7,
-    categories: ["Herbal", "Decaf"],
-  },
-  {
-    id: "cuid7",
-    articleNumber: "cuid7",
-    image:
-      "https://images.pexels.com/photos/1417945/pexels-photo-1417945.jpeg?auto=compress&cs=tinysrgb&w=800",
-    title: "Dragon’s Breath Green",
-    description:
-      "A fierce and fiery green tea with ginger and citrus peel. Like a dragon waking up slowly... and then roaring with zest.",
-    price: 90,
-    stock: 9,
-    categories: ["Jasmine"],
-  },
-  {
-    id: "cuid8",
-    articleNumber: "cuid8",
-    image: "https://www.pexels.com/sv-se/foto/1772124/",
-    title: "Rose Gold Rooibos",
-    description:
-      "A caffeine-free South African rooibos with rose petals and a dash of gold luster. For glamorous nights in and golden sunsets.",
-    price: 85,
-    stock: 12,
-    categories: ["Jasmine", "Decaf"],
-  },
-  {
-    id: "cuid9",
-    articleNumber: "cuid9",
-    image:
-      "https://images.pexels.com/photos/1627958/pexels-photo-1627958.jpeg?auto=compress&cs=tinysrgb&w=800",
-    title: "Blueberry Basil Bliss",
-    description:
-      "An herbal infusion that pairs juicy blueberries with fresh basil for a sweet-savory surprise. It's like a garden party in your mug.",
-    price: 80,
-    stock: 6,
-    categories: ["Jasmine", "Caffeine"],
-  },
-  {
-    id: "cuid10",
-    articleNumber: "cuid10",
-    image:
-      "https://images.pexels.com/photos/2101187/pexels-photo-2101187.jpeg?auto=compress&cs=tinysrgb&w=800",
-    title: "Midnight Matcha Mystique",
-    description:
-      "A ceremonial-grade matcha that’s as dark and smooth as a velvet cloak. Earthy, deep, and ideal for late-night creative sparks.",
-    price: 130,
-    stock: 4,
-    categories: ["Herbal", "Decaf"],
-  },
+	{
+		id: "cuid1",
+		articleNumber: "cuid1",
+		image: "/images/velvet-andes.png",
+		title: "Velvet Andes",
+		description:
+			"A silky and balanced cup from the highlands of Colombia. Velvet Andes brings together creamy chocolate tones with a touch of caramel sweetness and a red berry finish. A refined everyday coffee with a velvety feel.",
+		price: 399,
+		stock: 6,
+		categories: ["Coffee"],
+	},
+	{
+		id: "cuid2",
+		articleNumber: "cuid2",
+		image: "/images/midnight-bloom.png",
+		title: "Midnight Bloom",
+		description:
+			"Floral and enchanting, Midnight Bloom unfolds with delicate jasmine aromas and bright peach notes. Its citrus elegance is perfect for those who seek complexity and clarity in every sip.",
+		price: 399,
+		stock: 10,
+		categories: ["Coffee", "Sale"],
+	},
+	{
+		id: "cuid3",
+		articleNumber: "cuid3",
+		image: "/images/golden-savannah.png",
+		title: "Golden Savannah",
+		description:
+			"Lively and juicy, Golden Savannah offers vibrant acidity balanced with the sweetness of brown sugar. A spirited cup that brings sunshine to every morning.",
+		price: 399,
+		stock: 5,
+		categories: ["Coffee"],
+	},
+	{
+		id: "cuid4",
+		articleNumber: "cuid4",
+		image: "/images/ember-dusk.png",
+		title: "Ember Dusk",
+		description:
+			"Rich and bold with a smooth smoky finish. Ember Dusk captures the deep warmth of dark chocolate and molasses, rounded out with a roasted almond depth. Made for lovers of intensity.",
+		price: 399,
+		stock: 3,
+		categories: ["Coffee", "Sale"],
+	},
+	{
+		id: "cuid5",
+		articleNumber: "cuid5",
+		image: "/images/solstice-earth.png",
+		title: "Solstice Earth",
+		description:
+			"Grounded and bold, Solstice Earth is a deep-bodied coffee with earthy and spicy undertones. Hints of dried fruit add complexity, creating a cup that feels timeless and rooted..",
+		price: 399,
+		stock: 8,
+		categories: ["Coffee"],
+	},
+	{
+		id: "cuid6",
+		articleNumber: "cuid6",
+		image: "/images/aurora-cradle.png",
+		title: "Aurora Cradle",
+		description:
+			"Soft, bright, and uplifting. Aurora Cradle is a harmonious blend with a gentle sweetness of honey and vanilla, ending with a subtle stone fruit brightness. A smooth start to any day.",
+		price: 399,
+		stock: 7,
+		categories: ["Coffee", "Sale"],
+	},
+	{
+		id: "cuid7",
+		articleNumber: "cuid7",
+		image: "/images/jade-blossom.png",
+		title: "Jade Blossom",
+		description:
+			"A delicate green tea infused with freshly blossomed jasmine flowers. Smooth, floral, and calming — a timeless classic in a modern robe.",
+		price: 399,
+		stock: 9,
+		categories: ["Tea"],
+	},
+	{
+		id: "cuid8",
+		articleNumber: "cuid8",
+		image: "/images/peachy-dream.png",
+		title: "Peachy Dream",
+		description:
+			"An elegant oolong with juicy notes of summer peach and a buttery smooth texture. Lightly oxidized and hand-rolled for a luxurious experience.",
+		price: 299,
+		stock: 12,
+		categories: ["Tea", "Sale"],
+	},
+	{
+		id: "cuid9",
+		articleNumber: "cuid9",
+		image: "/images/arctic-mint.png",
+		title: "Arctic Mint",
+		description:
+			"A naturally caffeine-free infusion of wild Moroccan mint, eucalyptus, and a hint of lemongrass. Crisp, refreshing, and cleansing.",
+		price: 299,
+		stock: 6,
+		categories: ["Tea", "Sale"],
+	},
+	{
+		id: "cuid10",
+		articleNumber: "cuid10",
+		image: "/images/moonlight-earl.png",
+		title: "Moonlight Earl",
+		description:
+			"A luxurious take on the classic Earl Grey, with smooth vanilla and creamy notes dancing with bold citrus bergamot.",
+		price: 299,
+		stock: 4,
+		categories: ["Tea"],
+	},
+	{
+		id: "cuid11",
+		articleNumber: "cuid11",
+		image: "/images/rosewood-chai.png",
+		title: "Rosewood Chai",
+		description:
+			"A bold and aromatic chai with a romantic twist — rose petals, cardamom, and warm spices over rich Assam black tea.",
+		price: 299,
+		stock: 4,
+		categories: ["Tea", "Sale"],
+	},
+	{
+		id: "cuid12",
+		articleNumber: "cuid12",
+		image: "/images/kyoto-dew.png",
+		title: "Kyoto Dew",
+		description:
+			"Stone-ground ceremonial matcha from Uji, Japan. Bright, vegetal, and serene — a meditative cup for modern rituals.",
+		price: 299,
+		stock: 4,
+		categories: ["Tea"],
+	},
+	{
+		id: "cuid13",
+		articleNumber: "cuid13",
+		image: "/images/morning-mist-decaf.png",
+		title: "Morning Mist Decaf",
+		description:
+			"A bright and delicate decaf with subtle fruit and floral notes — light on caffeine but full of character.",
+		price: 349,
+		stock: 4,
+		categories: ["Tea", "Decaf"],
+	},
+	{
+		id: "cuid14",
+		articleNumber: "cuid14",
+		image: "/images/morning-drift-decaf.png",
+		title: "Morning Drift Decaf",
+		description:
+			"A mellow, golden roast with a gentle sweetness — crafted for easy mornings and cozy afternoons. All the flavor, none of the jitters.",
+		price: 349,
+		stock: 4,
+		categories: ["Tea", "Decaf"],
+	},
+	{
+		id: "cuid15",
+		articleNumber: "cuid15",
+		image: "/images/lavender-haze-decaf.png",
+		title: "Lavender Haze",
+		description:
+			"A calming and floral infusion designed to soothe the senses — perfect for winding down with notes of cool mint and dreamy lavender.",
+		price: 349,
+		stock: 4,
+		categories: ["Tea", "Decaf"],
+	},
+	{
+		id: "cuid16",
+		articleNumber: "cuid16",
+		image: "/images/velvet-sunrise-decaf.png",
+		title: "Velvet Sunrise",
+		description:
+			"A smooth and uplifting blend that captures the warmth of a morning sun — naturally sweet rooibos, bright citrus, and a whisper of vanilla for a velvety finish. Perfect for a gentle start or a calming evening unwind.",
+		price: 349,
+		stock: 4,
+		categories: ["Tea", "Decaf"],
+	},
 ];
