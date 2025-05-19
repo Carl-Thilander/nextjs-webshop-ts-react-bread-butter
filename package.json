@@ -30,6 +30,8 @@
     "@mui/material": "^6.4.7",
     "@mui/material-nextjs": "^6.4.3",
     "@mui/styled-engine-sc": "^6.4.6",
+    "argon2": "^0.43.0",
+    "bcryptjs": "^3.0.2",
     "nanoid": "^5.1.5",
     "next": "15.2.1",
     "next-auth": "^5.0.0-beta.28",
