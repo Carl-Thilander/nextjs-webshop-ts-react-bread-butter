@@ -1,14 +1,12 @@
 "use client";
 
-import { CartItem, Product } from "@/data";
 import { Alert, Snackbar, Typography } from "@mui/material";
-import {
-  createContext,
-  PropsWithChildren,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
+import { Product } from "@prisma/client";
+import { createContext, PropsWithChildren, useEffect, useState } from "react";
+
+export interface CartItem extends Product {
+  quantity: number;
+}
 
 interface ContextValues {
   cartItems: CartItem[];

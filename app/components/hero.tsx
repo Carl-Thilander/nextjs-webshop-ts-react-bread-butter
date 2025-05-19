@@ -8,7 +8,6 @@ const Hero = () => {
         position: "relative",
         height: "90vh",
         overflow: "hidden",
-        boxShadow: 4,
       }}
     >
       <Box

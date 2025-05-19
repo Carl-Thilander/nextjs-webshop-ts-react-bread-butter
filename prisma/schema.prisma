@@ -64,8 +64,8 @@ model User {
 model Category {
   id       Int       @id @default(autoincrement())
   name     String    @unique
-  products Product[] @relation("ProductCategories")
   imageURL String
+  products Product[] @relation("ProductCategories")
 }
 
 //Kolla upp many to many i kategori till produkt

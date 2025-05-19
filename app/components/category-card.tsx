@@ -1,4 +1,4 @@
-import { Card, CardMedia, Typography } from "@mui/material";
+import { Box, Card, CardMedia, Typography } from "@mui/material";
 import { Category } from "@prisma/client";
 
 type CategoryCardProps = {
@@ -7,45 +7,43 @@ type CategoryCardProps = {
 
 export default async function CategoryCard({ category }: CategoryCardProps) {
   return (
-    <Card
-      sx={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        border: "2px solid #9C8173",
-        borderRadius: "0.5rem",
-        padding: 2,
-        bgcolor: "background.paper",
-        width: "100%",
-        ":hover": {
-          transform: "scale(1.02)",
-          boxShadow: "0px 2px 8px rgba(0,0,0,0.2)",
-        },
-      }}
-    >
-      <CardMedia
-        component={"img"}
+    <Box>
+      <Card
         sx={{
-          height: 150,
-          width: 150,
+          border: "2px solid #9C8173",
           borderRadius: "0.5rem",
-          zIndex: 1,
+          bgcolor: "background.paper",
+          width: "100%",
+          ":hover": {
+            transform: "scale(1.02)",
+            boxShadow: "0px 2px 8px rgba(0,0,0,0.2)",
+          },
         }}
-        image={category.imageURL}
-      />
+      >
+        <CardMedia
+          component={"img"}
+          sx={{
+            height: 150,
+            width: 150,
+            mx: "auto",
+            mt: "1rem",
+            borderRadius: "0.5rem",
+            zIndex: 1,
+          }}
+          image={category.imageURL}
+        />
+      </Card>
       <Typography
         variant="h6"
         sx={{
-          position: "absolute",
-          color: "white",
+          color: "black",
           textAlign: "center",
           fontWeight: "bold",
           fontSize: "1.5rem",
         }}
       >
-        {" "}
         {category.name}
       </Typography>
-    </Card>
+    </Box>
   );
 }

@@ -12,32 +12,24 @@ export default async function CategorySection() {
         alignItems: "center",
         minHeight: "20vh",
         borderBottom: "2px solid #9C8173",
-        bgcolor: "background.paper",
+        bgcolor: "tomato",
         width: "100%",
+        marginTop: "2rem",
       }}
     >
-      <Container
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          gap: 2,
-        }}
-      >
-        {categories.map((category) => (
-          <Link
-            key={category.id}
-            style={{
-              textDecoration: "none",
-              color: "inherit",
-              display: "flex",
-              justifyContent: "center",
-            }}
-          >
-            <CategoryCard category={category} />
-          </Link>
-        ))}
-      </Container>
+      {categories.map((category) => (
+        <Link
+          key={category.id}
+          style={{
+            textDecoration: "none",
+            color: "inherit",
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          <CategoryCard category={category} />
+        </Link>
+      ))}
     </Container>
   );
 }
