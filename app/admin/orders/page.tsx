@@ -1,5 +1,5 @@
 import { Container } from "@mui/material";
-import AdminOrderTable from "./orders";
+import AdminOrderTable from "./order-table";
 
 export default async function AllOrders() {
   return (
@@ -13,7 +13,6 @@ export default async function AllOrders() {
         marginBottom: 2,
         borderRadius: 2,
         padding: 4,
-        border: "2px solid #9C8173",
       }}
     >
       <AdminOrderTable />
