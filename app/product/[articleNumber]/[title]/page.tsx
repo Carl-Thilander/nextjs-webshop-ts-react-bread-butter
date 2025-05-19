@@ -5,7 +5,7 @@ import Image from "next/image";
 import AddToCartButton from "../../../components/add-to-cart-button";
 
 interface Props {
-  params: { articleNumber: string; title: string,  };
+  params: { articleNumber: string; title: string };
 }
 
 export default async function ProductPage({ params }: Props) {
@@ -44,7 +44,6 @@ export default async function ProductPage({ params }: Props) {
         sx={{
           padding: 4,
           bgcolor: "background.paper",
-          border: "2px solid #9C8173",
           borderRadius: "0.5rem",
           margin: "2rem 0",
           width: "100%",
@@ -87,7 +86,6 @@ export default async function ProductPage({ params }: Props) {
             {product.title}
           </Typography>
           <Typography variant="h6" sx={{ py: 2, fontSize: "15px" }}>
-            
             Category: {product.categories.map((cat) => cat.name).join(", ")}
           </Typography>
           <Typography variant="h6" sx={{ mt: 2 }}>
@@ -97,7 +95,6 @@ export default async function ProductPage({ params }: Props) {
           <Typography variant="body1" sx={{ mt: 2 }}>
             {product.description}
           </Typography>
-
 
           <Box
             sx={{
