@@ -15,7 +15,7 @@ export default function CartPage() {
     <Container>
       <Typography
         sx={{
-          fontFamily: "var(--font-lobster)",
+          fontFamily: "var(--font-montserrat)",
           fontSize: 35,
           paddingLeft: 0,
           paddingTop: 2,

@@ -1,6 +1,6 @@
 import { Box, CssBaseline, ThemeProvider } from "@mui/material";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
-import { Lobster_Two, Roboto } from "next/font/google";
+import { Montserrat, Poppins } from "next/font/google";
 import type { Metadata } from "next/types";
 import { PropsWithChildren } from "react";
 import Footer from "./footer/page";
@@ -8,31 +8,29 @@ import Header from "./header/page";
 import { CartProvider } from "../context/CartContext";
 import theme from "./theme";
 
-const roboto = Roboto({
+const poppins = Poppins({
   weight: ["300", "400", "500", "700"],
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-roboto",
+  variable: "--font-poppins",
 });
-const lobster = Lobster_Two({
+const montserrat = Montserrat({
   weight: ["400", "700"],
   subsets: ["latin"],
-  variable: "--font-lobster",
+  variable: "--font-montserrat",
 });
 
 /* Beskriv din hemsida för sökmotorerna */
 export const metadata: Metadata = {
-  title: "Bread&Butter",
-  description:
-    "Upptäck vårt breda utbud av ekologiskt bröd bakat med kärlek och noggrant utvalda ingredienser. Från klassiska surdegsbröd till nyskapande smaker - allt vi gör är både hållbart och fantastiskt gott.",
-  keywords:
-    "ekologiskt bröd, hantverksbröd, surdegsbröd, nybakat bröd, hållbar bakning, handgjort bröd, bageri, ekologiskt, brödleverans, naturliga ingredienser",
+  title: "Bean & Leaf",
+  description: "Discover exclusive coffee beans and tea leaves",
+  keywords: "tea, coffee, exclusive, tealover, coffee bean, tea leaves",
 };
 
 export default function RootLayout({ children }: PropsWithChildren) {
   return (
     <html lang="en">
-      <body className={[roboto.variable, lobster.className].join(" ")}>
+      <body className={[poppins.variable, montserrat.className].join(" ")}>
         <AppRouterCacheProvider>
           <ThemeProvider theme={theme}>
             <CssBaseline />

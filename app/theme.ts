@@ -4,11 +4,11 @@ import { createTheme } from "@mui/material";
 const theme = createTheme({
   typography: {
     h2: {
-      fontFamily: "var(--font-roboto)",
+      fontFamily: "var(--font-poppins)",
     },
     h1: {
       fontSize: 32,
-      fontFamily: "var(--font-lobster)",
+      fontFamily: "var(--font-montserrat)",
     },
   },
   palette: {

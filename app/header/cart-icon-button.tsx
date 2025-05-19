@@ -88,7 +88,7 @@ export default function MyDrawer() {
             variant="h5"
             sx={{
               marginBottom: 2,
-              fontFamily: "var(--font-lobster)",
+              fontFamily: "var(--font-montserrat)",
               paddingLeft: 3,
             }}
           >
