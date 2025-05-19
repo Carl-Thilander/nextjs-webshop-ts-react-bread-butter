@@ -29,7 +29,7 @@ const Header = () => {
           component={Link}
           href="/"
         >
-          Bread&Butter
+          Bean & Leaf
         </Typography>
         <Box
           sx={{

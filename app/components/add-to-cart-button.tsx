@@ -27,7 +27,7 @@ const AddToCartButton: React.FC<AddToCartButtonProps> = ({
       onClick={handleAddToCart}
       size="large"
       sx={{
-        mt: 3,
+        mt: 1,
         bgcolor: "primary.main",
         color: "text.primary",
         "&:hover": { bgcolor: "primary.dark", color: "background.paper" },
