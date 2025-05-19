@@ -38,14 +38,16 @@ export const config = {
                 email: user.email,
                 name: user.name || "",
                 password: "", // Empty password for OAuth users
-                isAdmin: user.email === "tomasis7@gmail.com",
+                isAdmin: user.email === process.env.ADMIN_EMAIL,
               },
             });
           } else if (dbUser) {
-            // Update existing user
+            // Update existing user - explicitly set admin status to match env var
             dbUser = await db.user.update({
               where: { id: dbUser.id },
-              data: {},
+              data: {
+                isAdmin: user.email === process.env.ADMIN_EMAIL,
+              },
             });
           }
 
