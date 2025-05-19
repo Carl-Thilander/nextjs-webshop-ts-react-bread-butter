@@ -10,10 +10,12 @@ import {
 } from "@mui/icons-material";
 import {
 	Box,
+	Button,
 	Divider,
 	Grid,
 	IconButton,
 	Link,
+	TextField,
 	Typography,
 } from "@mui/material";
 
@@ -25,7 +27,7 @@ export default function Footer() {
 				bgcolor: "primary.main",
 				py: 4,
 				px: 2,
-				height: "auto",
+
 				boxShadow: "0px -5px 10px rgba(0, 0, 0, 0.15)",
 			}}
 		>
@@ -110,13 +112,51 @@ export default function Footer() {
 
 			<Divider sx={{ my: 4 }} />
 
+			<Box marginBottom={4}>
+				<Typography variant="h5" gutterBottom textAlign="center">
+					Subscribe to our Newsletter
+				</Typography>
+				<Box
+					sx={{
+						display: "flex",
+						justifyContent: "center",
+						mt: 2,
+					}}
+				>
+					<TextField
+						variant="outlined"
+						placeholder="Din e-postadress"
+						size="small"
+						sx={{
+							bgcolor: "white",
+							borderRadius: 2,
+							width: "250px",
+						}}
+					/>
+					<Button
+						variant="contained"
+          sx={{
+            backgroundColor: "#5f6852",
+            color: "#fff",
+            transition: "transform 0.3s",
+            "&:hover": {
+              transform: "scale(1.08)",
+              backgroundColor: "#515845",
+            },
+          }}
+            
+					>
+						Prenumerera
+					</Button>
+				</Box>
+			</Box>
+
 			{/* Social Media Links  */}
 			<Box
 				sx={{
 					display: "flex",
 					justifyContent: "center",
 					gap: 2,
-					paddingTop: 2,
 				}}
 			>
 				<IconButton
