@@ -125,7 +125,7 @@ export default function Footer() {
 				>
 					<TextField
 						variant="outlined"
-						placeholder="Din e-postadress"
+						placeholder="Email"
 						size="small"
 						sx={{
 							bgcolor: "white",
@@ -135,18 +135,17 @@ export default function Footer() {
 					/>
 					<Button
 						variant="contained"
-          sx={{
-            backgroundColor: "#5f6852",
-            color: "#fff",
-            transition: "transform 0.3s",
-            "&:hover": {
-              transform: "scale(1.08)",
-              backgroundColor: "#515845",
-            },
-          }}
-            
+						sx={{
+							backgroundColor: "#5f6852",
+							color: "#fff",
+							transition: "transform 0.3s",
+							"&:hover": {
+								transform: "scale(1.08)",
+								backgroundColor: "#515845",
+							},
+						}}
 					>
-						Prenumerera
+						Subscribe
 					</Button>
 				</Box>
 			</Box>
