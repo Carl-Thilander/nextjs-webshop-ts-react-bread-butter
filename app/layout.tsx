@@ -7,6 +7,7 @@ import Footer from "./footer/page";
 import Header from "./header/page";
 import { CartProvider } from "../context/CartContext";
 import theme from "./theme";
+import { SessionProvider } from "next-auth/react";
 
 const poppins = Poppins({
   weight: ["300", "400", "500", "700"],
@@ -20,7 +21,6 @@ const montserrat = Montserrat({
   variable: "--font-montserrat",
 });
 
-/* Beskriv din hemsida för sökmotorerna */
 export const metadata: Metadata = {
   title: "Bean & Leaf",
   description: "Discover exclusive coffee beans and tea leaves",
@@ -35,21 +35,23 @@ export default function RootLayout({ children }: PropsWithChildren) {
           <ThemeProvider theme={theme}>
             <CssBaseline />
             <CartProvider>
-              <Box
-                sx={{
-                  display: "flex",
-                  flexDirection: "column",
-                  minHeight: "100vh", // Makes sure page fills screen height
-                }}
-              >
-                <Header />
+              <SessionProvider>
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    minHeight: "100vh",
+                  }}
+                >
+                  <Header />
 
-                <Box component="main" sx={{ flex: "1" }}>
-                  {children}
+                  <Box component="main" sx={{ flex: "1" }}>
+                    {children}
+                  </Box>
+
+                  <Footer />
                 </Box>
-
-                <Footer />
-              </Box>
+              </SessionProvider>
             </CartProvider>
           </ThemeProvider>
         </AppRouterCacheProvider>
