@@ -23,26 +23,22 @@ export const config = {
       return true;
     },
     async jwt({ token, user, account }) {
-      // Initial sign in
       if (account && user) {
         try {
-          // Check if user exists in database
           let dbUser = await db.user.findUnique({
             where: { email: user.email || "" },
           });
 
-          // If user doesn't exist, create them
           if (!dbUser && user.email) {
             dbUser = await db.user.create({
               data: {
                 email: user.email,
                 name: user.name || "",
-                password: "", // Empty password for OAuth users
+                password: "",
                 isAdmin: user.email === process.env.ADMIN_EMAIL,
               },
             });
           } else if (dbUser) {
-            // Update existing user - explicitly set admin status to match env var
             dbUser = await db.user.update({
               where: { id: dbUser.id },
               data: {
@@ -51,7 +47,6 @@ export const config = {
             });
           }
 
-          // Update token with user data
           token.isAdmin = dbUser?.isAdmin || false;
           token.id = dbUser?.id;
         } catch (error) {
