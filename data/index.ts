@@ -13,6 +13,43 @@ export interface Product {
   categories: string[];
 }
 
+export interface Category {
+  image: string;
+  name: string;
+}
+
+export const categories: Category[] = [
+  {
+    name: "Herbal",
+    image:
+      "https://media.istockphoto.com/id/501597744/sv/foto/coffee-beans.jpg?b=1&s=612x612&w=0&k=20&c=D7CtuIkak7WxgydtU_75dqwYE1f0PGln2Lizuld5raI=",
+  },
+  {
+    name: "Decaf",
+    image:
+      "https://media.istockphoto.com/id/501597744/sv/foto/coffee-beans.jpg?b=1&s=612x612&w=0&k=20&c=D7CtuIkak7WxgydtU_75dqwYE1f0PGln2Lizuld5raI=",
+  },
+  {
+    name: "Tea",
+    image:
+      "https://media.istockphoto.com/id/501597744/sv/foto/coffee-beans.jpg?b=1&s=612x612&w=0&k=20&c=D7CtuIkak7WxgydtU_75dqwYE1f0PGln2Lizuld5raI=",
+  },
+  {
+    name: "Jasmine",
+    image:
+      "https://media.istockphoto.com/id/501597744/sv/foto/coffee-beans.jpg?b=1&s=612x612&w=0&k=20&c=D7CtuIkak7WxgydtU_75dqwYE1f0PGln2Lizuld5raI=",
+  },
+  {
+    name: "On-sale",
+    image:
+      "https://media.istockphoto.com/id/501597744/sv/foto/coffee-beans.jpg?b=1&s=612x612&w=0&k=20&c=D7CtuIkak7WxgydtU_75dqwYE1f0PGln2Lizuld5raI=",
+  },
+  {
+    name: "Caffeine",
+    image:
+      "https://media.istockphoto.com/id/501597744/sv/foto/coffee-beans.jpg?b=1&s=612x612&w=0&k=20&c=D7CtuIkak7WxgydtU_75dqwYE1f0PGln2Lizuld5raI=",
+  },
+];
 export interface CartItem extends Product {
   quantity: number;
 }
@@ -28,7 +65,7 @@ export const products: Product[] = [
       "A silky smooth oolong harvested under the full moon and scented with night-blooming jasmine. Perfect for introspective evenings and mysterious glances.",
     price: 120,
     stock: 6,
-    categories: ["Herbal", "Decaf"],
+    categories: ["Herbal", "Decaf", "Tea"],
   },
   {
     id: "cuid2",
@@ -40,7 +77,7 @@ export const products: Product[] = [
       "Not your average Earl! This bold black tea is blended with Italian bergamot and a hint of vanilla. Regal, refined, and just a little scandalous.",
     price: 95,
     stock: 10,
-    categories: ["Herbal", "Decaf"],
+    categories: ["Herbal", "Decaf", "Tea"],
   },
   {
     id: "cuid3",
@@ -64,7 +101,7 @@ export const products: Product[] = [
       "Dark, mysterious, and slightly smoky, this black tea from the Himalayan foothills is a secret best shared with an old book and a cozy blanket.",
     price: 105,
     stock: 3,
-    categories: ["Decaf"],
+    categories: ["Decaf", "On-sale"],
   },
   {
     id: "cuid5",
@@ -76,7 +113,7 @@ export const products: Product[] = [
       "A wild dance of Ceylon black tea, cinnamon, cardamom, and pink peppercorns. Sweet, spicy, and ready to party in your teacup.",
     price: 100,
     stock: 8,
-    categories: ["Herbal"],
+    categories: ["Herbal", "On-sale"],
   },
   {
     id: "cuid6",
@@ -100,7 +137,7 @@ export const products: Product[] = [
       "A fierce and fiery green tea with ginger and citrus peel. Like a dragon waking up slowly... and then roaring with zest.",
     price: 90,
     stock: 9,
-    categories: ["Jasmine"],
+    categories: ["Jasmine", "Caffeine"],
   },
   {
     id: "cuid8",
