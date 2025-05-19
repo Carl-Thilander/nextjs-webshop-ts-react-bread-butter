@@ -54,9 +54,9 @@ model Address {
 
 model User {
   id       Int     @id @default(autoincrement())
-  name     String
+  name     String  @default("")
   email    String  @unique
-  password String
+  password String  @default("")
   orders   Order[]
   isAdmin  Boolean @default(false)
 }

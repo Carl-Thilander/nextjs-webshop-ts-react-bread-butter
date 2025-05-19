@@ -2,9 +2,9 @@
 
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { AppBar, Box, IconButton, Toolbar, Typography } from "@mui/material";
-
 import Link from "next/link";
 import CartIconButton from "./cart-icon-button";
+import SignInButton from "../components/SignInButton";
 
 const Header = () => {
   return (
@@ -39,6 +39,7 @@ const Header = () => {
             gap: 2,
           }}
         >
+          <SignInButton />
           <IconButton color="inherit" component={Link} href="/admin">
             <AccountCircleIcon
               sx={{
