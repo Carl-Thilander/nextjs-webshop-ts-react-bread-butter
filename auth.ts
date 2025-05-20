@@ -13,8 +13,7 @@ export const config = {
     }),
   ],
   callbacks: {
-    // @ts-ignore - Next-auth types issue
-    async authorized({ auth, request: { nextUrl } }) {
+    async authorized({ auth, request: { nextUrl } }: { auth: { user?: { isAdmin?: boolean } } | null; request: { nextUrl: { pathname: string } } }) {
       const isLoggedIn = !!auth?.user;
       const isAdmin = auth?.user?.isAdmin === true;
       const isAdminPath = nextUrl.pathname.startsWith("/admin");
