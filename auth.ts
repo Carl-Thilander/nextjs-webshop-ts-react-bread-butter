@@ -1,8 +1,6 @@
 import NextAuth from "next-auth";
 import Google from "next-auth/providers/google";
 import type { NextAuthConfig } from "next-auth";
-import type { JWT } from "next-auth/jwt";
-import type { Session } from "next-auth";
 import { db } from "@/prisma/db";
 
 export const config = {
@@ -13,7 +11,13 @@ export const config = {
     }),
   ],
   callbacks: {
-    async authorized({ auth, request: { nextUrl } }: { auth: { user?: { isAdmin?: boolean } } | null; request: { nextUrl: { pathname: string } } }) {
+    async authorized({
+      auth,
+      request: { nextUrl },
+    }: {
+      auth: { user?: { isAdmin?: boolean } } | null;
+      request: { nextUrl: { pathname: string } };
+    }) {
       const isLoggedIn = !!auth?.user;
       const isAdmin = auth?.user?.isAdmin === true;
       const isAdminPath = nextUrl.pathname.startsWith("/admin");
