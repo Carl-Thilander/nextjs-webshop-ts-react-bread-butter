@@ -11,35 +11,15 @@ async function main() {
     );
     process.exit(1);
   }
+  const updatedUser = await prisma.user.update({
+    where: { email },
+    data: { isAdmin: true },
+  });
 
-  try {
-    // Check if user exists first
-    const user = await prisma.user.findUnique({
-      where: { email },
-    });
-
-    if (!user) {
-      console.error(
-        `Error: User with email ${email} not found in the database.`
-      );
-      console.log(
-        "The user needs to sign in at least once before they can be made an admin."
-      );
-      process.exit(1);
-    }
-
-    // Update user to admin role
-    const updatedUser = await prisma.user.update({
-      where: { email },
-      data: { isAdmin: true },
-    });
-
-    console.log(`Success: User ${email} is now an admin`);
-    console.log(updatedUser);
-  } catch (error) {
-    console.error("Failed to update user:", error);
-    process.exit(1);
-  }
+  console.log(`User ${email} is now an admin`);
+  console.log(
+    `Updated user ID: ${updatedUser.id}, isAdmin: ${updatedUser.isAdmin}`
+  );
 }
 
 main()

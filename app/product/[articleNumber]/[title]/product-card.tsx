@@ -8,7 +8,9 @@ import Typography from "@mui/material/Typography";
 import { Product } from "@prisma/client";
 
 type ProductCardProps = {
-  product: Product;
+  product: Product & {
+    categories: { id: string; name: string }[];
+  };
 };
 
 export default async function ProductCard({ product }: ProductCardProps) {
@@ -16,8 +18,8 @@ export default async function ProductCard({ product }: ProductCardProps) {
     <Card
       sx={{
         width: "100%",
-        maxWidth: 320,
-        minHeight: 490,
+        maxWidth: 200,
+        height: 350,
         backgroundColor: "background.paper",
         boxShadow: "none",
         display: "grid",
@@ -28,24 +30,10 @@ export default async function ProductCard({ product }: ProductCardProps) {
         },
       }}
     >
-      <Box
-        sx={{
-          position: "absolute",
-          top: "46%",
-          left: "50%",
-          width: "200px",
-          height: "200px",
-          backgroundColor: "background.default",
-          transform: "translate(-50%, -110%)",
-          borderRadius: "0.25rem",
-          zIndex: 0,
-        }}
-      />
-
       <CardMedia
         component="img"
         sx={{
-          height: 250,
+          height: 150,
           width: 150,
           mx: "auto",
           mt: "1rem",
@@ -58,23 +46,33 @@ export default async function ProductCard({ product }: ProductCardProps) {
 
       <CardContent
         sx={{
-          border: "2px solid",
-          borderColor: "text.secondary",
           borderRadius: "0.25rem",
-          // backgroundColor: "#e5ded5",
           mx: "auto",
           mt: "1rem",
-          mb: "1rem",
           zIndex: 1,
           maxWidth: "90%",
-          minWidth: "312px",
-          minHeight: "233px",
         }}
       >
-        <Typography gutterBottom variant="h6" component="div">
+        {/* <Typography
+          component="span"
+          sx={{ color: "text.secondary", fontSize: 9 }}
+        >
+          {product.categories.map((cat) => cat.name).join(", ")}
+        </Typography> */}
+        <Typography gutterBottom component="div" sx={{ fontSize: 14 }}>
           {product.title}
         </Typography>
-        <Typography variant="body2" sx={{ color: "text.secondary" }}>
+        <Typography
+          variant="body2"
+          sx={{
+            color: "text.secondary",
+            display: "-webkit-box",
+            WebkitLineClamp: 1,
+            WebkitBoxOrient: "vertical",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+          }}
+        >
           {product.description}
         </Typography>
         <Typography
@@ -83,7 +81,7 @@ export default async function ProductCard({ product }: ProductCardProps) {
         >
           {product.price} kr
         </Typography>
-        <CardActions>
+        <CardActions sx={{ pt: 0, mt: 0 }}>
           <Box sx={{ mx: "auto" }}>
             <AddToCartButton label="Köp" product={product} />
           </Box>
