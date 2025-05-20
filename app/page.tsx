@@ -8,6 +8,12 @@ import ProductCard from "./product/[articleNumber]/[title]/product-card";
 export default async function Home() {
   const products = await db.product.findMany();
 
+  // i parenteserna: {
+  //   include: {
+  //     categories: true,
+  //   },
+  // }
+
   const id = "test";
   return (
     <>
@@ -26,7 +32,6 @@ export default async function Home() {
           component="main"
           sx={{
             flexGrow: 1,
-            border: "2px solid #9C8173",
             borderRadius: "0.5rem",
             padding: 4, //Mått vi förmodligen vill använda i hela appen. (1=8px)
             bgcolor: "background.paper", //Funktion för att hämta våra färger från theme.

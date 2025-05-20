@@ -11,24 +11,36 @@ const Header = () => {
     <AppBar
       position="sticky"
       sx={{
-        padding: { xs: 2, sm: 3, md: 4 },
+        padding: { xs: 1, sm: 2 },
         bgcolor: "background.default",
         zIndex: 1100,
       }}
     >
       <Toolbar>
         <Typography
-          variant="h1"
+          component={Link}
+          href="/"
           sx={{
             flexGrow: 1,
+            display: "flex",
+            alignItems: "center",
+            gap: 1,
             textDecoration: "none",
             textShadow: "3px 3px 6px rgba(255, 245, 203, 0.5)",
             color: "text.primary",
-            fontSize: { sx: 30, sm: 45, md: 60 },
+            fontSize: { xs: 20, sm: 25, md: 40 },
           }}
-          component={Link}
-          href="/"
         >
+          <Box
+            component="img"
+            src="/images/beanleaflogo.png"
+            alt="Bean & Leaf logo"
+            sx={{
+              width: { xs: 40, sm: 60, md: 100 },
+              height: { xs: 40, sm: 60, md: 100 },
+              objectFit: "contain",
+            }}
+          />
           Bean & Leaf
         </Typography>
         <Box
