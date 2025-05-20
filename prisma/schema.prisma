@@ -71,7 +71,6 @@ model User {
 model Category {
   id       String    @id @default(cuid())
   name     String    @unique
-  imageURL String
   products Product[] @relation("ProductCategories")
 }
 

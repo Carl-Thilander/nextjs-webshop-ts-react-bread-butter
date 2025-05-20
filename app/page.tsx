@@ -7,13 +7,11 @@ import Hero from "./components/hero";
 import ProductCard from "./product/[articleNumber]/[title]/product-card";
 
 export default async function Home() {
-  const products = await db.product.findMany();
-
-  // i parenteserna: {
-  //   include: {
-  //     categories: true,
-  //   },
-  // }
+  const products = await db.product.findMany({
+    include: {
+      categories: true, // Ensure categories are fetched
+    },
+  });
 
   const id = "test";
   return (

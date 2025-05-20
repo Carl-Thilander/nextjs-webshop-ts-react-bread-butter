@@ -1,6 +1,5 @@
 import { db } from "@/prisma/db";
-import { Container, Link } from "@mui/material";
-import CategoryCard from "./category-card";
+import { Button, Container } from "@mui/material";
 
 export default async function CategorySection() {
   const categories = await db.category.findMany();
@@ -14,12 +13,13 @@ export default async function CategorySection() {
         alignItems: "center",
         marginBottom: "2rem",
         padding: 0,
+        height: "100px",
         bgcolor: "antiquewhite",
         width: "100%",
       }}
     >
       {categories.map((category) => (
-        <Link
+        <Button
           key={category.id}
           style={{
             textDecoration: "none",
@@ -27,9 +27,7 @@ export default async function CategorySection() {
             display: "flex",
             justifyContent: "center",
           }}
-        >
-          <CategoryCard category={category} />
-        </Link>
+        ></Button>
       ))}
     </Container>
   );
