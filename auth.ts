@@ -59,21 +59,14 @@ export const config = {
                 isAdmin: user.email === process.env.ADMIN_EMAIL,
               },
             });
-          } else if (dbUser) {
-            const shouldBeAdmin = user.email === process.env.ADMIN_EMAIL;
-            if (dbUser.isAdmin !== shouldBeAdmin) {
-              dbUser = await db.user.update({
-                where: { id: dbUser.id },
-                data: { isAdmin: shouldBeAdmin },
-              });
-            }
           }
 
-          // @ts-ignore - custom token props
-          token.id = dbUser?.id;
-          // @ts-ignore - custom token props
-          token.isAdmin = dbUser?.isAdmin || false;
+          if (dbUser) {
+            token.id = dbUser.id;
+            token.isAdmin = dbUser.isAdmin;
 
+            if (dbUser.name) token.name = dbUser.name;
+          }
         } catch (error) {
           console.error("Error in JWT callback:", error);
         }
