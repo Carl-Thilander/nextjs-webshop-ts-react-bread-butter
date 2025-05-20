@@ -10,9 +10,8 @@ export default async function CategorySection() {
       maxWidth={false}
       sx={{
         display: "flex",
-        justifyContent: "space-around",
+        justifyContent: "space-evenly",
         alignItems: "center",
-        marginTop: "2rem",
         marginBottom: "2rem",
         padding: 0,
         bgcolor: "antiquewhite",

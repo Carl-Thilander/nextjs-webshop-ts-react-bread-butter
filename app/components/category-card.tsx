@@ -12,7 +12,7 @@ export default async function CategoryCard({ category }: CategoryCardProps) {
         sx={{
           border: "1px solid black",
           borderRadius: "0.5rem",
-          mt: "1rem",
+          mt: "2rem",
           width: "100%",
           height: "auto",
           ":hover": {
