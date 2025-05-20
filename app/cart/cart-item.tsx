@@ -1,5 +1,5 @@
 "use client";
-import { CartItem } from "@/data";
+import { CartItem } from "@/context/CartContext";
 import { useCart } from "@/hooks/useCart";
 import { Delete } from "@mui/icons-material";
 import { Box, Button, Card, Typography } from "@mui/material";

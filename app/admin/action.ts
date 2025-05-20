@@ -1,6 +1,6 @@
 "use server";
 
-import { CartItem } from "@/data";
+import { CartItem } from "@/context/CartContext";
 import { db } from "@/prisma/db";
 import { Prisma } from "@prisma/client";
 import { customAlphabet } from "nanoid";
