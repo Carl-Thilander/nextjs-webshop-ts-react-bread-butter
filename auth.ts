@@ -1,3 +1,5 @@
+export const runtime = "nodejs"; // Make sure Prisma doesn't run in Edge
+
 import { db } from "@/prisma/db";
 import bcrypt from "bcryptjs";
 import type { NextAuthConfig } from "next-auth";
@@ -41,30 +43,44 @@ export const config = {
   ],
 
   callbacks: {
+    // async authorized({ auth, request: { nextUrl } }) {
+    //   const isLoggedIn = !!auth?.user;
+    //   const isAdmin = auth?.user?.isAdmin === true;
+    //   const isAdminPath = nextUrl.pathname.startsWith("/admin");
+
+    //   return isAdminPath ? isLoggedIn && isAdmin : isLoggedIn;
+    // },
+
     async jwt({ token, user, account }) {
       if (account && user) {
-        let dbUser = await db.user.findUnique({ where: { email: user.email! } });
+        try {
+          let dbUser = await db.user.findUnique({
+            where: { email: user.email || "" },
+          });
 
-        if (!dbUser) {
-          dbUser = await db.user.create({
-            data: {
-              email: user.email!,
-              name: user.name || "",
-              password: "", // OAuth users won't have a password
-              isAdmin: user.email === process.env.ADMIN_EMAIL,
-            },
-          });
-        } else {
-          dbUser = await db.user.update({
-            where: { id: dbUser.id },
-            data: {
-              isAdmin: user.email === process.env.ADMIN_EMAIL,
-            },
-          });
+          if (!dbUser && user.email) {
+            dbUser = await db.user.create({
+              data: {
+                email: user.email,
+                name: user.name || "",
+                password: "",
+                isAdmin: user.email === process.env.ADMIN_EMAIL,
+              },
+            });
+          } else if (dbUser) {
+            dbUser = await db.user.update({
+              where: { id: dbUser.id },
+              data: {
+                isAdmin: user.email === process.env.ADMIN_EMAIL,
+              },
+            });
+          }
+
+          token.isAdmin = dbUser?.isAdmin || false;
+          token.id = dbUser?.id;
+        } catch (error) {
+          console.error("Error in JWT callback:", error);
         }
-
-        token.id = dbUser.id;
-        token.isAdmin = dbUser.isAdmin;
       }
 
       return token;
@@ -73,7 +89,7 @@ export const config = {
     async session({ session, token }) {
       if (session.user) {
         session.user.id = token.id;
-        session.user.isAdmin = token.isAdmin;
+        session.user.isAdmin = !!token.isAdmin;
       }
       return session;
     },
