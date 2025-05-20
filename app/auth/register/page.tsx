@@ -1,7 +1,6 @@
-import RegisterForm from '@/app/components/auth/RegisterForm';
-export const runtime = 'nodejs'
-
+import RegisterForm from "@/app/components/auth/register-form";
+export const runtime = "nodejs";
 
 export default function RegisterPage() {
-    return <RegisterForm />;
+  return <RegisterForm />;
 }
