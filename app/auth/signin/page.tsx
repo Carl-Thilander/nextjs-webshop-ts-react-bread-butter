@@ -21,11 +21,11 @@ export default function SignIn() {
           }}
         >
           <Typography variant="h4" component="h1" gutterBottom>
-            Logga in
+            Sign in
           </Typography>
 
           <Typography variant="body1" align="center">
-            Du behöver logga in för att fortsätta.
+            You need to sign in to continue.
           </Typography>
 
           <Button
