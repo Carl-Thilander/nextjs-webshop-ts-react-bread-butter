@@ -15,7 +15,7 @@ async function main() {
   });
 
   console.log(`User ${email} is now an admin`);
-  console.log(updatedUser);
+  console.log(`Updated user ID: ${updatedUser.id}, isAdmin: ${updatedUser.isAdmin}`);
 }
 
 main()
