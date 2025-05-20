@@ -2,20 +2,25 @@ import { db } from "@/prisma/db";
 import { Box, Container } from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import Link from "next/link";
+import CategorySection from "./components/category-section";
 import Hero from "./components/hero";
 import ProductCard from "./product/[articleNumber]/[title]/product-card";
 
 export default async function Home() {
-  const products = await db.product.findMany({
-    include: {
-      categories: true,
-    },
-  });
+  const products = await db.product.findMany();
+
+  // i parenteserna: {
+  //   include: {
+  //     categories: true,
+  //   },
+  // }
 
   const id = "test";
   return (
     <>
       <Hero />
+
+      <CategorySection />
       <Container
         sx={{
           display: "flex",

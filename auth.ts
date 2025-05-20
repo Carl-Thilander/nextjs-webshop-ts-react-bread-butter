@@ -43,14 +43,6 @@ export const config = {
   ],
 
   callbacks: {
-    // async authorized({ auth, request: { nextUrl } }) {
-    //   const isLoggedIn = !!auth?.user;
-    //   const isAdmin = auth?.user?.isAdmin === true;
-    //   const isAdminPath = nextUrl.pathname.startsWith("/admin");
-
-    //   return isAdminPath ? isLoggedIn && isAdmin : isLoggedIn;
-    // },
-
     async jwt({ token, user, account }) {
       if (account && user) {
         try {
@@ -68,16 +60,20 @@ export const config = {
               },
             });
           } else if (dbUser) {
-            dbUser = await db.user.update({
-              where: { id: dbUser.id },
-              data: {
-                isAdmin: user.email === process.env.ADMIN_EMAIL,
-              },
-            });
+            const shouldBeAdmin = user.email === process.env.ADMIN_EMAIL;
+            if (dbUser.isAdmin !== shouldBeAdmin) {
+              dbUser = await db.user.update({
+                where: { id: dbUser.id },
+                data: { isAdmin: shouldBeAdmin },
+              });
+            }
           }
 
-          token.isAdmin = dbUser?.isAdmin || false;
+          // @ts-ignore - custom token props
           token.id = dbUser?.id;
+          // @ts-ignore - custom token props
+          token.isAdmin = dbUser?.isAdmin || false;
+
         } catch (error) {
           console.error("Error in JWT callback:", error);
         }
@@ -88,7 +84,9 @@ export const config = {
 
     async session({ session, token }) {
       if (session.user) {
+        // @ts-ignore - custom user props
         session.user.id = token.id;
+        // @ts-ignore - custom user props
         session.user.isAdmin = !!token.isAdmin;
       }
       return session;

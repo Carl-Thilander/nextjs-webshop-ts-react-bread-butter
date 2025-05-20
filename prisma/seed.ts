@@ -1,9 +1,11 @@
-import { products } from "@/data";
+import { categories, products } from "@/data";
 import { db } from "./db";
 
 async function main() {
   await db.product.deleteMany();
   await db.category.deleteMany();
+  await db.category.createMany({ data: categories });
+
   for (const { id, categories, ...product } of products) {
     await db.product.upsert({
       where: { articleNumber: product.articleNumber },
@@ -11,12 +13,7 @@ async function main() {
       create: {
         ...product,
         categories: {
-          connectOrCreate: (categories ?? [])
-            .filter((catName) => catName && catName.trim() !== "")
-            .map((catName) => ({
-              where: { name: catName }, // <-- FIXED: use name, not id
-              create: { name: catName },
-            })),
+          connect: categories.map((name) => ({ name })),
         },
       },
     });
