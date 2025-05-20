@@ -9,14 +9,8 @@ interface ProductMock extends Product {
 }
 
 export const categories = [
-  // {
-  //   name: "News",
-
-  //   imageURL:
-  //     "https://media.istockphoto.com/id/501597744/sv/foto/coffee-beans.jpg?b=1&s=612x612&w=0&k=20&c=D7CtuIkak7WxgydtU_75dqwYE1f0PGln2Lizuld5raI=",
-  // },
   {
-    name: "Decaf",
+    name: "Coffee",
 
     imageURL:
       "https://media.istockphoto.com/id/501597744/sv/foto/coffee-beans.jpg?b=1&s=612x612&w=0&k=20&c=D7CtuIkak7WxgydtU_75dqwYE1f0PGln2Lizuld5raI=",
@@ -28,7 +22,7 @@ export const categories = [
       "https://media.istockphoto.com/id/501597744/sv/foto/coffee-beans.jpg?b=1&s=612x612&w=0&k=20&c=D7CtuIkak7WxgydtU_75dqwYE1f0PGln2Lizuld5raI=",
   },
   {
-    name: "Coffee",
+    name: "Decaf",
 
     imageURL:
       "https://media.istockphoto.com/id/501597744/sv/foto/coffee-beans.jpg?b=1&s=612x612&w=0&k=20&c=D7CtuIkak7WxgydtU_75dqwYE1f0PGln2Lizuld5raI=",
@@ -38,11 +32,6 @@ export const categories = [
     imageURL:
       "https://media.istockphoto.com/id/501597744/sv/foto/coffee-beans.jpg?b=1&s=612x612&w=0&k=20&c=D7CtuIkak7WxgydtU_75dqwYE1f0PGln2Lizuld5raI=",
   },
-  // {
-  //   name: "Caffeine",
-  //   imageURL:
-  //     "https://media.istockphoto.com/id/501597744/sv/foto/coffee-beans.jpg?b=1&s=612x612&w=0&k=20&c=D7CtuIkak7WxgydtU_75dqwYE1f0PGln2Lizuld5raI=",
-  // },
 ] as const satisfies Prisma.CategoryCreateInput[];
 
 /* Lägg till era produkter här */

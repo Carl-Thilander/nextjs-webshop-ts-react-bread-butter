@@ -10,10 +10,11 @@ export default async function CategoryCard({ category }: CategoryCardProps) {
     <Box>
       <Card
         sx={{
-          border: "2px solid #9C8173",
+          border: "1px solid black",
           borderRadius: "0.5rem",
-          bgcolor: "background.paper",
+          mt: "1rem",
           width: "100%",
+          height: "auto",
           ":hover": {
             transform: "scale(1.02)",
             boxShadow: "0px 2px 8px rgba(0,0,0,0.2)",
@@ -23,12 +24,11 @@ export default async function CategoryCard({ category }: CategoryCardProps) {
         <CardMedia
           component={"img"}
           sx={{
-            height: 150,
-            width: 150,
+            height: { xs: 60, sm: 100, md: 150 },
+            width: { xs: 60, sm: 100, md: 150 },
             mx: "auto",
-            mt: "1rem",
-            borderRadius: "0.5rem",
             zIndex: 1,
+            objectFit: "cover",
           }}
           image={category.imageURL}
         />
@@ -39,7 +39,8 @@ export default async function CategoryCard({ category }: CategoryCardProps) {
           color: "black",
           textAlign: "center",
           fontWeight: "bold",
-          fontSize: "1.5rem",
+          fontSize: { xs: "1rem", sm: "1.5rem" },
+          marginTop: "0.5rem",
         }}
       >
         {category.name}

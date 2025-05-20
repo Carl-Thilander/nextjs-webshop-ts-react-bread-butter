@@ -6,15 +6,17 @@ export default async function CategorySection() {
   const categories = await db.category.findMany();
   return (
     <Container
+      disableGutters
+      maxWidth={false}
       sx={{
         display: "flex",
-        justifyContent: "space-between",
+        justifyContent: "space-around",
         alignItems: "center",
-        minHeight: "20vh",
-        borderBottom: "2px solid #9C8173",
-        bgcolor: "tomato",
-        width: "100%",
         marginTop: "2rem",
+        marginBottom: "2rem",
+        padding: 0,
+        bgcolor: "antiquewhite",
+        width: "100%",
       }}
     >
       {categories.map((category) => (
