@@ -17,10 +17,9 @@ export default async function ProductCard({ product }: ProductCardProps) {
   return (
     <Card
       sx={{
-        width: "100%",
-        maxWidth: 200,
-        height: 380,
-        backgroundColor: "background.paper",
+        width: 250,
+        height: 390,
+        backgroundColor: "#f5f0ea",
         boxShadow: "none",
         display: "grid",
         position: "relative",
@@ -53,27 +52,8 @@ export default async function ProductCard({ product }: ProductCardProps) {
           maxWidth: "90%",
         }}
       >
-        {/* <Typography
-          component="span"
-          sx={{ color: "text.secondary", fontSize: 9 }}
-        >
-          {product.categories.map((cat) => cat.name).join(", ")}
-        </Typography> */}
         <Typography gutterBottom component="div" sx={{ fontSize: 14 }}>
           {product.title}
-        </Typography>
-        <Typography
-          variant="body2"
-          sx={{
-            color: "text.secondary",
-            display: "-webkit-box",
-            WebkitLineClamp: 1,
-            WebkitBoxOrient: "vertical",
-            overflow: "hidden",
-            textOverflow: "ellipsis",
-          }}
-        >
-          {product.description}
         </Typography>
         <Typography
           variant="body2"
