@@ -26,7 +26,7 @@ type ExtendedOrder = Order & {
   items: OrderItem[];
 };
 
-export default async function AdminOrderTable({
+export default function AdminOrderTable({
   orders,
 }: {
   orders: ExtendedOrder[];
