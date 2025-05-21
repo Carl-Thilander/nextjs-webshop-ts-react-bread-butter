@@ -118,6 +118,7 @@ export async function getOrderByOrderNr(orderNr: string) {
       include: {
         items: true,
         user: true,
+        address: true,
       },
     });
 
@@ -128,6 +129,7 @@ export async function getOrderByOrderNr(orderNr: string) {
     return {
       customer: order.user,
       items: order.items,
+      address: order.address,
     };
   } catch (error) {
     console.error("Error fetching order:", error);
