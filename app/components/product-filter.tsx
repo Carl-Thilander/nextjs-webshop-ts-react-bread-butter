@@ -60,6 +60,7 @@ export default function ProductFilter({
 					display: "flex",
 					justifyContent: "center",
 					alignItems: "center",
+          mb: "3rem"
 				}}
 			>
 				<Box
@@ -74,7 +75,7 @@ export default function ProductFilter({
 					<Grid2
 						container
 						direction="row"
-						sx={{ justifyContent: "flex-start", alignItems: "center" }}
+						sx={{ justifyContent: "center", alignItems: "center" }}
 						rowSpacing={{ xs: 3, sm: 4, md: 5 }}
 						columnSpacing={{ xs: 12, sm: 4, md: 4 }}
 					>
