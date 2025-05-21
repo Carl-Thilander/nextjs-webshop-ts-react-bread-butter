@@ -1,7 +1,15 @@
 import { Container } from "@mui/material";
-import AdminOrderTable from "./order-table";
+import AdminOrderTable from "./admin-order-table-client";
+import { db } from "@/prisma/db";
 
-export default async function AllOrders() {
+export default async function OrdersManagementPage() {
+  const orders = await db.order.findMany({
+    include: {
+      user: true,
+      address: true,
+      items: true,
+    },
+  });
   return (
     <Container
       sx={{
@@ -15,7 +23,7 @@ export default async function AllOrders() {
         padding: 4,
       }}
     >
-      <AdminOrderTable />
+      <AdminOrderTable orders={orders} />
     </Container>
   );
 }
