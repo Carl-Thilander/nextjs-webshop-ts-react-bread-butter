@@ -34,7 +34,6 @@ export default async function Home() {
             flexGrow: 1,
             borderRadius: "0.5rem",
             padding: 4, //Mått vi förmodligen vill använda i hela appen. (1=8px)
-            bgcolor: "background.paper", //Funktion för att hämta våra färger från theme.
             margin: "2rem 0",
             width: "100%",
           }}
