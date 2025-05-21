@@ -37,6 +37,15 @@ export default function CustomerForm() {
       router.push("/auth/signin");
     }
   }, [status]);
+  useEffect(() => {
+    if (session?.user) {
+      setFormData((prev) => ({
+        ...prev,
+        name: session.user.name || "",
+        email: session.user.email || "",
+      }));
+    }
+  }, [session]);
   const router = useRouter();
   const { cartItems } = useCart();
   const [open, setOpen] = useState(false);
