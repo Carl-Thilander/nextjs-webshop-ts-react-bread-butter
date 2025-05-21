@@ -19,7 +19,7 @@ const AddToCartButton: React.FC<AddToCartButtonProps> = ({
     event.stopPropagation();
     event.preventDefault();
     addToCart(product);
-    showToast("Produkten har lagts till i kundvagnen!");
+    showToast("The product was added to cart!");
   };
 
   return (
