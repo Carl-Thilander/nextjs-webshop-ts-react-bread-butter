@@ -16,12 +16,12 @@ const AddToCartButton: React.FC<AddToCartButtonProps> = ({
 }) => {
 	const { addToCart, showToast } = useCart();
 
-	const handleAddToCart = (event: React.MouseEvent<HTMLButtonElement>) => {
-		event.stopPropagation();
-		event.preventDefault();
-		addToCart(product);
-		showToast("Produkten har lagts till i kundvagnen!");
-	};
+  const handleAddToCart = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.stopPropagation();
+    event.preventDefault();
+    addToCart(product);
+    showToast("The product was added to cart!");
+  };
 
 	return (
 		<IconButton

@@ -15,8 +15,10 @@ import {
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { z } from "zod";
-import { createOrder, createUser } from "../admin/action";
+import { submitOrder } from "../admin/action";
 import { useCart } from "@/hooks/useCart";
+import { useSession } from "next-auth/react";
+import { useEffect } from "react";
 
 const customerSchema = z.object({
   name: z.string().min(1, "Du måste fylla i ditt namn"),
@@ -28,6 +30,22 @@ const customerSchema = z.object({
 });
 
 export default function CustomerForm() {
+  const { data: session, status } = useSession();
+
+  useEffect(() => {
+    if (status === "unauthenticated") {
+      router.push("/auth/signin");
+    }
+  }, [status]);
+  useEffect(() => {
+    if (session?.user) {
+      setFormData((prev) => ({
+        ...prev,
+        name: session.user.name || "",
+        email: session.user.email || "",
+      }));
+    }
+  }, [session]);
   const router = useRouter();
   const { cartItems } = useCart();
   const [open, setOpen] = useState(false);
@@ -83,25 +101,19 @@ export default function CustomerForm() {
           return acc;
         }, {} as Record<keyof typeof formData, string>) // extra fluff för typescript
       );
-
-      // om det fanns nåt fel
-
       console.log("Formuläret innehåller fel, avbryter!");
       return;
     }
 
     try {
-      const formDataObj = new FormData();
-      Object.entries(formData).forEach(([key, value]) =>
-        formDataObj.append(key, value)
-      );
+      const addressData = {
+        address: formData.address,
+        zipcode: formData.zipcode,
+        city: formData.city,
+        phone: formData.phone,
+      };
 
-      const userResponse = await createUser(formDataObj);
-      if (!userResponse.success) {
-        throw new Error("User creation failed");
-      }
-
-      const order = await createOrder(userResponse.user.id, cartItems);
+      const order = await submitOrder(cartItems, addressData);
 
       setOpen(true);
       setTimeout(() => {
@@ -118,7 +130,7 @@ export default function CustomerForm() {
         phone: "",
       });
     } catch (error) {
-      console.error("Error creating user:", error);
+      console.error("Error creating order:", error);
     }
   };
 

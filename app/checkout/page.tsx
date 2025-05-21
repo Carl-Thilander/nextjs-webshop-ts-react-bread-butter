@@ -16,9 +16,7 @@ export default function CheckoutPage() {
           mb: 3,
 
           padding: { xs: 0, sm: 2, md: 4 },
-          border: 2,
           borderRadius: 2,
-          borderColor: "text.secondary",
         }}
       >
         <Typography

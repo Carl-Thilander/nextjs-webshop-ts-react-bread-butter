@@ -38,6 +38,9 @@ export function CartProvider(props: PropsWithChildren) {
 
   const showToast = (message: string) => {
     setToastMessage(message);
+    setTimeout(() => {
+      setToastMessage(null);
+    }, 3000);
   };
 
   const addToCart = (item: Product) => {
@@ -62,7 +65,7 @@ export function CartProvider(props: PropsWithChildren) {
       }
     });
 
-    showToast("Produkten har lagts till i kundvagnen!");
+    showToast("The product was added to cart!");
   };
 
   const removeFromCart = (id: string) => {

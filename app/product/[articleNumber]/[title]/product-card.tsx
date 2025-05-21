@@ -1,5 +1,4 @@
 import AddToCartButton from "@/app/components/add-to-cart-button";
-import { Directions } from "@mui/icons-material";
 import { Box } from "@mui/material";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
@@ -14,7 +13,7 @@ type ProductCardProps = {
 	};
 };
 
-export default async function ProductCard({ product }: ProductCardProps) {
+export default function ProductCard({ product }: ProductCardProps) {
 	return (
 		<Card
 			sx={{
@@ -23,8 +22,8 @@ export default async function ProductCard({ product }: ProductCardProps) {
 				backgroundColor: "#f5f0ea",
 				boxShadow: "0px 2px 6px rgba(0,0,0,0.2)",
 				display: "flex",
-        flexDirection: "column",
-        gap: 1,
+				flexDirection: "column",
+				gap: 1,
 				position: "relative",
 				":hover": {
 					transform: "scale(1.02)",
@@ -41,7 +40,6 @@ export default async function ProductCard({ product }: ProductCardProps) {
 					mx: "auto",
 					mt: "1rem",
 					borderRadius: "0.25rem",
-
 				}}
 				image={product.image}
 				alt={product.title}
@@ -57,15 +55,14 @@ export default async function ProductCard({ product }: ProductCardProps) {
 						display: "flex",
 						justifyContent: "space-between",
 						alignItems: "center",
-					}}
-				>
-					<Typography gutterBottom component="div" sx={{ fontSize: 18 }}>
-						{product.title}
-					</Typography>
-					<CardActions sx={{ pt: 0, mt: 0 }}>
-							<AddToCartButton product={product} />
-					</CardActions>
-				</Box>
+					}}>
+				<Typography gutterBottom component="div" sx={{ fontSize: 18 }}>
+					{product.title}
+				</Typography>
+        				<CardActions sx={{ pt: 0, mt: 0 }}>
+						<AddToCartButton product={product} />
+				</CardActions>
+        </Box>
 				<Typography
 					variant="body2"
 				>

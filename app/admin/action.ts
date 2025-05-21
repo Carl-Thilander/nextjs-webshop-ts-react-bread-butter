@@ -1,10 +1,18 @@
 "use server";
 
+import { auth } from "@/auth";
 import { CartItem } from "@/context/CartContext";
 import { db } from "@/prisma/db";
 import { Prisma } from "@prisma/client";
 import { customAlphabet } from "nanoid";
 import { revalidatePath } from "next/cache";
+
+interface AddressData {
+  address: string;
+  zipcode: string;
+  city: string;
+  phone: string;
+}
 
 export async function createProduct(product: Prisma.ProductCreateInput) {
   const nanoid = customAlphabet("1234567890", 4);
@@ -28,21 +36,49 @@ export async function updateProduct(
   });
   revalidatePath("/admin");
 }
+export async function submitOrder(
+  cartItems: CartItem[],
+  addressData: AddressData
+) {
+  const session = await auth(); // ✅ get logged-in session
 
-export async function createOrder(userId: number, cartItems: CartItem[]) {
+  if (!session?.user?.id) {
+    throw new Error("You need to be logged in to place and order.");
+  }
+
+  const userId = session.user.id;
+
+  const order = await createOrder(userId, cartItems, addressData);
+  return order;
+}
+
+export async function createOrder(
+  userId: number,
+  cartItems: CartItem[],
+  addressData: AddressData
+) {
   if (!cartItems || !Array.isArray(cartItems)) {
     throw new Error("cartItems must be a valid array");
   }
 
+  if (
+    !addressData.address ||
+    !addressData.zipcode ||
+    !addressData.city ||
+    !addressData.phone
+  ) {
+    throw new Error("All address fields are required");
+  }
+
   const orderNr = `${Date.now()}`;
+  const address = await db.address.create({
+    data: addressData,
+  });
 
   const order = await db.order.create({
     data: {
-      user: {
-        connect: {
-          id: userId,
-        },
-      },
+      user: { connect: { id: userId } },
+      address: { connect: { id: address.id } },
       orderNr,
       items: {
         create: cartItems.map((item) => ({
@@ -57,29 +93,6 @@ export async function createOrder(userId: number, cartItems: CartItem[]) {
   });
 
   return order;
-}
-export async function createUser(formData: FormData) {
-  try {
-    const name = formData.get("name")?.toString();
-    const address = formData.get("address")?.toString();
-    const zipcode = formData.get("zipcode")?.toString();
-    const city = formData.get("city")?.toString();
-    const email = formData.get("email")?.toString();
-    const phone = formData.get("phone")?.toString();
-
-    if (!name || !address || !zipcode || !city || !email || !phone) {
-      return { error: "All fields are required!" };
-    }
-
-    const user = await db.user.create({
-      data: { name, address, zipcode, city, email, phone },
-    });
-
-    return { success: true, user };
-  } catch (error) {
-    console.error("Error creating user:", error);
-    return { error: "Something went wrong!" };
-  }
 }
 
 export async function getOrderById(id: string) {
@@ -105,6 +118,7 @@ export async function getOrderByOrderNr(orderNr: string) {
       include: {
         items: true,
         user: true,
+        address: true,
       },
     });
 
@@ -115,6 +129,7 @@ export async function getOrderByOrderNr(orderNr: string) {
     return {
       customer: order.user,
       items: order.items,
+      address: order.address,
     };
   } catch (error) {
     console.error("Error fetching order:", error);

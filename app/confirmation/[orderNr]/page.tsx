@@ -3,27 +3,27 @@
 import { getOrderByOrderNr } from "@/app/admin/action";
 import Receipt from "@/app/confirmation/receipt";
 import { Box, Button, Container, Link, Typography } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useEffect, useState, use } from "react";
 
 export default function ConfirmationPage({
   params,
 }: {
-  params: { orderNr: string };
+  params: Promise<{ orderNr: string }>;
 }) {
-  const { orderNr } = params;
+  const { orderNr } = use(params);
   const [order, setOrder] = useState<any>(null);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     getOrderByOrderNr(orderNr)
       .then(setOrder)
-      .catch(() => setError("Kunde inte hämta beställningen."));
+      .catch(() => setError("Could not find order."));
   }, [orderNr]);
 
-  if (error) return <h1>{error}</h1>;
-  if (!order) return <h1>Laddar beställning...</h1>;
+  if (error) return <h6>{error}</h6>;
+  if (!order) return <h6>Loading order...</h6>;
 
-  const { customer, items } = order;
+  const { customer, items, address } = order;
   const totalSum = items.reduce(
     (sum: number, item: any) => sum + item.quantity * item.price,
     0
@@ -43,21 +43,21 @@ export default function ConfirmationPage({
         sx={{
           padding: 4,
           bgcolor: "background.paper",
-          border: "2px solid #9C8173",
+
           borderRadius: "0.5rem",
           margin: "2rem 0",
           width: "100%",
         }}
       >
         <Typography variant="h1" component="div" sx={{ textAlign: "center" }}>
-          Tack för din beställning!
+          Thank you for your order!
         </Typography>
         <Typography
           variant="h1"
           component="p"
           sx={{ textAlign: "center", fontSize: "1.25rem", padding: "1.5rem" }}
         >
-          Ditt ordernummer: {orderNr}
+          Your order number: {orderNr}
         </Typography>
         <Typography
           variant="h2"
@@ -74,19 +74,20 @@ export default function ConfirmationPage({
             backgroundColor: "background.paper",
           }}
         >
-          <Typography>Namn: {customer.name}</Typography>
-          <Typography>E-post: {customer.email}</Typography>
+          <Typography>Name: {customer.name}</Typography>
+          <Typography>E-mail: {customer.email}</Typography>
           <Typography>
-            Adress: {customer.address}, {customer.zipcode} {customer.city}
+            Address: {address.address}, {address.zipcode}
+            {address.city}
           </Typography>
-          <Typography>Telefon: {customer.phone}</Typography>
+          <Typography>Phone: {address.phone}</Typography>
         </Box>
 
         <Receipt items={items} totalSum={totalSum} />
 
         <Typography sx={{ marginTop: "2rem" }}>
-          Separat kvitto kommer skickas till din e-mail. Tack för att du har
-          handlat på Bread & Butter!
+          A receipt will be sent to your e-mail. Thank you for shopping at Bean
+          & Leaf!
         </Typography>
         <Box
           sx={{
@@ -106,7 +107,7 @@ export default function ConfirmationPage({
               "&:hover": { bgcolor: "primary.dark", color: "background.paper" },
             }}
           >
-            Till startsidan
+            Back to start page
           </Button>
         </Box>
       </Box>

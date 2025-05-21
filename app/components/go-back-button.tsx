@@ -29,7 +29,7 @@ const GoBackButton = () => {
           fontFamily: "var(--font-roboto)",
         }}
       >
-        Tillbaka
+        Go back
       </Typography>
     </IconButton>
   );
