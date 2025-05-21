@@ -1,5 +1,5 @@
 "use client";
-import { Chip, Container } from "@mui/material";
+import { Box, Chip, Container, Typography } from "@mui/material";
 
 interface Category {
   id: string;
@@ -15,20 +15,37 @@ interface Props {
 export default function CategorySection({ categories, selected, onSelect }: Props) {
   return (
     <Container
-      disableGutters
-      maxWidth={false}
+      
       sx={{
         display: "flex",
-        justifyContent: "left",
+        flexDirection: "column",
         gap: "1rem",
-        alignItems: "center",
-        marginBottom: "2rem",
+        alignItems: "left",
         padding: 0,
-        height: "100px",
-        bgcolor: "antiquewhite",
         width: "100%",
+        marginTop: "1rem",
       }}
     >
+      <Typography
+        variant="h2"
+        sx={{
+          fontSize: "2rem",
+          fontWeight: "bold",
+          color: "text.primary",
+        }}
+      >
+        Our products
+      </Typography>
+
+      <Box
+        sx={{
+          display: "flex",
+          gap: "1rem",
+          flexDirection: "row",
+        }}>
+        
+
+      
       {categories.map((category) => (
         <Chip
           key={category.id}
@@ -43,10 +60,12 @@ export default function CategorySection({ categories, selected, onSelect }: Prop
             fontSize: "1rem",
             padding: "0.5rem 1rem",
             borderRadius: "8px",
-            backgroundColor: selected.includes(category.name) ? "primary" : "white", // accent color example
+            border: "1px solid",
+            backgroundColor: selected.includes(category.name) ? "primary" : "white",
           }}
         />
       ))}
+      </Box>
     </Container>
   );
 }
