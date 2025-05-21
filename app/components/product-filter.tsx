@@ -26,11 +26,22 @@ interface ProductFilterProps {
 }
 
 export default function ProductFilter({ products, categories }: ProductFilterProps) {
-  const [selected, setSelected] = useState<string | null>(null);
+  const [selected, setSelected] = useState<string[]>([]);
 
-  const filteredProducts = selected
-    ? products.filter((p) => p.categories.some((c) => c.name === selected))
-    : products;
+  const handleSelect = (category: string) => {
+    setSelected((prev) =>
+      prev.includes(category)
+        ? prev.filter((c) => c !== category)
+        : [...prev, category]
+    );
+  };
+
+  const filteredProducts =
+    selected.length > 0
+      ? products.filter((p) =>
+          p.categories.some((c) => selected.includes(c.name))
+        )
+      : products;
     const id = "test";
 
   return (
@@ -38,7 +49,7 @@ export default function ProductFilter({ products, categories }: ProductFilterPro
       <CategorySection
         categories={categories}
         selected={selected}
-        onSelect={setSelected}
+        onSelect={handleSelect}
       />
        <Container
         sx={{

@@ -8,8 +8,8 @@ interface Category {
 
 interface Props {
   categories: Category[];
-  selected: string | null;
-  onSelect: (category: string | null) => void;
+  selected: string [];
+  onSelect: (category: string ) => void;
 }
 
 export default function CategorySection({ categories, selected, onSelect }: Props) {
@@ -34,14 +34,16 @@ export default function CategorySection({ categories, selected, onSelect }: Prop
           key={category.id}
           label={category.name}
           clickable
-          color={selected === category.name ? "primary" : "default"}
+           color={selected.includes(category.name) ? "primary" : "default"}
           onClick={() => {
-            onSelect(selected === category.name ? null : category.name);
+            onSelect(category.name);
           }}
           sx={{
-            fontWeight: selected === category.name ? "bold" : "normal",
+            fontWeight: selected.includes(category.name) ? "bold" : "normal",
             fontSize: "1rem",
-            backgroundColor: selected === category.name ? "#ffb347" : "white", // accent color example
+            padding: "0.5rem 1rem",
+            borderRadius: "8px",
+            backgroundColor: selected.includes(category.name) ? "primary" : "white", // accent color example
           }}
         />
       ))}
