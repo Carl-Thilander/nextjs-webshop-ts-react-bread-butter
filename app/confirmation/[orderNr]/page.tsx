@@ -20,8 +20,8 @@ export default function ConfirmationPage({
       .catch(() => setError("Kunde inte hämta beställningen."));
   }, [orderNr]);
 
-  if (error) return <h1>{error}</h1>;
-  if (!order) return <h1>Laddar beställning...</h1>;
+  if (error) return <h6>{error}</h6>;
+  if (!order) return <h6>Loading order...</h6>;
 
   const { customer, items, address } = order;
   const totalSum = items.reduce(
@@ -50,14 +50,14 @@ export default function ConfirmationPage({
         }}
       >
         <Typography variant="h1" component="div" sx={{ textAlign: "center" }}>
-          Tack för din beställning!
+          Thank you for your order!
         </Typography>
         <Typography
           variant="h1"
           component="p"
           sx={{ textAlign: "center", fontSize: "1.25rem", padding: "1.5rem" }}
         >
-          Ditt ordernummer: {orderNr}
+          Your order number: {orderNr}
         </Typography>
         <Typography
           variant="h2"
@@ -74,20 +74,22 @@ export default function ConfirmationPage({
             backgroundColor: "background.paper",
           }}
         >
-          <Typography>Namn: {customer.name}</Typography>
-          <Typography>E-post: {customer.email}</Typography>
+          <Typography>Name: {customer.name}</Typography>
+          <Typography>E-mail: {customer.email}</Typography>
           <Typography>
+
             Adress: {address.address}, {address.zipcode}
             {address.city}
           </Typography>
           <Typography>Telefon: {address.phone}</Typography>
+
         </Box>
 
         <Receipt items={items} totalSum={totalSum} />
 
         <Typography sx={{ marginTop: "2rem" }}>
-          Separat kvitto kommer skickas till din e-mail. Tack för att du har
-          handlat på Bread & Butter!
+          A receipt will be sent to your e-mail. Thank you for shopping at Bean
+          & Leaf!
         </Typography>
         <Box
           sx={{
@@ -107,7 +109,7 @@ export default function ConfirmationPage({
               "&:hover": { bgcolor: "primary.dark", color: "background.paper" },
             }}
           >
-            Till startsidan
+            Back to start page
           </Button>
         </Box>
       </Box>
