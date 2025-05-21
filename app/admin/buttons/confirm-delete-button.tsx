@@ -21,7 +21,7 @@ export default function ConfirmDeleteProduct(props: Props) {
       }}
       onClick={() => deleteProduct(props.product.id)}
     >
-      Ta bort
+      Delete
     </Button>
   );
 }

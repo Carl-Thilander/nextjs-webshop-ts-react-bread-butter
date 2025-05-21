@@ -35,7 +35,7 @@ export default function DeleteButton({ product }: ProductCardProps) {
           severity="warning"
           sx={{ width: "100%", gap: 2 }}
         >
-          <p>Är du säker på att du vill ta bort {product.title} ?</p>
+          <p>Are you sure you want to delete {product.title} ?</p>
 
           <ConfirmDeleteProduct product={product} />
         </Alert>

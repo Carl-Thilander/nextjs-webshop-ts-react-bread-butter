@@ -17,7 +17,7 @@ export default function ConfirmationPage({
   useEffect(() => {
     getOrderByOrderNr(orderNr)
       .then(setOrder)
-      .catch(() => setError("Kunde inte hämta beställningen."));
+      .catch(() => setError("Could not find order."));
   }, [orderNr]);
 
   if (error) return <h6>{error}</h6>;
@@ -77,12 +77,10 @@ export default function ConfirmationPage({
           <Typography>Name: {customer.name}</Typography>
           <Typography>E-mail: {customer.email}</Typography>
           <Typography>
-
-            Adress: {address.address}, {address.zipcode}
+            Address: {address.address}, {address.zipcode}
             {address.city}
           </Typography>
-          <Typography>Telefon: {address.phone}</Typography>
-
+          <Typography>Phone: {address.phone}</Typography>
         </Box>
 
         <Receipt items={items} totalSum={totalSum} />
