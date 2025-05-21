@@ -1,4 +1,5 @@
 import AddToCartButton from "@/app/components/add-to-cart-button";
+import { Directions } from "@mui/icons-material";
 import { Box } from "@mui/material";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
@@ -8,65 +9,69 @@ import Typography from "@mui/material/Typography";
 import { Product } from "@prisma/client";
 
 type ProductCardProps = {
-  product: Product & {
-    categories: { id: string; name: string }[];
-  };
+	product: Product & {
+		categories: { id: string; name: string }[];
+	};
 };
 
 export default async function ProductCard({ product }: ProductCardProps) {
-  return (
-    <Card
-      sx={{
-        width: 250,
-        height: 390,
-        backgroundColor: "#f5f0ea",
-        boxShadow: "0px 2px 6px rgba(0,0,0,0.2)",
-        display: "grid",
-        position: "relative",
-        ":hover": {
-          transform: "scale(1.02)",
-          boxShadow: "0px 2px 10px rgba(0,0,0,0.2)",
-        },
-      }}
-    >
-      <CardMedia
-        component="img"
-        sx={{
-          height: 200,
-          width: 150,
-          mx: "auto",
-          mt: "1rem",
-          borderRadius: "0.25rem",
-          zIndex: 1,
-        }}
-        image={product.image}
-        alt={product.title}
-      />
+	return (
+		<Card
+			sx={{
+				width: 250,
+				height: 320,
+				backgroundColor: "#f5f0ea",
+				boxShadow: "0px 2px 6px rgba(0,0,0,0.2)",
+				display: "flex",
+        flexDirection: "column",
+        gap: 1,
+				position: "relative",
+				":hover": {
+					transform: "scale(1.02)",
+					boxShadow: "0px 2px 10px rgba(0,0,0,0.2)",
+				},
+				padding: 0,
+			}}
+		>
+			<CardMedia
+				component="img"
+				sx={{
+					height: 200,
+					width: 150,
+					mx: "auto",
+					mt: "1rem",
+					borderRadius: "0.25rem",
 
-      <CardContent
-        sx={{
-          borderRadius: "0.25rem",
-          mx: "auto",
-          mt: "1rem",
-          zIndex: 1,
-          maxWidth: "90%",
-        }}
-      >
-        <Typography gutterBottom component="div" sx={{ fontSize: 14 }}>
-          {product.title}
-        </Typography>
-        <Typography
-          variant="body2"
-          sx={{ color: "text.primary", mt: "0.5rem" }}
-        >
-          {product.price} kr
-        </Typography>
-        <CardActions sx={{ pt: 0, mt: 0 }}>
-          <Box sx={{ mx: "auto" }}>
-            <AddToCartButton label="Köp" product={product} />
-          </Box>
-        </CardActions>
-      </CardContent>
-    </Card>
-  );
+				}}
+				image={product.image}
+				alt={product.title}
+			/>
+
+			<CardContent
+				sx={{
+					borderRadius: "0.25rem",
+				}}
+			>
+				<Box
+					sx={{
+						display: "flex",
+						justifyContent: "space-between",
+						alignItems: "center",
+					}}
+				>
+					<Typography gutterBottom component="div" sx={{ fontSize: 18 }}>
+						{product.title}
+					</Typography>
+					<CardActions sx={{ pt: 0, mt: 0 }}>
+							<AddToCartButton product={product} />
+					</CardActions>
+				</Box>
+				<Typography
+					variant="body2"
+				>
+					{product.price} kr
+				</Typography>
+			</CardContent>
+		</Card>
+	);
 }
