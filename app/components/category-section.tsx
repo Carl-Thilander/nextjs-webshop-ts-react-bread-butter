@@ -1,36 +1,71 @@
-import { db } from "@/prisma/db";
-import { Container, Link } from "@mui/material";
-import CategoryCard from "./category-card";
+"use client";
+import { Box, Chip, Container, Typography } from "@mui/material";
 
-export default async function CategorySection() {
-  const categories = await db.category.findMany();
+interface Category {
+  id: string;
+  name: string;
+}
+
+interface Props {
+  categories: Category[];
+  selected: string [];
+  onSelect: (category: string ) => void;
+}
+
+export default function CategorySection({ categories, selected, onSelect }: Props) {
   return (
     <Container
-      disableGutters
-      maxWidth={false}
+      
       sx={{
         display: "flex",
-        justifyContent: "space-evenly",
-        alignItems: "center",
-        marginBottom: "2rem",
+        flexDirection: "column",
+        gap: "1rem",
+        alignItems: "left",
         padding: 0,
-        bgcolor: "antiquewhite",
         width: "100%",
+        marginTop: "1rem",
       }}
     >
+      <Typography
+        variant="h2"
+        sx={{
+          fontSize: "2rem",
+          fontWeight: "bold",
+          color: "text.primary",
+        }}
+      >
+        Our products
+      </Typography>
+
+      <Box
+        sx={{
+          display: "flex",
+          gap: "1rem",
+          flexDirection: "row",
+        }}>
+        
+
+      
       {categories.map((category) => (
-        <Link
+        <Chip
           key={category.id}
-          style={{
-            textDecoration: "none",
-            color: "inherit",
-            display: "flex",
-            justifyContent: "center",
+          label={category.name}
+          clickable
+           color={selected.includes(category.name) ? "primary" : "default"}
+          onClick={() => {
+            onSelect(category.name);
           }}
-        >
-          <CategoryCard category={category} />
-        </Link>
+          sx={{
+            fontWeight: selected.includes(category.name) ? "bold" : "normal",
+            fontSize: "1rem",
+            padding: "0.5rem 1rem",
+            borderRadius: "8px",
+            border: "1px solid",
+            backgroundColor: selected.includes(category.name) ? "primary" : "white",
+          }}
+        />
       ))}
+      </Box>
     </Container>
   );
 }
