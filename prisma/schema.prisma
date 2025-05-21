@@ -22,15 +22,22 @@ model Product {
 }
 
 model Order {
-  id      String      @id @default(cuid())
-  orderNr String?
-  userId  Int?
-  date    DateTime @default(now())
-  user    User?       @relation(fields: [userId], references: [id])
-  items   OrderItem[]
-  address Address?    @relation(fields: [addressId], references: [id])
+  id        String      @id @default(cuid())
+  orderNr   String?
+  userId    String?
+  date      DateTime    @default(now())
+  user      User?       @relation(fields: [userId], references: [id])
+  items     OrderItem[]
+  address   Address?    @relation(fields: [addressId], references: [id])
+  addressId String?
+  status    OrderStatus @default(PENDING)
+}
 
-  addressId Int?
+enum OrderStatus {
+  PENDING
+  SHIPPED
+  DELIVERED
+  CANCELLED
 }
 
 model OrderItem {
@@ -44,7 +51,7 @@ model OrderItem {
 }
 
 model Address {
-  id      Int     @id @default(autoincrement())
+  id      String  @id @default(cuid())
   address String
   zipcode String
   city    String
@@ -53,17 +60,18 @@ model Address {
 }
 
 model User {
-  id       Int     @id @default(autoincrement())
+  id       String  @id @default(cuid())
   name     String
   email    String  @unique
-  password String
+  password String?
   orders   Order[]
   isAdmin  Boolean @default(false)
 }
 
 model Category {
-  id       Int       @id @default(autoincrement())
+  id       String    @id @default(cuid())
   name     String    @unique
+  imageURL String
   products Product[] @relation("ProductCategories")
 }
 
