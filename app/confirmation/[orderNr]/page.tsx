@@ -3,14 +3,14 @@
 import { getOrderByOrderNr } from "@/app/admin/action";
 import Receipt from "@/app/confirmation/receipt";
 import { Box, Button, Container, Link, Typography } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useEffect, useState, use } from "react";
 
 export default function ConfirmationPage({
   params,
 }: {
-  params: { orderNr: string };
+  params: Promise<{ orderNr: string }>;
 }) {
-  const { orderNr } = params;
+  const { orderNr } = use(params);
   const [order, setOrder] = useState<any>(null);
   const [error, setError] = useState<string | null>(null);
 
@@ -23,7 +23,7 @@ export default function ConfirmationPage({
   if (error) return <h6>{error}</h6>;
   if (!order) return <h6>Loading order...</h6>;
 
-  const { customer, items } = order;
+  const { customer, items, address } = order;
   const totalSum = items.reduce(
     (sum: number, item: any) => sum + item.quantity * item.price,
     0
@@ -43,7 +43,7 @@ export default function ConfirmationPage({
         sx={{
           padding: 4,
           bgcolor: "background.paper",
-          border: "2px solid #9C8173",
+
           borderRadius: "0.5rem",
           margin: "2rem 0",
           width: "100%",
@@ -77,9 +77,12 @@ export default function ConfirmationPage({
           <Typography>Name: {customer.name}</Typography>
           <Typography>E-mail: {customer.email}</Typography>
           <Typography>
-            Address: {customer.address}, {customer.zipcode} {customer.city}
+
+            Adress: {address.address}, {address.zipcode}
+            {address.city}
           </Typography>
-          <Typography>Phone: {customer.phone}</Typography>
+          <Typography>Telefon: {address.phone}</Typography>
+
         </Box>
 
         <Receipt items={items} totalSum={totalSum} />
