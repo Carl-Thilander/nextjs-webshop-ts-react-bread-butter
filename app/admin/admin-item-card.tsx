@@ -62,11 +62,11 @@ export default function AdminItem({ product }: ProductCardProps) {
 
           <Typography variant="body2">{product.articleNumber}</Typography>
         </Box>
-        <Typography variant="body2">{product.price} kr</Typography>
+        <Typography variant="body2">{product.price} €</Typography>
 
         {/* Beskrivning */}
         <Typography variant="subtitle2" sx={{ marginTop: 1 }}>
-          Beskrivning:
+          Description:
         </Typography>
         <Typography
           variant="body2"

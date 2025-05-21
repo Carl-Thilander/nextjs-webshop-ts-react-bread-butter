@@ -18,7 +18,7 @@ export default function AddProductButton() {
           justifyContent: "center",
           width: { xs: "70%", md: "50%" },
           border: "1px solid",
-          borderColor: "text.secondary",
+          borderColor: "#9C8173",
           padding: 2,
           borderRadius: "4px",
           gap: 1,
@@ -38,7 +38,7 @@ export default function AddProductButton() {
             }}
           />
         </Fab>
-        <Typography>Lägg till produkt</Typography>
+        <Typography>Add new product</Typography>
       </Container>
     </Link>
   );

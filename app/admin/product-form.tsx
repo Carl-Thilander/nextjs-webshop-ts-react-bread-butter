@@ -20,7 +20,7 @@ import { createProduct, updateProduct } from "./action";
 const ProductSchema = z.object({
   description: z.string().min(1),
   title: z.string().min(1),
-  image: z.string().url(),
+  image: z.string().optional(),
   price: z.coerce.number().min(1),
 });
 
@@ -81,7 +81,7 @@ export default function ProductForm({ product }: Props) {
         }}
       >
         <span></span>
-        {isEdit ? "Redigera en produkt" : "Lägg till en produkt"}
+        {isEdit ? "Edit a product" : "Add a product"}
 
         <Link href="/admin/">
           <IconButton>
@@ -97,19 +97,22 @@ export default function ProductForm({ product }: Props) {
           color: "text.primary",
         }}
       >
-        {" "}
-        Bildadress
+        Image address to file
       </FormLabel>
 
       <TextField
-        title="Bildadress"
+        title="Image address"
         margin="normal"
         id="imageURL"
         type="url"
         fullWidth
         variant="outlined"
         error={!!errors.image}
-        helperText={errors.image ? <span>{"Ange en giltig Url"}</span> : null}
+        helperText={
+          errors.image ? (
+            <span>{"Add a relative path for your image"}</span>
+          ) : null
+        }
         {...form.register("image")}
       />
 
@@ -120,20 +123,19 @@ export default function ProductForm({ product }: Props) {
           color: "text.primary",
         }}
       >
-        {" "}
-        Produktnamn
+        Product name
       </FormLabel>
 
       <TextField
-        title="Titel"
+        title="Product name"
         margin="normal"
-        id="Titel"
+        id="ProductName"
         type="text"
         fullWidth
         variant="outlined"
         error={!!errors.description}
         helperText={
-          errors.title ? <span>{"Produktnamn får inte vara tom"}</span> : null
+          errors.title ? <span>{"Product name may not be empty"}</span> : null
         }
         {...register("title")}
       />
@@ -145,21 +147,20 @@ export default function ProductForm({ product }: Props) {
           color: "text.primary",
         }}
       >
-       
-        Pris i kronor
+        Price
       </FormLabel>
 
       <TextField
-        title="Pris"
+        title="Price"
         margin="normal"
-        id="Pris"
+        id="Price"
         type="number"
         fullWidth
         variant="outlined"
         error={!!errors.description}
         helperText={
           errors.price ? (
-            <span>{"Du måste skriva in ett pris över 0:-"}</span>
+            <span>{"You have to add a price larger than 0"}</span>
           ) : null
         }
         {...register("price")}
@@ -172,21 +173,20 @@ export default function ProductForm({ product }: Props) {
           color: "text.primary",
         }}
       >
-        {" "}
-        Beskriving
+        Description
       </FormLabel>
 
       <TextField
-        title="Beskrivning"
+        title="Description"
         margin="normal"
-        id="Beskrivning"
+        id="Description"
         type="text"
         fullWidth
         variant="outlined"
         error={!!errors.description}
         helperText={
           errors.description ? (
-            <span>{"Besrkivningen får inte vara tom"}</span>
+            <span>{"Description may not be empty"}</span>
           ) : null
         }
         {...register("description")}
@@ -210,7 +210,7 @@ export default function ProductForm({ product }: Props) {
           }}
           type="submit"
         >
-          Spara
+          Save
         </Button>
       </Box>
     </Box>
