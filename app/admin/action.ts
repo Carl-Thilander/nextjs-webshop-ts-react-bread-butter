@@ -6,6 +6,7 @@ import { db } from "@/prisma/db";
 import { Prisma } from "@prisma/client";
 import { customAlphabet } from "nanoid";
 import { revalidatePath } from "next/cache";
+import { OrderStatus } from "@prisma/client";
 
 interface AddressData {
   address: string;
@@ -134,5 +135,18 @@ export async function getOrderByOrderNr(orderNr: string) {
   } catch (error) {
     console.error("Error fetching order:", error);
     throw new Error("Failed to fetch order");
+  }
+}
+
+export async function updateOrderStatus(orderId: string, status: OrderStatus) {
+  try {
+    await db.order.update({
+      where: { id: orderId },
+      data: { status },
+    });
+    return { success: true };
+  } catch (error) {
+    console.error("Failed to update order status:", error);
+    return { error: "Kunde inte uppdatera orderstatus." };
   }
 }
