@@ -20,12 +20,12 @@ export default async function ProductCard({ product }: ProductCardProps) {
         width: 250,
         height: 390,
         backgroundColor: "#f5f0ea",
-        boxShadow: "none",
+        boxShadow: "0px 2px 6px rgba(0,0,0,0.2)",
         display: "grid",
         position: "relative",
         ":hover": {
           transform: "scale(1.02)",
-          boxShadow: "0px 2px 8px rgba(0,0,0,0.2)",
+          boxShadow: "0px 2px 10px rgba(0,0,0,0.2)",
         },
       }}
     >
