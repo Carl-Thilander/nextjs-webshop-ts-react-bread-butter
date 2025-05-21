@@ -69,7 +69,7 @@ export default async function ProductCard({ product }: ProductCardProps) {
 				<Typography
 					variant="body2"
 				>
-					{product.price} kr
+					{product.price} €
 				</Typography>
 			</CardContent>
 		</Card>
