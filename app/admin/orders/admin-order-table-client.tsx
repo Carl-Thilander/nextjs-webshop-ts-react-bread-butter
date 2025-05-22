@@ -19,6 +19,7 @@ import { useState } from "react";
 import { Order, User, Address, OrderItem, OrderStatus } from "@prisma/client";
 import { SelectChangeEvent } from "@mui/material";
 import { updateOrderStatus } from "@/app/admin/action";
+import GoBackButton from "@/app/components/go-back-button";
 
 type ExtendedOrder = Order & {
   user: User | null;
@@ -56,10 +57,13 @@ export default function AdminOrderTable({
       sx={{
         width: "100%",
         px: { xs: 1, sm: 2, md: 6 },
-        py: 3,
       }}
     >
-      <Typography variant="h1">Orders</Typography>
+      <Box sx={{ position: "relative", mb: 6 }}>
+        <GoBackButton href="/admin" />
+      </Box>
+
+      <Typography variant="h1">Order Management</Typography>
       <Box
         sx={{
           backgroundColor: "background.default",
@@ -71,23 +75,43 @@ export default function AdminOrderTable({
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell>Order-ID</TableCell>
-                <TableCell align="left" sx={{ p: 1 }}>
+                <TableCell sx={{ p: 1, color: "text.secondary", fontSize: 16 }}>
+                  Order-ID
+                </TableCell>
+                <TableCell
+                  align="left"
+                  sx={{ p: 1, color: "text.secondary", fontSize: 16 }}
+                >
                   Date
                 </TableCell>
-                <TableCell align="left" sx={{ p: 1 }}>
+                <TableCell
+                  align="left"
+                  sx={{ p: 1, color: "text.secondary", fontSize: 16 }}
+                >
                   Customer
                 </TableCell>
-                <TableCell align="left" sx={{ p: 1 }}>
+                <TableCell
+                  align="left"
+                  sx={{ p: 1, color: "text.secondary", fontSize: 16 }}
+                >
                   Address
                 </TableCell>
-                <TableCell align="left" sx={{ p: 1 }}>
+                <TableCell
+                  align="left"
+                  sx={{ p: 1, color: "text.secondary", fontSize: 16 }}
+                >
                   Email
                 </TableCell>
-                <TableCell align="left" sx={{ p: 1 }}>
+                <TableCell
+                  align="left"
+                  sx={{ p: 1, color: "text.secondary", fontSize: 16 }}
+                >
                   Items
                 </TableCell>
-                <TableCell align="center" sx={{ p: 1 }}>
+                <TableCell
+                  align="center"
+                  sx={{ p: 1, color: "text.secondary", fontSize: 16 }}
+                >
                   Status
                 </TableCell>
               </TableRow>
@@ -100,9 +124,6 @@ export default function AdminOrderTable({
                     scope="row"
                     sx={{
                       fontWeight: "bold",
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "0.5rem",
                     }}
                   >
                     {order.orderNr}
@@ -116,12 +137,29 @@ export default function AdminOrderTable({
                   <TableCell align="left">{order.items.length}</TableCell>
                   <TableCell align="center">
                     <FormControl fullWidth size="small">
-                      <InputLabel id={`status-${order.id}`}>Status</InputLabel>
                       <Select
+                        sx={{
+                          backgroundColor:
+                            order.status === "PENDING"
+                              ? "primary.main"
+                              : order.status === "DELIVERED"
+                              ? "success.main"
+                              : order.status === "SHIPPED"
+                              ? "secondary.main"
+                              : order.status === "CANCELLED"
+                              ? "error.main"
+                              : "grey.100",
+                          borderRadius: 4,
+                          "& .MuiSelect-select": {
+                            padding: "8px",
+                          },
+                          "&:hover": {
+                            backgroundColor: "action.hover",
+                          },
+                        }}
                         labelId={`status-${order.id}`}
                         id={`status-${order.id}`}
                         value={order.status}
-                        label="Status"
                         onChange={(event) => handleChange(event, order.id)}
                       >
                         {Object.values(OrderStatus).map((status) => (

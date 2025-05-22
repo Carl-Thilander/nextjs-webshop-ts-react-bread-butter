@@ -4,11 +4,15 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { IconButton, Typography } from "@mui/material";
 import Link from "next/link";
 
-const GoBackButton = () => {
+interface GoBackButtonProps {
+  href?: string;
+}
+
+const GoBackButton = ({ href = "/" }: GoBackButtonProps) => {
   return (
     <IconButton
       component={Link}
-      href="/"
+      href={href}
       sx={{
         position: "absolute",
         top: { xs: "-12px", sm: "-15px", md: "-15px", lg: "-12px" },
