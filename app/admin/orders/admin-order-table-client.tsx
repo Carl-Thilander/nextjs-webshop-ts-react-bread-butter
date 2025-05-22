@@ -19,6 +19,7 @@ import { useState } from "react";
 import { Order, User, Address, OrderItem, OrderStatus } from "@prisma/client";
 import { SelectChangeEvent } from "@mui/material";
 import { updateOrderStatus } from "@/app/admin/action";
+import GoBackButton from "@/app/components/go-back-button";
 
 type ExtendedOrder = Order & {
   user: User | null;
@@ -56,10 +57,13 @@ export default function AdminOrderTable({
       sx={{
         width: "100%",
         px: { xs: 1, sm: 2, md: 6 },
-        py: 3,
       }}
     >
-      <Typography variant="h1">Orders</Typography>
+      <Box sx={{ position: "relative", mb: 6 }}>
+        <GoBackButton href="/admin" />
+      </Box>
+
+      <Typography variant="h1">Order Management</Typography>
       <Box
         sx={{
           backgroundColor: "background.default",
