@@ -23,7 +23,7 @@ export default function OrderOverview() {
         py: 3,
       }}
     >
-      <Typography variant="h1">Beställningsöversikt</Typography>
+      <Typography variant="h1">Order Summary</Typography>
       <Box
         sx={{
           backgroundColor: "background.default",
@@ -35,15 +35,15 @@ export default function OrderOverview() {
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell sx={{ p: 1 }}>Produkt</TableCell>
+                <TableCell sx={{ p: 1 }}>Product</TableCell>
                 <TableCell align="right" sx={{ p: 1 }}>
-                  Antal
+                  Quantity
                 </TableCell>
                 <TableCell align="right" sx={{ p: 1 }}>
-                  Pris/ st
+                  Price/unit
                 </TableCell>
                 <TableCell align="right" sx={{ p: 1 }}>
-                  Delsumma
+                  Subtotal
                 </TableCell>
               </TableRow>
             </TableHead>
@@ -84,7 +84,7 @@ export default function OrderOverview() {
               ))}
               <TableRow>
                 <TableCell colSpan={3} align="right">
-                  <strong>Totalt</strong>
+                  <strong>Total</strong>
                 </TableCell>
                 <TableCell align="right">
                   <strong>{totalSum.toFixed(2)} kr</strong>
