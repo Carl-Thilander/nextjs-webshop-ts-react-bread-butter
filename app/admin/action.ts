@@ -3,10 +3,9 @@
 import { auth } from "@/auth";
 import { CartItem } from "@/context/CartContext";
 import { db } from "@/prisma/db";
-import { Prisma } from "@prisma/client";
+import { OrderStatus, Prisma } from "@prisma/client";
 import { customAlphabet } from "nanoid";
 import { revalidatePath } from "next/cache";
-import { OrderStatus } from "@prisma/client";
 
 interface AddressData {
   address: string;
@@ -72,6 +71,20 @@ export async function createOrder(
   }
 
   const orderNr = `${Date.now()}`;
+
+  // Check to see that products are in stock
+  for (const item of cartItems) {
+    const product = await db.product.findUnique({
+      where: { id: item.id},
+    });
+    if (!product) {
+      throw new Error(`Product with id: ${item.id} can't be found`)
+    }
+    if (product.stock < item.quantity) {
+      throw new Error(`Product ${item.title} is out of stock`);
+    }
+  }
+
   const address = await db.address.create({
     data: addressData,
   });
