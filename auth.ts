@@ -1,13 +1,15 @@
 export const runtime = "nodejs"; // Make sure Prisma doesn't run in Edge
 
-import { db } from "@/prisma/db";
+import db from "@/prisma/db";
 import bcrypt from "bcryptjs";
 import type { NextAuthConfig } from "next-auth";
 import NextAuth from "next-auth";
+import { PrismaAdapter } from "@auth/prisma-adapter";
 import CredentialsProvider from "next-auth/providers/credentials";
 import Google from "next-auth/providers/google";
 
 export const config = {
+  adapter: PrismaAdapter(db),
   providers: [
     Google({
       clientId: process.env.AUTH_GOOGLE_ID!,
@@ -29,7 +31,10 @@ export const config = {
 
         if (!user || !user.password) return null;
 
-        const isValid = await bcrypt.compare(credentials.password, user.password);
+        const isValid = await bcrypt.compare(
+          credentials.password,
+          user.password
+        );
         if (!isValid) return null;
 
         return {
