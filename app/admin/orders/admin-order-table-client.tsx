@@ -71,23 +71,43 @@ export default function AdminOrderTable({
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell>Order-ID</TableCell>
-                <TableCell align="left" sx={{ p: 1 }}>
+                <TableCell sx={{ p: 1, color: "text.secondary", fontSize: 16 }}>
+                  Order-ID
+                </TableCell>
+                <TableCell
+                  align="left"
+                  sx={{ p: 1, color: "text.secondary", fontSize: 16 }}
+                >
                   Date
                 </TableCell>
-                <TableCell align="left" sx={{ p: 1 }}>
+                <TableCell
+                  align="left"
+                  sx={{ p: 1, color: "text.secondary", fontSize: 16 }}
+                >
                   Customer
                 </TableCell>
-                <TableCell align="left" sx={{ p: 1 }}>
+                <TableCell
+                  align="left"
+                  sx={{ p: 1, color: "text.secondary", fontSize: 16 }}
+                >
                   Address
                 </TableCell>
-                <TableCell align="left" sx={{ p: 1 }}>
+                <TableCell
+                  align="left"
+                  sx={{ p: 1, color: "text.secondary", fontSize: 16 }}
+                >
                   Email
                 </TableCell>
-                <TableCell align="left" sx={{ p: 1 }}>
+                <TableCell
+                  align="left"
+                  sx={{ p: 1, color: "text.secondary", fontSize: 16 }}
+                >
                   Items
                 </TableCell>
-                <TableCell align="center" sx={{ p: 1 }}>
+                <TableCell
+                  align="center"
+                  sx={{ p: 1, color: "text.secondary", fontSize: 16 }}
+                >
                   Status
                 </TableCell>
               </TableRow>
@@ -100,9 +120,6 @@ export default function AdminOrderTable({
                     scope="row"
                     sx={{
                       fontWeight: "bold",
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "0.5rem",
                     }}
                   >
                     {order.orderNr}
@@ -116,12 +133,20 @@ export default function AdminOrderTable({
                   <TableCell align="left">{order.items.length}</TableCell>
                   <TableCell align="center">
                     <FormControl fullWidth size="small">
-                      <InputLabel id={`status-${order.id}`}>Status</InputLabel>
                       <Select
+                        sx={{
+                          backgroundColor: "background.paper",
+                          borderRadius: 4,
+                          "& .MuiSelect-select": {
+                            padding: "8px",
+                          },
+                          "&:hover": {
+                            backgroundColor: "action.hover",
+                          },
+                        }}
                         labelId={`status-${order.id}`}
                         id={`status-${order.id}`}
                         value={order.status}
-                        label="Status"
                         onChange={(event) => handleChange(event, order.id)}
                       >
                         {Object.values(OrderStatus).map((status) => (
