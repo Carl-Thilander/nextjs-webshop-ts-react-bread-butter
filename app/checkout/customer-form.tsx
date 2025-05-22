@@ -20,12 +20,12 @@ import { z } from "zod";
 import { submitOrder } from "../admin/action";
 
 const customerSchema = z.object({
-  name: z.string().min(1, "Du måste fylla i ditt namn"),
-  address: z.string().min(1, "Du måste fylla i en adress"),
-  zipcode: z.string().regex(/^\d{5}$/, "Postkoden måste vara exakt 5 siffror"),
-  city: z.string().min(1, "Du måste fylla i en stad"),
-  email: z.string().email("Ogiltig e-postadress"),
-  phone: z.string().regex(/^\+?\d{7,15}$/, "Ogiltigt telefonnummer"),
+  name: z.string().min(1, "You must enter your name"),
+  address: z.string().min(1, "You must enter an address"),
+  zipcode: z.string().regex(/^\d{5}$/, "Zip code must be exactly 5 digits"),
+  city: z.string().min(1, "You must enter a city"),
+  email: z.string().email("Invalid email address"),
+  phone: z.string().regex(/^\+?\d{7,15}$/, "Invalid phone number"),
 });
 
 export default function CustomerForm() {
@@ -62,10 +62,10 @@ export default function CustomerForm() {
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-    // uppdatera värdet när användaren skriveer i fältet
+    // update value as user types in the field
     setFormData((prev) => ({ ...prev, [name]: value }));
 
-    // Validerar hela schemat
+    // Validate the entire schema
     const result = customerSchema.safeParse({ ...formData, [name]: value });
     if (result.success) {
       setErrors({});
@@ -90,17 +90,17 @@ export default function CustomerForm() {
     const result = customerSchema.safeParse(formData);
 
     if (!result.success) {
-      // konvertera zod felen till objekt att lagra namnen på fälten
+      // convert zod errors to object to store field names
       const newErrors = result.error.flatten().fieldErrors;
       setErrors(
         Object.keys(newErrors).reduce((acc, key) => {
           const typedKey = key as keyof typeof newErrors;
-          acc[typedKey] = newErrors[typedKey]?.[0] ?? ""; // första error meddelandet
+          acc[typedKey] = newErrors[typedKey]?.[0] ?? ""; // first error message
           // acc (short for accumulator) is the object that collects and stores the formatted errors.
           return acc;
-        }, {} as Record<keyof typeof formData, string>) // extra fluff för typescript
+        }, {} as Record<keyof typeof formData, string>) // extra fluff for typescript
       );
-      console.log("Formuläret innehåller fel, avbryter!");
+      console.log("Form contains errors, aborting!");
       return;
     }
 
@@ -136,7 +136,7 @@ export default function CustomerForm() {
   return (
     <Container sx={{ mb: 3 }}>
       <Typography variant="h1" sx={{ textAlign: "left", ml: { sx: 1, md: 2 } }}>
-        Leverans & Betalning
+        Delivery & Payment
       </Typography>
       <Box sx={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
         <Box
@@ -162,7 +162,7 @@ export default function CustomerForm() {
                 color: "text.primary",
               }}
             >
-              Namn
+              Name
             </FormLabel>
             <TextField
               size="small"
@@ -189,7 +189,7 @@ export default function CustomerForm() {
                 color: "text.primary",
               }}
             >
-              Leveransadress
+              Delivery Address
             </FormLabel>
             <TextField
               size="small"
@@ -223,7 +223,7 @@ export default function CustomerForm() {
                   color: "text.primary",
                 }}
               >
-                Postkod
+                Zip Code
               </FormLabel>
               <TextField
                 size="small"
@@ -249,7 +249,7 @@ export default function CustomerForm() {
                   color: "text.primary",
                 }}
               >
-                Stad
+                City
               </FormLabel>
               <TextField
                 size="small"
@@ -284,7 +284,7 @@ export default function CustomerForm() {
                 color: "text.primary",
               }}
             >
-              E-post
+              Email
             </FormLabel>
             <TextField
               size="small"
@@ -310,7 +310,7 @@ export default function CustomerForm() {
                 color: "text.primary",
               }}
             >
-              Telefonnummer
+              Phone Number
             </FormLabel>
             <TextField
               size="small"
@@ -342,11 +342,11 @@ export default function CustomerForm() {
               py: 2,
             }}
           >
-            Fortsätt till betalning
+            Continue to Payment
           </Button>
           <Snackbar
             open={open}
-            message="Beställning genomförd!"
+            message="Order completed!"
             autoHideDuration={2000}
             onClose={() => setOpen(false)}
           />
@@ -363,24 +363,23 @@ export default function CustomerForm() {
             p: 3,
             display: "flex",
             flexDirection: "column",
-
             gap: 2,
           }}
         >
           <Box display="flex" justifyContent="space-between">
-            <Typography variant="body1">Delsumma:</Typography>
+            <Typography variant="body1">Subtotal:</Typography>
             <Typography variant="body1">{totalSum.toFixed(2)}</Typography>
           </Box>
           <Divider sx={{ my: 1, borderColor: "rgba(255, 255, 255, 0.5)" }} />
 
           <Box display="flex" justifyContent="space-between">
-            <Typography variant="body1">Leverans:</Typography>
+            <Typography variant="body1">Delivery:</Typography>
             <Typography variant="body1">{formData.address}</Typography>
           </Box>
           <Divider sx={{ my: 1, borderColor: "rgba(255, 255, 255, 0.5)" }} />
 
           <Box display="flex" justifyContent="space-between">
-            <Typography variant="body1">Totalt:</Typography>
+            <Typography variant="body1">Total:</Typography>
             <Typography variant="body1" fontWeight={700}>
               {totalSum.toFixed(2)}
             </Typography>

@@ -6,6 +6,7 @@ import {
   Logout as LogoutIcon,
   Menu as MenuIcon,
   PersonAdd as PersonAddIcon,
+  Person as PersonIcon,
 } from "@mui/icons-material";
 import {
   AppBar,
@@ -22,10 +23,11 @@ import {
   Typography,
   alpha,
   useMediaQuery,
+  Tooltip,
 } from "@mui/material";
 import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import CartIconButton from "./cart-icon-button";
 
@@ -33,17 +35,13 @@ const Header = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const isSmallScreen = useMediaQuery("(max-width:600px)");
   const { data: session } = useSession();
-  const router = useRouter();
+  const pathname = usePathname();
 
   const toggleDrawer = () => setDrawerOpen((prev) => !prev);
 
   useEffect(() => {
-    const handleRouteChange = () => setDrawerOpen(false);
-    router.events?.on?.("routeChangeStart", handleRouteChange);
-    return () => {
-      router.events?.off?.("routeChangeStart", handleRouteChange);
-    };
-  }, [router]);
+    setDrawerOpen(false);
+  }, [pathname]);
 
   const drawerItems = [
     !session && {
@@ -56,6 +54,12 @@ const Header = () => {
       href: "/auth/register",
       icon: <PersonAddIcon />,
     },
+    session &&
+      !session.user?.isAdmin && {
+        text: "My Orders",
+        href: "/orders",
+        icon: <PersonIcon color="primary" />,
+      },
     session && {
       text: "Sign Out",
       href: "#",
@@ -71,7 +75,7 @@ const Header = () => {
 
   return (
     <>
-      <AppBar
+<AppBar
         position="sticky"
         sx={{
           padding: { xs: 1, sm: 2 },
@@ -156,6 +160,24 @@ const Header = () => {
                     Admin
                   </Button>
                 )}
+
+                {/* User Icon - only for non-admin users */}
+                {session && !session.user?.isAdmin && (
+                  <Tooltip title="My Orders">
+                    <IconButton
+                      component={Link}
+                      href="/orders"
+                      aria-label="my orders"
+                      sx={{
+                        color: "text.primary",
+                        "&:hover": { bgcolor: alpha("#000", 0.04) },
+                      }}
+                    >
+                      <PersonIcon fontSize="large" />
+                    </IconButton>
+                  </Tooltip>
+                )}
+
                 <Button
                   onClick={() => signOut({ callbackUrl: "/" })}
                   startIcon={<LogoutIcon />}
