@@ -1,9 +1,21 @@
 "use client";
-import { Box, Button, Container, Link, Typography } from "@mui/material";
 import { useCart } from "@/hooks/useCart";
+import { Box, Button, Container, Link, Typography } from "@mui/material";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 export default function CartSummary() {
   const { totalSum } = useCart();
+  const { data: session } = useSession();
+  const router = useRouter();
+
+  const handleCheckout = () => {
+    if (session) {
+      router.push("/checkout");
+    } else {
+      router.push("/auth/register?from=cart");
+    }
+  };
 
   return (
     <Container>
@@ -50,20 +62,19 @@ export default function CartSummary() {
             FORTSÄTT HANDLA
           </Button>
         </Link>
-        <Link href="/checkout">
-          <Button
-            variant="contained"
-            color="primary"
-            sx={{
-              bgcolor: "primary.main",
-              color: "text.primary",
-              "&:hover": { bgcolor: "primary.dark", color: "background.paper" },
-              mb: { xs: 8, sm: 8 },
-            }}
-          >
-            FORTSÄTT TILL KASSAN
-          </Button>
-        </Link>
+        <Button
+          variant="contained"
+          color="primary"
+          sx={{
+            bgcolor: "primary.main",
+            color: "text.primary",
+            "&:hover": { bgcolor: "primary.dark", color: "background.paper" },
+            mb: { xs: 8, sm: 8 },
+          }}
+          onClick={handleCheckout}
+        >
+          FORTSÄTT TILL KASSAN
+        </Button>
       </Box>
     </Container>
   );
