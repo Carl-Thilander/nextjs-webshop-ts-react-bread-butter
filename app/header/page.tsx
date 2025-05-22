@@ -75,32 +75,27 @@ const Header = () => {
 
   return (
     <>
-      <AppBar
+<AppBar
         position="sticky"
-        elevation={0}
         sx={{
-          bgcolor: "background.paper",
-          borderBottom: 1,
-          borderColor: "divider",
-          backdropFilter: "blur(8px)",
-          zIndex: 1200,
+          padding: { xs: 1, sm: 2 },
+          bgcolor: "background.default",
+          zIndex: 1100,
         }}
       >
-        <Toolbar sx={{ px: { xs: 2, sm: 4 }, py: 1 }}>
-          {/* Brand */}
+        <Toolbar>
           <Typography
             component={Link}
             href="/"
-            variant="h6"
             sx={{
+              flexGrow: 1,
               display: "flex",
               alignItems: "center",
-              gap: 1.5,
+              gap: 1,
               textDecoration: "none",
+              textShadow: "3px 3px 6px rgba(255, 245, 203, 0.5)",
               color: "text.primary",
-              fontWeight: 700,
-              letterSpacing: -0.5,
-              "&:hover": { opacity: 0.8 },
+              fontSize: { xs: 20, sm: 25, md: 40 },
             }}
           >
             <Box
@@ -108,8 +103,8 @@ const Header = () => {
               src="/images/beanleaflogo.png"
               alt="Bean & Leaf logo"
               sx={{
-                width: { xs: 36, sm: 44 },
-                height: { xs: 36, sm: 44 },
+                width: { xs: 40, sm: 60, md: 100 },
+                height: { xs: 40, sm: 60, md: 100 },
                 objectFit: "contain",
               }}
             />
