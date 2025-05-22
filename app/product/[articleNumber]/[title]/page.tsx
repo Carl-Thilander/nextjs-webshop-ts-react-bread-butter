@@ -1,5 +1,5 @@
 import GoBackButton from "@/app/components/go-back-button";
-import { db } from "@/prisma/db";
+import { prisma } from "@/prisma/db";
 import { Box, Container, Typography } from "@mui/material";
 import Image from "next/image";
 import AddToCartButton from "../../../components/add-to-cart-button";
@@ -14,10 +14,9 @@ export default async function ProductPage({ params }: Props) {
     return <h1>Produkten hittades inte</h1>;
   }
   const decodedTitle = decodeURIComponent(title);
-
   // hitta produkt med articleNumber
 
-  const product = await db.product.findUnique({
+  const product = await prisma.product.findUnique({
     where: { articleNumber },
     include: { categories: true },
   });
