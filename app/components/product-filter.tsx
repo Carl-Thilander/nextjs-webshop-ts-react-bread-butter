@@ -53,6 +53,7 @@ export default function ProductFilter({
 				categories={categories}
 				selected={selected}
 				onSelect={handleSelect}
+				
 			/>
 			<Container
 				disableGutters
@@ -60,7 +61,8 @@ export default function ProductFilter({
 					display: "flex",
 					justifyContent: "center",
 					alignItems: "center",
-          mb: "3rem"
+          			mb: "3rem",
+					
 				}}
 			>
 				<Box

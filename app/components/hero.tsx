@@ -1,3 +1,6 @@
+"use client";
+
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { Box, Typography } from "@mui/material";
 import Image from "next/image";
 
@@ -6,7 +9,7 @@ const Hero = () => {
     <Box
       sx={{
         position: "relative",
-        height: "90vh",
+        height: "95vh",
         overflow: "hidden",
       }}
     >
@@ -72,7 +75,50 @@ const Hero = () => {
         >
           Exclusive coffee beans and tea leaves, shipping worldwide!
         </Typography>
+
+          
+         
+          
+          
+
       </Box>
+          <Box
+          sx={{
+            position: "absolute",
+            bottom: "0.5rem",
+            left: "50%",
+            transform: "translateX(-50%)",
+            "@keyframes bounce": {
+            "0%, 100%": {
+            transform: "translateY(0)",
+             },
+            "50%": {
+            transform: "translateY(-15px)",
+              },
+            },
+          }}
+          >
+
+          <KeyboardArrowDownIcon 
+           onClick={() => {
+      const element = document.getElementById("products");
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
+    }}
+           sx={{
+            color: "white",
+             fontSize: "10rem",
+             marginTop: "2rem",
+             animation: "bounce 2s infinite",
+            cursor: "pointer",
+            "&:hover": {
+               transform: "scale(1.1)",
+             },
+            
+           }}
+          />
+          </Box>
     </Box>
   );
 };

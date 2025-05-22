@@ -14,14 +14,14 @@ interface Props {
 
 export default function CategorySection({ categories, selected, onSelect }: Props) {
   return (
-    <Container
+    <Container id="products"
       
       sx={{
         display: "flex",
         flexDirection: "column",
         gap: "1rem",
         alignItems: "left",
-        padding: 0,
+        padding: "5rem",
         width: "100%",
         marginTop: "1rem",
       }}
