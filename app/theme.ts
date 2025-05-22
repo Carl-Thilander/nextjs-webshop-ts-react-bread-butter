@@ -21,6 +21,9 @@ const theme = createTheme({
     success: {
       main: "#52B788", // third accentuating button color
     },
+    error: {
+      main: "#ff5252",
+    },
 
     background: {
       default: "#FAFAFA", // white-ish

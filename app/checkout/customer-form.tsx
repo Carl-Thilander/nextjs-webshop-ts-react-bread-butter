@@ -1,5 +1,6 @@
 "use client";
 
+import { useCart } from "@/hooks/useCart";
 import {
   Box,
   Button,
@@ -12,13 +13,11 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { z } from "zod";
 import { submitOrder } from "../admin/action";
-import { useCart } from "@/hooks/useCart";
-import { useSession } from "next-auth/react";
-import { useEffect } from "react";
 
 const customerSchema = z.object({
   name: z.string().min(1, "Du måste fylla i ditt namn"),
@@ -32,11 +31,11 @@ const customerSchema = z.object({
 export default function CustomerForm() {
   const { data: session, status } = useSession();
 
-  useEffect(() => {
-    if (status === "unauthenticated") {
-      router.push("/auth/signin");
-    }
-  }, [status]);
+  // useEffect(() => {
+  //   if (status === "unauthenticated") {
+  //     router.push("/auth/signin");
+  //   }
+  // }, [status]);
   useEffect(() => {
     if (session?.user) {
       setFormData((prev) => ({
@@ -178,11 +177,7 @@ export default function CustomerForm() {
               onChange={handleChange}
               error={Boolean(errors.name)}
               autoComplete="name"
-              helperText={
-                errors.name ? (
-                  <FormHelperText>{errors.name}</FormHelperText>
-                ) : null
-              }
+              helperText={errors.name || null}
             />
           </FormControl>
 
@@ -209,11 +204,7 @@ export default function CustomerForm() {
               onChange={handleChange}
               autoComplete="street-address"
               error={Boolean(errors.address)}
-              helperText={
-                errors.address ? (
-                  <FormHelperText>{errors.address}</FormHelperText>
-                ) : null
-              }
+              helperText={errors.address || null}
             />
           </FormControl>
           <Box
@@ -247,11 +238,7 @@ export default function CustomerForm() {
                 onChange={handleChange}
                 autoComplete="postal-code"
                 error={Boolean(errors.zipcode)}
-                helperText={
-                  errors.zipcode ? (
-                    <FormHelperText>{errors.zipcode}</FormHelperText>
-                  ) : null
-                }
+                helperText={errors.zipcode || null}
               />
             </FormControl>
             <FormControl fullWidth>
@@ -277,11 +264,7 @@ export default function CustomerForm() {
                 onChange={handleChange}
                 autoComplete="address-level2"
                 error={Boolean(errors.city)}
-                helperText={
-                  errors.city ? (
-                    <FormHelperText>{errors.city}</FormHelperText>
-                  ) : null
-                }
+                helperText={errors.city || null}
               />
             </FormControl>
           </Box>
@@ -316,11 +299,7 @@ export default function CustomerForm() {
               onChange={handleChange}
               autoComplete="email"
               error={Boolean(errors.email)}
-              helperText={
-                errors.email ? (
-                  <FormHelperText>{errors.email}</FormHelperText>
-                ) : null
-              }
+              helperText={errors.email || null}
             />
           </FormControl>
           <FormControl fullWidth>
@@ -346,11 +325,7 @@ export default function CustomerForm() {
               onChange={handleChange}
               autoComplete="tel"
               error={Boolean(errors.phone)}
-              helperText={
-                errors.phone ? (
-                  <FormHelperText>{errors.phone}</FormHelperText>
-                ) : null
-              }
+              helperText={errors.phone || null}
             />
           </FormControl>
           <Button

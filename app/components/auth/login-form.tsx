@@ -6,14 +6,14 @@ import {
   Box,
   Button,
   CircularProgress,
-  Container,
-  Paper,
+  Divider,
   TextField,
-  Typography,
+  Typography
 } from "@mui/material";
 import { signIn } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
+import { AuthLayout } from "./auth-layout";
 
 export default function LoginForm() {
   const router = useRouter();
@@ -48,79 +48,108 @@ export default function LoginForm() {
   };
 
   return (
-    <Container maxWidth="sm" sx={{ pt: 8 }}>
-      <Paper elevation={3} sx={{ p: 4, borderRadius: 2 }}>
-        <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
-          <Typography variant="h4" component="h1" align="center">
-            Sign in
-          </Typography>
-
-          <Typography variant="body1" align="center">
-            Sign in with your email or Google account.
-          </Typography>
-
-          {(redirectError || formError) && (
-            <Alert severity="error">
-              {formError ||
-                (redirectError === "OAuthSignin"
-                  ? "Failed to start sign in process."
-                  : redirectError === "OAuthCallback"
+    <AuthLayout
+      title="Welcome Back"
+      subtitle="Sign in to continue"
+    >
+      <Box component="form" onSubmit={handleSubmit} sx={{
+        width: '100%',
+        '& .MuiTextField-root': {
+          backgroundColor: 'background.paper',
+          borderRadius: '8px',
+          '& fieldset': { borderColor: 'divider' }
+        }
+      }}>
+        {(redirectError || formError) && (
+          <Alert severity="error" sx={{ mb: 3 }}>
+            {formError ||
+              (redirectError === "OAuthSignin"
+                ? "Failed to start sign in process."
+                : redirectError === "OAuthCallback"
                   ? "Failed to complete sign in process."
                   : redirectError === "OAuthAccountNotLinked"
-                  ? "Email is already linked to another account."
-                  : "An error occurred during sign in. Please try again.")}
-            </Alert>
-          )}
+                    ? "Email is already linked to another account."
+                    : "An error occurred during sign in. Please try again.")}
+          </Alert>
+        )}
 
-          {/* Credentials Form */}
-          <Box
-            component="form"
-            onSubmit={handleSubmit}
-            sx={{ display: "flex", flexDirection: "column", gap: 2 }}
-          >
-            <TextField
-              name="email"
-              label="Email"
-              type="email"
-              fullWidth
-              required
-            />
-            <TextField
-              name="password"
-              label="Password"
-              type="password"
-              fullWidth
-              required
-            />
-            <Button type="submit" fullWidth variant="contained" sx={{ mt: 1 }}>
-              Login with Email
-            </Button>
-          </Box>
-
-          {/* Google Sign-In */}
-          <Button
-            variant="contained"
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+          <TextField
+            name="email"
+            label="Email"
+            type="email"
             fullWidth
-            startIcon={
-              googleLoading ? (
-                <CircularProgress size={20} color="inherit" />
-              ) : (
-                <GoogleIcon />
-              )
-            }
-            onClick={handleGoogleSignIn}
-            disabled={googleLoading}
+            required
+          />
+          <TextField
+            name="password"
+            label="Password"
+            type="password"
+            fullWidth
+            required
+          />
+
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
             sx={{
-              py: 1.5,
-              mt: 2,
-              backgroundColor: "#4285F4",
-              "&:hover": { backgroundColor: "#3367D6" },
+              height: 40,
+              backgroundColor: 'primary.main',
+              color: 'common.white',
+              '&:hover': { backgroundColor: 'primary.dark' }
             }}
           >
-            Login with Google
+            Login with Email
           </Button>
         </Box>
-      </Paper>
-    </Container>
+
+        <Divider sx={{ my: 3, color: 'text.secondary' }}>Or continue with</Divider>
+
+        <Button
+          fullWidth
+          variant="outlined"
+          startIcon={
+            googleLoading ? (
+              <CircularProgress size={20} color="inherit" />
+            ) : (
+              <GoogleIcon />
+            )
+          }
+          onClick={handleGoogleSignIn}
+          disabled={googleLoading}
+          sx={{
+            height: 40,
+            borderColor: 'divider',
+            color: 'text.primary',
+            '&:hover': {
+              backgroundColor: 'action.hover',
+              borderColor: 'divider'
+            }
+          }}
+        >
+          Google
+        </Button>
+
+        <Typography variant="body2" sx={{
+          textAlign: 'center',
+          mt: 3,
+          color: 'text.secondary'
+        }}>
+          Don't have an account?{' '}
+          <Typography
+            component="span"
+            sx={{
+              color: 'primary.main',
+              cursor: 'pointer',
+              '&:hover': { textDecoration: 'underline' }
+            }}
+            onClick={() => router.push('/auth/register')}
+          >
+            Sign up
+          </Typography>
+        </Typography>
+      </Box>
+    </AuthLayout>
   );
 }
