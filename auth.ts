@@ -1,17 +1,28 @@
 export const runtime = "nodejs"; // Make sure Prisma doesn't run in Edge
 
-import { db } from "@/prisma/db";
+import { prisma } from "@/prisma/db";
 import bcrypt from "bcryptjs";
 import type { NextAuthConfig } from "next-auth";
 import NextAuth from "next-auth";
+import { PrismaAdapter } from "@auth/prisma-adapter";
 import CredentialsProvider from "next-auth/providers/credentials";
 import Google from "next-auth/providers/google";
 
 export const config = {
+  adapter: PrismaAdapter(prisma),
   providers: [
     Google({
-      clientId: process.env.AUTH_GOOGLE_ID!,
-      clientSecret: process.env.AUTH_GOOGLE_SECRET!,
+      clientId: process.env.AUTH_GOOGLE_ID ?? "",
+      clientSecret: process.env.AUTH_GOOGLE_SECRET ?? "",
+      profile(profile) {
+        return {
+          id: profile.sub,
+          name: profile.name,
+          email: profile.email,
+          image: profile.picture,
+          isAdmin: profile.email === process.env.ADMIN_EMAIL,
+        };
+      },
     }),
 
     CredentialsProvider({
@@ -21,16 +32,24 @@ export const config = {
         password: { label: "Password", type: "password" },
       },
       authorize: async (credentials) => {
-        if (!credentials?.email || !credentials.password) return null;
+        if (!credentials?.email || !credentials.password) {
+          throw new Error("Email and password are required");
+        }
 
-        const user = await db.user.findUnique({
-          where: { email: credentials.email },
+        const email = credentials.email as string;
+        const password = credentials.password as string;
+
+        const user = await prisma.user.findUnique({
+          where: { email },
         });
+        if (!user || !user.password) {
+          throw new Error("CredentialsSignin");
+        }
 
-        if (!user || !user.password) return null;
-
-        const isValid = await bcrypt.compare(credentials.password, user.password);
-        if (!isValid) return null;
+        const isValid = await bcrypt.compare(password, user.password);
+        if (!isValid) {
+          throw new Error("CredentialsSignin");
+        }
 
         return {
           id: user.id,
@@ -41,22 +60,23 @@ export const config = {
       },
     }),
   ],
-
   callbacks: {
     async jwt({ token, user, account }) {
       if (account && user) {
         try {
-          let dbUser = await db.user.findUnique({
-            where: { email: user.email || "" },
+          const email = user.email || "";
+          let dbUser = await prisma.user.findUnique({
+            where: { email },
           });
 
           if (!dbUser && user.email) {
-            dbUser = await db.user.create({
+            const isAdmin = user.email === process.env.ADMIN_EMAIL;
+            dbUser = await prisma.user.create({
               data: {
                 email: user.email,
                 name: user.name || "",
                 password: "",
-                isAdmin: user.email === process.env.ADMIN_EMAIL,
+                isAdmin,
               },
             });
           }
@@ -74,13 +94,10 @@ export const config = {
 
       return token;
     },
-
     async session({ session, token }) {
       if (session.user) {
-        // @ts-ignore - custom user props
-        session.user.id = token.id;
-        // @ts-ignore - custom user props
-        session.user.isAdmin = !!token.isAdmin;
+        session.user.id = token.id as string;
+        session.user.isAdmin = Boolean(token.isAdmin);
       }
       return session;
     },

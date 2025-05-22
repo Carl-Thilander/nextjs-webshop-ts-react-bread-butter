@@ -1,4 +1,4 @@
-import { db } from "@/prisma/db";
+import { prisma } from "@/prisma/db";
 import { Dialog } from "@mui/material";
 import ProductForm from "../../product-form";
 
@@ -9,7 +9,7 @@ interface Props {
 export default async function EditProductPage({ params }: Props) {
   const { articleNumber } = await params;
 
-  const product = await db.product.findUnique({
+  const product = await prisma.product.findUnique({
     where: { articleNumber },
   });
 
