@@ -4,20 +4,20 @@ import { JWT } from "next-auth/jwt";
 declare module "next-auth" {
   interface Session {
     user: {
-      id: number;
+      id: string;
       isAdmin: boolean;
     } & DefaultSession["user"];
   }
 
   interface User {
-    id: number;
+    id: string;
     isAdmin: boolean;
   }
 }
 
 declare module "next-auth/jwt" {
   interface JWT {
-    id: number;
+    id: string;
     isAdmin: boolean;
   }
 }
