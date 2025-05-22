@@ -178,7 +178,7 @@ const Header = () => {
                         "&:hover": { bgcolor: alpha("#000", 0.04) },
                       }}
                     >
-                      <PersonIcon />
+                      <PersonIcon fontSize="large" />
                     </IconButton>
                   </Tooltip>
                 )}
