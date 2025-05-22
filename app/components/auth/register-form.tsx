@@ -9,6 +9,7 @@ import { AuthLayout } from './auth-layout';
 export default function RegisterForm() {
     const [error, setError] = useState('');
     const router = useRouter();
+   
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();

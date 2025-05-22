@@ -1,5 +1,6 @@
 "use client";
 
+import { useCart } from "@/hooks/useCart";
 import {
   Box,
   Button,
@@ -12,13 +13,11 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { z } from "zod";
 import { submitOrder } from "../admin/action";
-import { useCart } from "@/hooks/useCart";
-import { useSession } from "next-auth/react";
-import { useEffect } from "react";
 
 const customerSchema = z.object({
   name: z.string().min(1, "Du måste fylla i ditt namn"),
@@ -32,11 +31,11 @@ const customerSchema = z.object({
 export default function CustomerForm() {
   const { data: session, status } = useSession();
 
-  useEffect(() => {
-    if (status === "unauthenticated") {
-      router.push("/auth/signin");
-    }
-  }, [status]);
+  // useEffect(() => {
+  //   if (status === "unauthenticated") {
+  //     router.push("/auth/signin");
+  //   }
+  // }, [status]);
   useEffect(() => {
     if (session?.user) {
       setFormData((prev) => ({
