@@ -1,3 +1,4 @@
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { Box, Typography } from "@mui/material";
 import Image from "next/image";
 
@@ -72,6 +73,25 @@ const Hero = () => {
         >
           Exclusive coffee beans and tea leaves, shipping worldwide!
         </Typography>
+
+          
+
+          <KeyboardArrowDownIcon 
+           sx={{
+             fontSize: "10rem",
+             marginTop: "2rem",
+             display: "flex",
+             justifyContent: "end",
+            alignItems: "flex-end",
+             animation: "bounce 2s infinite",
+            cursor: "pointer",
+            "&:hover": {
+               transform: "scale(1.1)",
+             },
+           }}
+          />
+          
+
       </Box>
     </Box>
   );
