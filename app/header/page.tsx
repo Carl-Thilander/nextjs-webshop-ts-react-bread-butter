@@ -27,7 +27,7 @@ import {
 } from "@mui/material";
 import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import CartIconButton from "./cart-icon-button";
 
@@ -35,17 +35,13 @@ const Header = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const isSmallScreen = useMediaQuery("(max-width:600px)");
   const { data: session } = useSession();
-  const router = useRouter();
+  const pathname = usePathname();
 
   const toggleDrawer = () => setDrawerOpen((prev) => !prev);
 
   useEffect(() => {
-    const handleRouteChange = () => setDrawerOpen(false);
-    router.events?.on?.("routeChangeStart", handleRouteChange);
-    return () => {
-      router.events?.off?.("routeChangeStart", handleRouteChange);
-    };
-  }, [router]);
+    setDrawerOpen(false);
+  }, [pathname]);
 
   const drawerItems = [
     !session && {

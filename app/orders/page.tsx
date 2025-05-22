@@ -2,26 +2,27 @@ import { auth } from "@/auth";
 import { db } from "@/prisma/db";
 import { redirect } from "next/navigation";
 import { Container } from "@mui/material";
-import AdminOrderTable from "./admin-order-table-client";
+import CustomerOrderList from "./customer-order-list";
 
-export default async function AdminOrdersPage() {
+export default async function UserOrdersPage() {
   const session = await auth();
 
   if (!session || !session.user) {
     redirect("/auth/signin");
   }
 
-  // Ensure only admins can access this page
-  if (!session.user.isAdmin) {
-    redirect("/");
+  if (session.user.isAdmin) {
+    redirect("/admin/orders");
   }
 
-  // Get all orders for admin view
   const orders = await db.order.findMany({
+    where: {
+      userId: session.user.id.toString(),
+    },
     include: {
-      user: true,
       address: true,
       items: true,
+      user: true,
     },
     orderBy: {
       date: "desc",
@@ -41,7 +42,7 @@ export default async function AdminOrdersPage() {
         padding: 4,
       }}
     >
-      <AdminOrderTable orders={orders} />
+      <CustomerOrderList orders={orders} />
     </Container>
   );
 }
