@@ -5,7 +5,8 @@ import {
   Login as LoginIcon,
   Logout as LogoutIcon,
   Menu as MenuIcon,
-  PersonAdd as PersonAddIcon
+  PersonAdd as PersonAddIcon,
+  Person as PersonIcon,
 } from "@mui/icons-material";
 import {
   AppBar,
@@ -21,7 +22,8 @@ import {
   Toolbar,
   Typography,
   alpha,
-  useMediaQuery
+  useMediaQuery,
+  Tooltip,
 } from "@mui/material";
 import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
@@ -49,13 +51,19 @@ const Header = () => {
     !session && {
       text: "Sign In",
       href: "/auth/signin",
-      icon: <LoginIcon/>,
+      icon: <LoginIcon />,
     },
     !session && {
       text: "Register",
       href: "/auth/register",
       icon: <PersonAddIcon />,
     },
+    session &&
+      !session.user?.isAdmin && {
+        text: "My Orders",
+        href: "/orders",
+        icon: <PersonIcon color="primary" />,
+      },
     session && {
       text: "Sign Out",
       href: "#",
@@ -77,8 +85,8 @@ const Header = () => {
         sx={{
           bgcolor: "background.paper",
           borderBottom: 1,
-          borderColor: 'divider',
-          backdropFilter: 'blur(8px)',
+          borderColor: "divider",
+          backdropFilter: "blur(8px)",
           zIndex: 1200,
         }}
       >
@@ -89,14 +97,14 @@ const Header = () => {
             href="/"
             variant="h6"
             sx={{
-              display: 'flex',
-              alignItems: 'center',
+              display: "flex",
+              alignItems: "center",
               gap: 1.5,
-              textDecoration: 'none',
-              color: 'text.primary',
+              textDecoration: "none",
+              color: "text.primary",
               fontWeight: 700,
               letterSpacing: -0.5,
-              '&:hover': { opacity: 0.8 },
+              "&:hover": { opacity: 0.8 },
             }}
           >
             <Box
@@ -106,7 +114,7 @@ const Header = () => {
               sx={{
                 width: { xs: 36, sm: 44 },
                 height: { xs: 36, sm: 44 },
-                objectFit: 'contain',
+                objectFit: "contain",
               }}
             />
             Bean & Leaf
@@ -115,7 +123,13 @@ const Header = () => {
           <Box sx={{ flexGrow: 1 }} />
 
           {/* Desktop Actions */}
-          <Box sx={{ display: { xs: 'none', sm: 'flex' }, alignItems: 'center', gap: 2 }}>
+          <Box
+            sx={{
+              display: { xs: "none", sm: "flex" },
+              alignItems: "center",
+              gap: 2,
+            }}
+          >
             {!session && (
               <>
                 <Button
@@ -123,8 +137,8 @@ const Header = () => {
                   href="/auth/signin"
                   startIcon={<LoginIcon />}
                   sx={{
-                    color: 'text.primary',
-                    '&:hover': { bgcolor: alpha('#000', 0.04) }
+                    color: "text.primary",
+                    "&:hover": { bgcolor: alpha("#000", 0.04) },
                   }}
                 >
                   Sign in
@@ -134,7 +148,7 @@ const Header = () => {
                   href="/auth/register"
                   variant="outlined"
                   startIcon={<PersonAddIcon />}
-                  sx={{ borderColor: 'divider', color: 'text.primary' }}
+                  sx={{ borderColor: "divider", color: "text.primary" }}
                 >
                   Register
                 </Button>
@@ -148,20 +162,38 @@ const Header = () => {
                     href="/admin"
                     startIcon={<AdminIcon />}
                     sx={{
-                      color: 'text.primary',
-                      '&:hover': { bgcolor: alpha('#000', 0.04) }
+                      color: "text.primary",
+                      "&:hover": { bgcolor: alpha("#000", 0.04) },
                     }}
                   >
                     Admin
                   </Button>
                 )}
+
+                {/* User Icon - only for non-admin users */}
+                {session && !session.user?.isAdmin && (
+                  <Tooltip title="My Orders">
+                    <IconButton
+                      component={Link}
+                      href="/orders"
+                      aria-label="my orders"
+                      sx={{
+                        color: "text.primary",
+                        "&:hover": { bgcolor: alpha("#000", 0.04) },
+                      }}
+                    >
+                      <PersonIcon />
+                    </IconButton>
+                  </Tooltip>
+                )}
+
                 <Button
-                  onClick={() => signOut({ callbackUrl: '/' })}
+                  onClick={() => signOut({ callbackUrl: "/" })}
                   startIcon={<LogoutIcon />}
                   sx={{
-                    color: 'text.primary',
-                    bgcolor: 'background.paper',
-                    '&:hover': { bgcolor: alpha('#000', 0.04) }
+                    color: "text.primary",
+                    bgcolor: "background.paper",
+                    "&:hover": { bgcolor: alpha("#000", 0.04) },
                   }}
                 >
                   Sign out
@@ -176,7 +208,7 @@ const Header = () => {
             <IconButton
               onClick={toggleDrawer}
               edge="end"
-              sx={{ color: 'text.primary', ml: 1 }}
+              sx={{ color: "text.primary", ml: 1 }}
             >
               <MenuIcon />
             </IconButton>
@@ -191,12 +223,15 @@ const Header = () => {
         PaperProps={{
           sx: {
             width: 280,
-            bgcolor: 'background.paper',
-          }
+            bgcolor: "background.paper",
+          },
         }}
       >
         <Box sx={{ p: 2 }}>
-          <Typography variant="subtitle1" sx={{ px: 2, py: 1, fontWeight: 800 }}>
+          <Typography
+            variant="subtitle1"
+            sx={{ px: 2, py: 1, fontWeight: 800 }}
+          >
             Menu
           </Typography>
           <Divider sx={{ my: 1 }} />
@@ -204,25 +239,25 @@ const Header = () => {
             {drawerItems.map(({ text, href, icon, onClick }: any) => (
               <ListItem
                 key={text}
-                component={href !== '#' ? Link : 'button'}
-                href={href !== '#' ? href : undefined}
+                component={href !== "#" ? Link : "button"}
+                href={href !== "#" ? href : undefined}
                 onClick={onClick || toggleDrawer}
                 sx={{
                   borderRadius: 1,
-                  color: 'text.primary',
-                  '&:hover': { bgcolor: 'action.hover' },
+                  color: "text.primary",
+                  "&:hover": { bgcolor: "action.hover" },
                 }}
               >
-                <ListItemIcon sx={{ minWidth: 40, color: 'black' }}>{icon}</ListItemIcon>
-                <ListItemText
-                  primary={text}
-                />
+                <ListItemIcon sx={{ minWidth: 40, color: "black" }}>
+                  {icon}
+                </ListItemIcon>
+                <ListItemText primary={text} />
               </ListItem>
             ))}
           </List>
           <Divider sx={{ my: 2 }} />
           <Box sx={{ px: 2 }}>
-            <CartIconButton  />
+            <CartIconButton />
           </Box>
         </Box>
       </Drawer>
