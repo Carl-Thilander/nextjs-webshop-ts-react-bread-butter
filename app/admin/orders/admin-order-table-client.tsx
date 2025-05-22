@@ -135,7 +135,16 @@ export default function AdminOrderTable({
                     <FormControl fullWidth size="small">
                       <Select
                         sx={{
-                          backgroundColor: "background.paper",
+                          backgroundColor:
+                            order.status === "PENDING"
+                              ? "primary.main"
+                              : order.status === "DELIVERED"
+                              ? "success.main"
+                              : order.status === "SHIPPED"
+                              ? "secondary.main"
+                              : order.status === "CANCELLED"
+                              ? "error.main"
+                              : "grey.100",
                           borderRadius: 4,
                           "& .MuiSelect-select": {
                             padding: "8px",
