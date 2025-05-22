@@ -14,6 +14,15 @@ export const config = {
     Google({
       clientId: process.env.AUTH_GOOGLE_ID ?? "",
       clientSecret: process.env.AUTH_GOOGLE_SECRET ?? "",
+      profile(profile) {
+        return {
+          id: profile.sub,
+          name: profile.name,
+          email: profile.email,
+          image: profile.picture,
+          isAdmin: profile.email === process.env.ADMIN_EMAIL,
+        };
+      },
     }),
 
     CredentialsProvider({
@@ -23,7 +32,9 @@ export const config = {
         password: { label: "Password", type: "password" },
       },
       authorize: async (credentials) => {
-        if (!credentials?.email || !credentials.password) return null;
+        if (!credentials?.email || !credentials.password) {
+          throw new Error("Email and password are required");
+        }
 
         const email = credentials.email as string;
         const password = credentials.password as string;
@@ -31,11 +42,14 @@ export const config = {
         const user = await prisma.user.findUnique({
           where: { email },
         });
-
-        if (!user || !user.password) return null;
+        if (!user || !user.password) {
+          throw new Error("CredentialsSignin");
+        }
 
         const isValid = await bcrypt.compare(password, user.password);
-        if (!isValid) return null;
+        if (!isValid) {
+          throw new Error("CredentialsSignin");
+        }
 
         return {
           id: user.id,
