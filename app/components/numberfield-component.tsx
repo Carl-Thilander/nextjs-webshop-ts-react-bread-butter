@@ -15,16 +15,6 @@ export default function PublicNumberField({
 
   const quantity = cartItem?.quantity || 0; // default to 1 if not found
 
-  // const quantity = cartItem?.quantity;
-
-  // const { removeFromCart } = useCart();
-
-  // useEffect(() => {
-  //   if (quantity === 0) {
-  //     removeFromCart(cartItem.id);
-  //   }
-  // }, [quantity, cartItem?.id, removeFromCart]);
-
   return (
     <Box sx={{ pt: 1, pb: 0.5, pl: 0.5, pr: 0.5, border: "1px solid white" }}>
       <NumberField.Root
@@ -45,7 +35,7 @@ export default function PublicNumberField({
           }}
         >
           <Typography variant="h6" sx={{ align: "center" }}>
-            {price * quantity} kr
+            {price * quantity} €
           </Typography>
           <NumberField.Group style={{ display: "flex" }}>
             <NumberField.Decrement
@@ -61,9 +51,7 @@ export default function PublicNumberField({
                 border: "1px solid #9C8173",
                 backgroundColor: "transparent",
                 backgroundClip: "padding-box",
-                color: "#111827",
                 userSelect: "none",
-                boxShadow: "4px 4px 5px -2px grey",
               }}
             >
               <MinusIcon />
@@ -72,14 +60,12 @@ export default function PublicNumberField({
               style={{
                 height: "1.25rem",
                 width: "3rem",
-                border: "1px solid #000000",
+                border: "1px solid #9C8173",
                 textAlign: "center",
                 lineHeight: "1.25rem",
                 fontSize: "1rem",
                 backgroundColor: "#FAF2E9",
-                color: "#111827",
                 fontVariantNumeric: "tabular-nums",
-                boxShadow: "0 4px 5px -2px grey",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -101,9 +87,7 @@ export default function PublicNumberField({
                 border: "1px solid #9C8173",
                 backgroundColor: "transparent",
                 backgroundClip: "padding-box",
-                color: "#111827",
                 userSelect: "none",
-                boxShadow: "4px 4px 5px -2px grey",
               }}
             >
               <PlusIcon />
