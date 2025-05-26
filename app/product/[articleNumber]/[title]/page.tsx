@@ -95,7 +95,7 @@ export default async function ProductPage({ params }: Props) {
 					<Typography
 						variant="body1"
 						sx={{
-							color: product.stock === 0 ? "error.main" : "inherit",
+							color: product.stock <5 ? "error.main" : "inherit",
 						}}
 					>
 						{product.stock === 0
