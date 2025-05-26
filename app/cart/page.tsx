@@ -21,7 +21,7 @@ export default function CartPage() {
           paddingTop: 2,
         }}
       >
-        Kundvagn
+        Cart
       </Typography>
       <Container
         sx={{

@@ -87,7 +87,7 @@ export default function CartItemComponent({ cartItem }: Props) {
             </Typography>
 
             <Typography variant="body2" sx={{ fontWeight: "medium" }}>
-              {cartItem.price} kr
+              {cartItem.price} €
             </Typography>
           </Box>
         </Box>
