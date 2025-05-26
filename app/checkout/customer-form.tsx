@@ -2,391 +2,417 @@
 
 import { useCart } from "@/hooks/useCart";
 import {
-  Box,
-  Button,
-  Container,
-  Divider,
-  FormControl,
-  FormHelperText,
-  FormLabel,
-  Snackbar,
-  TextField,
-  Typography,
+	Box,
+	Button,
+	Container,
+	Divider,
+	FormControl,
+	FormLabel,
+	Snackbar,
+	TextField,
+	Typography,
 } from "@mui/material";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { z } from "zod";
 import { submitOrder } from "../admin/action";
+import {
+	OutOfStockItems,
+	default as OutOfStockModal,
+} from "./out-of-stock-modal";
 
 const customerSchema = z.object({
-  name: z.string().min(1, "You must enter your name"),
-  address: z.string().min(1, "You must enter an address"),
-  zipcode: z.string().regex(/^\d{5}$/, "Zip code must be exactly 5 digits"),
-  city: z.string().min(1, "You must enter a city"),
-  email: z.string().email("Invalid email address"),
-  phone: z.string().regex(/^\+?\d{7,15}$/, "Invalid phone number"),
+	name: z.string().min(1, "You must enter your name"),
+	address: z.string().min(1, "You must enter an address"),
+	zipcode: z.string().regex(/^\d{5}$/, "Zip code must be exactly 5 digits"),
+	city: z.string().min(1, "You must enter a city"),
+	email: z.string().email("Invalid email address"),
+	phone: z.string().regex(/^\+?\d{7,15}$/, "Invalid phone number"),
 });
 
 export default function CustomerForm() {
-  const { data: session, status } = useSession();
+	const [outOfStockItems, setOutOfStockItems] = useState<OutOfStockItems[]>([]);
+	const [showOutOfStockModal, setShowOutOfStockModal] = useState(false);
 
-  // useEffect(() => {
-  //   if (status === "unauthenticated") {
-  //     router.push("/auth/signin");
-  //   }
-  // }, [status]);
-  useEffect(() => {
-    if (session?.user) {
-      setFormData((prev) => ({
-        ...prev,
-        name: session.user.name || "",
-        email: session.user.email || "",
-      }));
-    }
-  }, [session]);
-  const router = useRouter();
-  const { cartItems } = useCart();
-  const [open, setOpen] = useState(false);
-  const { totalSum, clearCart } = useCart();
-  const [formData, setFormData] = useState({
-    name: "",
-    address: "",
-    zipcode: "",
-    city: "",
-    email: "",
-    phone: "",
-  });
+	const { data: session, status } = useSession();
 
-  const [errors, setErrors] = useState<{ [key: string]: string }>({});
+	// useEffect(() => {
+	//   if (status === "unauthenticated") {
+	//     router.push("/auth/signin");
+	//   }
+	// }, [status]);
+	useEffect(() => {
+		if (session?.user) {
+			setFormData((prev) => ({
+				...prev,
+				name: session.user.name || "",
+				email: session.user.email || "",
+			}));
+		}
+	}, [session]);
+	const router = useRouter();
+	const { cartItems } = useCart();
+	const [open, setOpen] = useState(false);
+	const { totalSum, clearCart } = useCart();
+	const [formData, setFormData] = useState({
+		name: "",
+		address: "",
+		zipcode: "",
+		city: "",
+		email: "",
+		phone: "",
+	});
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-    // update value as user types in the field
-    setFormData((prev) => ({ ...prev, [name]: value }));
+	const [errors, setErrors] = useState<{ [key: string]: string }>({});
 
-    // Validate the entire schema
-    const result = customerSchema.safeParse({ ...formData, [name]: value });
-    if (result.success) {
-      setErrors({});
-    } else {
-      const newErrors: { [key: string]: string } = {};
-      result.error.issues.forEach((issue) => {
-        const field = issue.path[0] as string;
-        newErrors[field] = issue.message;
-      });
+	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+		const { name, value } = event.target;
+		// update value as user types in the field
+		setFormData((prev) => ({ ...prev, [name]: value }));
 
-      setErrors(newErrors);
-    }
-  };
+		// Validate the entire schema
+		const result = customerSchema.safeParse({ ...formData, [name]: value });
+		if (result.success) {
+			setErrors({});
+		} else {
+			const newErrors: { [key: string]: string } = {};
+			result.error.issues.forEach((issue) => {
+				const field = issue.path[0] as string;
+				newErrors[field] = issue.message;
+			});
 
-  const generateOrderNumber = () => {
-    return `${Date.now()}`;
-  };
-  const orderNr = generateOrderNumber();
+			setErrors(newErrors);
+		}
+	};
 
-  const handleSubmit = async (event: React.FormEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-    const result = customerSchema.safeParse(formData);
+	const generateOrderNumber = () => {
+		return `${Date.now()}`;
+	};
+	const orderNr = generateOrderNumber();
 
-    if (!result.success) {
-      // convert zod errors to object to store field names
-      const newErrors = result.error.flatten().fieldErrors;
-      setErrors(
-        Object.keys(newErrors).reduce((acc, key) => {
-          const typedKey = key as keyof typeof newErrors;
-          acc[typedKey] = newErrors[typedKey]?.[0] ?? ""; // first error message
-          // acc (short for accumulator) is the object that collects and stores the formatted errors.
-          return acc;
-        }, {} as Record<keyof typeof formData, string>) // extra fluff for typescript
-      );
-      console.log("Form contains errors, aborting!");
-      return;
-    }
+	const handleSubmit = async (event: React.FormEvent<HTMLButtonElement>) => {
+		event.preventDefault();
 
-    try {
-      const addressData = {
-        address: formData.address,
-        zipcode: formData.zipcode,
-        city: formData.city,
-        phone: formData.phone,
-      };
+		const outOfStock = cartItems.filter((item) => item.stock < item.quantity);
 
-      const order = await submitOrder(cartItems, addressData);
+		if (outOfStock.length > 0) {
+			const outOfStockItemsForModal = outOfStock.map((item) => ({
+				productName: item.title,
+				available: item.stock,
+				requested: item.quantity,
+			}));
 
-      setOpen(true);
-      setTimeout(() => {
-        router.push(`/confirmation/${order.orderNr}`);
-      }, 1000);
+			setOutOfStockItems(outOfStockItemsForModal);
+			setShowOutOfStockModal(true);
+			return;
+		}
 
-      clearCart();
-      setFormData({
-        name: "",
-        address: "",
-        zipcode: "",
-        city: "",
-        email: "",
-        phone: "",
-      });
-    } catch (error) {
-      console.error("Error creating order:", error);
-    }
-  };
+		const result = customerSchema.safeParse(formData);
 
-  return (
-    <Container sx={{ mb: 3 }}>
-      <Typography variant="h1" sx={{ textAlign: "left", ml: { sx: 1, md: 2 } }}>
-        Delivery & Payment
-      </Typography>
-      <Box sx={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
-        <Box
-          component="form"
-          sx={{
-            width: "100%",
-            maxWidth: "500px",
-            backgroundColor: "background.default",
-            mt: 2,
-            mx: "auto",
-            p: 3,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            gap: 2,
-          }}
-        >
-          <FormControl fullWidth>
-            <FormLabel
-              sx={{
-                textAlign: "left",
-                fontWeight: "bold",
-                color: "text.primary",
-              }}
-            >
-              Name
-            </FormLabel>
-            <TextField
-              size="small"
-              sx={{
-                backgroundColor: "background.paper",
-                borderRadius: "0.5rem",
-              }}
-              fullWidth
-              id="name"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              error={Boolean(errors.name)}
-              autoComplete="name"
-              helperText={errors.name || null}
-            />
-          </FormControl>
+		if (!result.success) {
+			// convert zod errors to object to store field names
+			const newErrors = result.error.flatten().fieldErrors;
+			setErrors(
+				Object.keys(newErrors).reduce((acc, key) => {
+					const typedKey = key as keyof typeof newErrors;
+					acc[typedKey] = newErrors[typedKey]?.[0] ?? ""; // first error message
+					// acc (short for accumulator) is the object that collects and stores the formatted errors.
+					return acc;
+				}, {} as Record<keyof typeof formData, string>) // extra fluff for typescript
+			);
+			console.log("Form contains errors, aborting!");
+			return;
+		}
 
-          <FormControl fullWidth>
-            <FormLabel
-              sx={{
-                textAlign: "left",
-                fontWeight: "bold",
-                color: "text.primary",
-              }}
-            >
-              Delivery Address
-            </FormLabel>
-            <TextField
-              size="small"
-              sx={{
-                backgroundColor: "background.paper",
-                borderRadius: "0.5rem",
-              }}
-              fullWidth
-              id="address"
-              name="address"
-              value={formData.address}
-              onChange={handleChange}
-              autoComplete="street-address"
-              error={Boolean(errors.address)}
-              helperText={errors.address || null}
-            />
-          </FormControl>
-          <Box
-            sx={{
-              display: "flex",
-              gap: 2,
-              width: "100%",
-              justifyContent: "space-between",
-            }}
-          >
-            <FormControl fullWidth>
-              <FormLabel
-                sx={{
-                  textAlign: "left",
-                  fontWeight: "bold",
-                  color: "text.primary",
-                }}
-              >
-                Zip Code
-              </FormLabel>
-              <TextField
-                size="small"
-                sx={{
-                  backgroundColor: "background.paper",
-                  borderRadius: "0.5rem",
-                  flex: 1,
-                }}
-                id="zipcode"
-                name="zipcode"
-                value={formData.zipcode}
-                onChange={handleChange}
-                autoComplete="postal-code"
-                error={Boolean(errors.zipcode)}
-                helperText={errors.zipcode || null}
-              />
-            </FormControl>
-            <FormControl fullWidth>
-              <FormLabel
-                sx={{
-                  textAlign: "left",
-                  fontWeight: "bold",
-                  color: "text.primary",
-                }}
-              >
-                City
-              </FormLabel>
-              <TextField
-                size="small"
-                sx={{
-                  backgroundColor: "background.paper",
-                  borderRadius: "0.5rem",
-                  flex: 1,
-                }}
-                id="city"
-                name="city"
-                value={formData.city}
-                onChange={handleChange}
-                autoComplete="address-level2"
-                error={Boolean(errors.city)}
-                helperText={errors.city || null}
-              />
-            </FormControl>
-          </Box>
-          <Box
-            sx={{
-              display: "flex",
-              gap: 2,
-              width: "100%",
-              justifyContent: "space-between",
-            }}
-          ></Box>
-          <FormControl fullWidth>
-            <FormLabel
-              sx={{
-                textAlign: "left",
-                fontWeight: "bold",
-                color: "text.primary",
-              }}
-            >
-              Email
-            </FormLabel>
-            <TextField
-              size="small"
-              sx={{
-                backgroundColor: "background.paper",
-                borderRadius: "0.5rem",
-              }}
-              fullWidth
-              id="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              autoComplete="email"
-              error={Boolean(errors.email)}
-              helperText={errors.email || null}
-            />
-          </FormControl>
-          <FormControl fullWidth>
-            <FormLabel
-              sx={{
-                textAlign: "left",
-                fontWeight: "bold",
-                color: "text.primary",
-              }}
-            >
-              Phone Number
-            </FormLabel>
-            <TextField
-              size="small"
-              sx={{
-                backgroundColor: "background.paper",
-                borderRadius: "0.5rem",
-              }}
-              fullWidth
-              id="phone"
-              name="phone"
-              value={formData.phone}
-              onChange={handleChange}
-              autoComplete="tel"
-              error={Boolean(errors.phone)}
-              helperText={errors.phone || null}
-            />
-          </FormControl>
-          <Button
-            type="submit"
-            variant="contained"
-            onClick={handleSubmit}
-            sx={{
-              bgcolor: "primary.main",
-              color: "text.primary",
-              "&:hover": { bgcolor: "primary.dark", color: "background.paper" },
-              mt: 3,
-              width: 200,
-              mx: "auto",
-              py: 2,
-            }}
-          >
-            Continue to Payment
-          </Button>
-          <Snackbar
-            open={open}
-            message="Order completed!"
-            autoHideDuration={2000}
-            onClose={() => setOpen(false)}
-          />
-        </Box>
-        <Box
-          component="div"
-          sx={{
-            width: "100%",
-            maxWidth: "500px",
-            backgroundColor: "background.default",
-            mt: 2,
-            mb: { xs: 2, sm: 0 },
-            mx: "auto",
-            p: 3,
-            display: "flex",
-            flexDirection: "column",
-            gap: 2,
-          }}
-        >
-          <Box display="flex" justifyContent="space-between">
-            <Typography variant="body1">Subtotal:</Typography>
-            <Typography variant="body1">{totalSum.toFixed(2)}</Typography>
-          </Box>
-          <Divider sx={{ my: 1, borderColor: "rgba(255, 255, 255, 0.5)" }} />
+		try {
+			const addressData = {
+				address: formData.address,
+				zipcode: formData.zipcode,
+				city: formData.city,
+				phone: formData.phone,
+			};
 
-          <Box display="flex" justifyContent="space-between">
-            <Typography variant="body1">Delivery:</Typography>
-            <Typography variant="body1">{formData.address}</Typography>
-          </Box>
-          <Divider sx={{ my: 1, borderColor: "rgba(255, 255, 255, 0.5)" }} />
+			const order = await submitOrder(cartItems, addressData);
 
-          <Box display="flex" justifyContent="space-between">
-            <Typography variant="body1">Total:</Typography>
-            <Typography variant="body1" fontWeight={700}>
-              {totalSum.toFixed(2)}
-            </Typography>
-          </Box>
-          <Divider sx={{ my: 1, borderColor: "rgba(255, 255, 255, 0.5)" }} />
-        </Box>
-      </Box>
-    </Container>
-  );
+			setOpen(true);
+			setTimeout(() => {
+				router.push(`/confirmation/${order.orderNr}`);
+			}, 1000);
+
+			clearCart();
+			setFormData({
+				name: "",
+				address: "",
+				zipcode: "",
+				city: "",
+				email: "",
+				phone: "",
+			});
+		} catch (error) {
+			console.error("Error creating order:", error);
+		}
+	};
+
+	return (
+		<Container sx={{ mb: 3 }}>
+			<Typography variant="h1" sx={{ textAlign: "left", ml: { sx: 1, md: 2 } }}>
+				Delivery & Payment
+			</Typography>
+			<Box sx={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
+				<Box
+					component="form"
+					sx={{
+						width: "100%",
+						maxWidth: "500px",
+						backgroundColor: "background.default",
+						mt: 2,
+						mx: "auto",
+						p: 3,
+						display: "flex",
+						flexDirection: "column",
+						alignItems: "center",
+						gap: 2,
+					}}
+				>
+					<FormControl fullWidth>
+						<FormLabel
+							sx={{
+								textAlign: "left",
+								fontWeight: "bold",
+								color: "text.primary",
+							}}
+						>
+							Name
+						</FormLabel>
+						<TextField
+							size="small"
+							sx={{
+								backgroundColor: "background.paper",
+								borderRadius: "0.5rem",
+							}}
+							fullWidth
+							id="name"
+							name="name"
+							value={formData.name}
+							onChange={handleChange}
+							error={Boolean(errors.name)}
+							autoComplete="name"
+							helperText={errors.name || null}
+						/>
+					</FormControl>
+
+					<FormControl fullWidth>
+						<FormLabel
+							sx={{
+								textAlign: "left",
+								fontWeight: "bold",
+								color: "text.primary",
+							}}
+						>
+							Delivery Address
+						</FormLabel>
+						<TextField
+							size="small"
+							sx={{
+								backgroundColor: "background.paper",
+								borderRadius: "0.5rem",
+							}}
+							fullWidth
+							id="address"
+							name="address"
+							value={formData.address}
+							onChange={handleChange}
+							autoComplete="street-address"
+							error={Boolean(errors.address)}
+							helperText={errors.address || null}
+						/>
+					</FormControl>
+					<Box
+						sx={{
+							display: "flex",
+							gap: 2,
+							width: "100%",
+							justifyContent: "space-between",
+						}}
+					>
+						<FormControl fullWidth>
+							<FormLabel
+								sx={{
+									textAlign: "left",
+									fontWeight: "bold",
+									color: "text.primary",
+								}}
+							>
+								Zip Code
+							</FormLabel>
+							<TextField
+								size="small"
+								sx={{
+									backgroundColor: "background.paper",
+									borderRadius: "0.5rem",
+									flex: 1,
+								}}
+								id="zipcode"
+								name="zipcode"
+								value={formData.zipcode}
+								onChange={handleChange}
+								autoComplete="postal-code"
+								error={Boolean(errors.zipcode)}
+								helperText={errors.zipcode || null}
+							/>
+						</FormControl>
+						<FormControl fullWidth>
+							<FormLabel
+								sx={{
+									textAlign: "left",
+									fontWeight: "bold",
+									color: "text.primary",
+								}}
+							>
+								City
+							</FormLabel>
+							<TextField
+								size="small"
+								sx={{
+									backgroundColor: "background.paper",
+									borderRadius: "0.5rem",
+									flex: 1,
+								}}
+								id="city"
+								name="city"
+								value={formData.city}
+								onChange={handleChange}
+								autoComplete="address-level2"
+								error={Boolean(errors.city)}
+								helperText={errors.city || null}
+							/>
+						</FormControl>
+					</Box>
+					<Box
+						sx={{
+							display: "flex",
+							gap: 2,
+							width: "100%",
+							justifyContent: "space-between",
+						}}
+					></Box>
+					<FormControl fullWidth>
+						<FormLabel
+							sx={{
+								textAlign: "left",
+								fontWeight: "bold",
+								color: "text.primary",
+							}}
+						>
+							Email
+						</FormLabel>
+						<TextField
+							size="small"
+							sx={{
+								backgroundColor: "background.paper",
+								borderRadius: "0.5rem",
+							}}
+							fullWidth
+							id="email"
+							name="email"
+							value={formData.email}
+							onChange={handleChange}
+							autoComplete="email"
+							error={Boolean(errors.email)}
+							helperText={errors.email || null}
+						/>
+					</FormControl>
+					<FormControl fullWidth>
+						<FormLabel
+							sx={{
+								textAlign: "left",
+								fontWeight: "bold",
+								color: "text.primary",
+							}}
+						>
+							Phone Number
+						</FormLabel>
+						<TextField
+							size="small"
+							sx={{
+								backgroundColor: "background.paper",
+								borderRadius: "0.5rem",
+							}}
+							fullWidth
+							id="phone"
+							name="phone"
+							value={formData.phone}
+							onChange={handleChange}
+							autoComplete="tel"
+							error={Boolean(errors.phone)}
+							helperText={errors.phone || null}
+						/>
+					</FormControl>
+					<Button
+						type="submit"
+						variant="contained"
+						onClick={handleSubmit}
+						sx={{
+							bgcolor: "primary.main",
+							color: "text.primary",
+							"&:hover": { bgcolor: "primary.dark", color: "background.paper" },
+							mt: 3,
+							width: 200,
+							mx: "auto",
+							py: 2,
+						}}
+					>
+						Continue to Payment
+					</Button>
+					<Snackbar
+						open={open}
+						message="Order completed!"
+						autoHideDuration={2000}
+						onClose={() => setOpen(false)}
+					/>
+				</Box>
+				<Box
+					component="div"
+					sx={{
+						width: "100%",
+						maxWidth: "500px",
+						backgroundColor: "background.default",
+						mt: 2,
+						mb: { xs: 2, sm: 0 },
+						mx: "auto",
+						p: 3,
+						display: "flex",
+						flexDirection: "column",
+						gap: 2,
+					}}
+				>
+					<Box display="flex" justifyContent="space-between">
+						<Typography variant="body1">Subtotal:</Typography>
+						<Typography variant="body1">{totalSum.toFixed(2)}</Typography>
+					</Box>
+					<Divider sx={{ my: 1, borderColor: "rgba(255, 255, 255, 0.5)" }} />
+
+					<Box display="flex" justifyContent="space-between">
+						<Typography variant="body1">Delivery:</Typography>
+						<Typography variant="body1">{formData.address}</Typography>
+					</Box>
+					<Divider sx={{ my: 1, borderColor: "rgba(255, 255, 255, 0.5)" }} />
+
+					<Box display="flex" justifyContent="space-between">
+						<Typography variant="body1">Total:</Typography>
+						<Typography variant="body1" fontWeight={700}>
+							{totalSum.toFixed(2)}
+						</Typography>
+					</Box>
+					<Divider sx={{ my: 1, borderColor: "rgba(255, 255, 255, 0.5)" }} />
+				</Box>
+			</Box>
+			<OutOfStockModal
+				open={showOutOfStockModal}
+				onClose={() => setShowOutOfStockModal(false)}
+				items={outOfStockItems}
+			/>
+		</Container>
+	);
 }
