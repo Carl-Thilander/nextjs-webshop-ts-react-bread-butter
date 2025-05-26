@@ -6,31 +6,37 @@ import {
 	DialogContentText,
 	DialogTitle,
 } from "@mui/material";
+import { useState } from "react";
+
+export interface OutOfStockItems {
+	productName: string;
+	available: number;
+	requested: number;
+}
 
 interface Props {
 	open: boolean;
 	onClose: () => void;
-	productName?: string;
-	available?: number;
-	requested?: number;
+	items?: OutOfStockItems[];
 }
 
-export default function OutOfStockModal({
-	open,
-	onClose,
-	productName,
-	available,
-	requested,
-}: Props) {
+export default function OutOfStockModal({ open, onClose, items = [] }: Props) {
 	return (
 		<Dialog open={open} onClose={onClose}>
-			<DialogTitle>Product not available</DialogTitle>
-			<DialogContent>
-				<DialogContentText>
-					{productName
-						? `You have ${requested} pcs of ${productName} in your cart, but only ${available} pcs is in stock. Please update your cart`
-						: `One or more products in your cart are out of stock`}
-				</DialogContentText>
+			<DialogTitle>Products not available</DialogTitle>
+			<DialogContent dividers>
+				{items.length === 0 ? (
+					<DialogContentText>
+						One or more products in your cart are out of stock.
+					</DialogContentText>
+				) : (
+					items.map(({ productName, available, requested }) => (
+						<DialogContentText key={productName}>
+							You have {requested} psc of {productName} in your cart, but only{" "}
+							{available} psc is in stock. Please update your cart.
+						</DialogContentText>
+					))
+				)}
 			</DialogContent>
 			<DialogActions>
 				<Button onClick={onClose} autoFocus>
