@@ -11,7 +11,7 @@ interface Props {
 export default async function ProductPage({ params }: Props) {
 	const { articleNumber, title } = params;
 	if (!articleNumber) {
-		return <h1>Produkten hittades inte</h1>;
+		return <h1>Product was not found</h1>;
 	}
 	const decodedTitle = decodeURIComponent(title);
 
@@ -23,7 +23,7 @@ export default async function ProductPage({ params }: Props) {
 	});
 
 	if (!product) {
-		return <h1>Produkten hittades inte</h1>;
+		return <h1>Product was not found</h1>;
 	}
 
 	return (
@@ -89,7 +89,7 @@ export default async function ProductPage({ params }: Props) {
 						Category: {product.categories.map((cat) => cat.name).join(", ")}
 					</Typography>
 					<Typography variant="h6" sx={{ mt: 2 }}>
-						Pris: {product.price} kr
+						Price: {product.price} €
 					</Typography>
 
 					<Typography
