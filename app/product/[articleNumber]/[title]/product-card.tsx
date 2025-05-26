@@ -55,19 +55,41 @@ export default function ProductCard({ product }: ProductCardProps) {
 						display: "flex",
 						justifyContent: "space-between",
 						alignItems: "center",
-					}}>
-				<Typography gutterBottom component="div" sx={{ fontSize: 18 }}>
-					{product.title}
-				</Typography>
-        				<CardActions sx={{ pt: 0, mt: 0 }}>
-						<AddToCartButton product={product} />
-				</CardActions>
-        </Box>
-				<Typography
-					variant="body2"
+					}}
 				>
-					{product.price} €
-				</Typography>
+					<Typography gutterBottom component="div" sx={{ fontSize: 18 }}>
+						{product.title}
+					</Typography>
+					<CardActions sx={{ pt: 0, mt: 0 }}>
+						<AddToCartButton product={product} />
+					</CardActions>
+				</Box>
+				<Typography variant="body2">{product.price} €</Typography>
+
+				<Box>
+					{product.stock === 0 && (
+						<Typography
+							variant="caption"
+							sx={{ color: "error.main", fontWeight: "bold" }}
+						>
+							Out of stock
+						</Typography>
+					)}
+					{product.stock > 0 && product.stock < 5 && (
+						<Typography
+							variant="caption"
+							sx={{ color: "error.main", fontWeight: "bold" }}
+						>
+							Only {product.stock} left
+						</Typography>
+					)}
+
+					{product.stock >= 5 && (
+						<Typography variant="caption" sx={{ visibility: "hidden" }}>
+							placeholder
+						</Typography>
+					)}
+				</Box>
 			</CardContent>
 		</Card>
 	);
