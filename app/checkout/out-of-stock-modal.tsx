@@ -41,7 +41,7 @@ export default function OutOfStockModal({ open, onClose, items = [] }: Props) {
 				)}
 			</DialogContent>
 			<DialogActions>
-				<Button onClick={onClose} autoFocus>
+				<Button variant="contained" color="primary" onClick={onClose}>
 					Ok
 				</Button>
 			</DialogActions>
