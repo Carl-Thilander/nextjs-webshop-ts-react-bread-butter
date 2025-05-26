@@ -112,6 +112,9 @@ export default function CartItemComponent({ cartItem }: Props) {
           }}
         >
           <Button
+            sx={{
+              color: "#61371E",
+            }}
             onClick={() => removeFromCart(cartItem.id)}
             startIcon={<Delete />}
           ></Button>
