@@ -34,7 +34,7 @@ const customerSchema = z.object({
 export default function CustomerForm() {
 	const [outOfStockItems, setOutOfStockItems] = useState<OutOfStockItems[]>([]);
 	const [showOutOfStockModal, setShowOutOfStockModal] = useState(false);
-	
+
 	const { data: session, status } = useSession();
 
 	// useEffect(() => {
