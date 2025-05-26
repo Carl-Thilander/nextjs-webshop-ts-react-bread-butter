@@ -33,15 +33,29 @@ export default function OutOfStockModal({ open, onClose, items = [] }: Props) {
 				) : (
 					items.map(({ productName, available, requested }) => (
 						<DialogContentText textAlign="center" key={productName}>
-							{available === 0
-								? `${productName} is out of stock. Please update your cart.`
-								: `You have ${requested} pcs of ${productName} in your cart, but only ${available} pcs are in stock. Please update your cart.`}
+							{available === 0 ? (
+								<>
+									<strong>{productName}</strong> is out of stock. Please update
+									your cart.
+								</>
+							) : (
+								<>
+									You have {requested} pcs of <strong>{productName}</strong> in
+									your cart, but only {available} pcs are in stock. Please
+									update your cart.
+								</>
+							)}
 						</DialogContentText>
 					))
 				)}
 			</DialogContent>
-			<DialogActions>
-				<Button variant="contained" color="primary" onClick={onClose}>
+			<DialogActions sx={{ justifyContent: "center" }}>
+				<Button
+					variant="contained"
+					color="primary"
+					onClick={onClose}
+					sx={{ mb: "0.7rem" }}
+				>
 					Ok
 				</Button>
 			</DialogActions>
