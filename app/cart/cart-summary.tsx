@@ -30,7 +30,7 @@ export default function CartSummary() {
         }}
       >
         <Typography variant="h5" sx={{ paddingX: 2 }}>
-          Delsumma:
+          Sum:
         </Typography>
         <Typography variant="h5" sx={{ paddingX: 2 }}>
           {totalSum.toFixed(2)} kr
@@ -59,7 +59,7 @@ export default function CartSummary() {
               mb: { xs: 1, sm: 8 },
             }}
           >
-            FORTSÄTT HANDLA
+            Continue shopping
           </Button>
         </Link>
         <Button
@@ -73,7 +73,7 @@ export default function CartSummary() {
           }}
           onClick={handleCheckout}
         >
-          FORTSÄTT TILL KASSAN
+          Continue to cart overview
         </Button>
       </Box>
     </Container>
