@@ -22,7 +22,9 @@ interface Props {
 export default function OutOfStockModal({ open, onClose, items = [] }: Props) {
 	return (
 		<Dialog open={open} onClose={onClose}>
-			<DialogTitle variant="h5" textAlign="center" sx={{fontWeight: "bold"}}>Products not available</DialogTitle>
+			<DialogTitle variant="h5" textAlign="center" sx={{ fontWeight: "bold" }}>
+				Products not available
+			</DialogTitle>
 			<DialogContent>
 				{items.length === 0 ? (
 					<DialogContentText textAlign="center">
@@ -31,8 +33,9 @@ export default function OutOfStockModal({ open, onClose, items = [] }: Props) {
 				) : (
 					items.map(({ productName, available, requested }) => (
 						<DialogContentText textAlign="center" key={productName}>
-							You have {requested} psc of {productName} in your cart, but only{" "}
-							{available} psc is in stock. Please update your cart.
+							{available === 0
+								? `${productName} is out of stock. Please update your cart.`
+								: `You have ${requested} pcs of ${productName} in your cart, but only ${available} pcs are in stock. Please update your cart.`}
 						</DialogContentText>
 					))
 				)}
