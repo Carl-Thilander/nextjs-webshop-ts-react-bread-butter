@@ -11,6 +11,7 @@ export default async function EditProductPage({ params }: Props) {
 
   const product = await prisma.product.findUnique({
     where: { articleNumber },
+    include: { categories: true },
   });
 
   if (!product) return <main>404</main>;

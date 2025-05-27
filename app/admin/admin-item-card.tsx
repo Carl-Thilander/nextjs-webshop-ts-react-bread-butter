@@ -82,28 +82,17 @@ export default function AdminItem({ product }: ProductCardProps) {
               key={category.name}
               label={category.name}
               variant="outlined"
-              color="primary"
+              sx={{
+                backgroundColor: "#F2E0D5",
+                color: "#9C8173",
+                borderColor: "#9C8173",
+              }}
               size="small"
             />
           ))}
         </Box>
       </Box>
-
-      {/* Stock */}
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          width: { xs: "100px", sm: "auto" },
-        }}
-      >
-        <Typography variant="body2">Stock:</Typography>
-        <Typography variant="body2">{product.stock}</Typography>
-      </Box>
-
-
+      
       {/* Redigera & Ta bort-knappar (ikon för mobil, knapp för desktop) */}
       <Box
         sx={{
@@ -117,6 +106,21 @@ export default function AdminItem({ product }: ProductCardProps) {
         <EditButton product={product} />
 
         <DeleteButton product={product} />
+
+
+      {/* Stock */}
+        <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          width: { xs: "100px", sm: "auto" },
+        }}
+      >
+        <Typography variant="body2">Stock:</Typography>
+        <Typography label={product.stock}  variant="body2">{product.stock}</Typography>
+      </Box>
       </Box>
     </Container>
   );
