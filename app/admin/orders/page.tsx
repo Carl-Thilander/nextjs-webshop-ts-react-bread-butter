@@ -1,5 +1,5 @@
 import { auth } from "@/auth";
-import { db } from "@/prisma/db";
+import { prisma } from "@/prisma/db";
 import { redirect } from "next/navigation";
 import { Container } from "@mui/material";
 import AdminOrderTable from "./admin-order-table-client";
@@ -17,7 +17,7 @@ export default async function AdminOrdersPage() {
   }
 
   // Get all orders for admin view
-  const orders = await db.order.findMany({
+  const orders = await prisma.order.findMany({
     include: {
       user: true,
       address: true,

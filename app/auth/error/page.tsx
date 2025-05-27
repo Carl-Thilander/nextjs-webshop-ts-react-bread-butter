@@ -24,6 +24,15 @@ export default function ErrorPage() {
           </Typography>{" "}
           <Typography variant="body1" align="center">
             {error === "AccessDenied"
+              ? "You don't have permission to access this resource."
+              : error === "Verification"
+              ? "The sign in link is no longer valid. It may have been used already or it may have expired."
+              : error === "Configuration"
+              ? "There is a problem with the server configuration. If this issue persists, please contact support."
+              : error === "CredentialsSignin"
+              ? "The email or password you entered is incorrect. Please try again."
+              : `An error occurred during authentication: ${error}`}
+            {error === "AccessDenied"
               ? "You don't have permission to access this page."
               : error === "Configuration"
               ? "There is a problem with the server configuration. Please contact the administrator."

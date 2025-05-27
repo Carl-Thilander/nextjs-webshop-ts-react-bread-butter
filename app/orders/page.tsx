@@ -1,5 +1,5 @@
 import { auth } from "@/auth";
-import { db } from "@/prisma/db";
+import { prisma } from "@/prisma/db";
 import { redirect } from "next/navigation";
 import { Container } from "@mui/material";
 import CustomerOrderList from "./customer-order-list";
@@ -14,8 +14,7 @@ export default async function UserOrdersPage() {
   if (session.user.isAdmin) {
     redirect("/admin/orders");
   }
-
-  const orders = await db.order.findMany({
+  const orders = await prisma.order.findMany({
     where: {
       userId: session.user.id.toString(),
     },
