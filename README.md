@@ -1,130 +1,350 @@
-# Bread & Butter
+# ☕ Bread & Butter
 
-### A webshop project in Next.js using App Router. We're also using MUI, Prisma with sqlight and Zod.
+<div align="center">
 
-<img width="1000" alt="hero2" align="center" src="https://github.com/user-attachments/assets/fbb8dbe9-55d8-4c16-84b8-e85e04787365" />
+**A premium coffee & tea e-commerce platform built with Next.js**
 
-## Features
+[![Next.js](https://img.shields.io/badge/Next.js-15.2.1-black?logo=next.js&logoColor=white)](https://nextjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.8.2-blue?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Prisma](https://img.shields.io/badge/Prisma-6.8.2-2D3748?logo=prisma&logoColor=white)](https://www.prisma.io/)
+[![Material-UI](https://img.shields.io/badge/MUI-6.4.7-007FFF?logo=mui&logoColor=white)](https://mui.com/)
+[![License: ISC](https://img.shields.io/badge/License-ISC-green.svg)](https://opensource.org/licenses/ISC)
 
-Some of the features presented in images below:
+<img width="800" alt="Bread & Butter Hero Image" src="https://github.com/user-attachments/assets/fbb8dbe9-55d8-4c16-84b8-e85e04787365" />
+
+</div>
+
+## 🌟 About
+
+**Bread & Butter** is a full-stack e-commerce platform specializing in premium coffee beans and tea leaves. Built with modern web technologies, it provides a seamless shopping experience with robust authentication, admin management, and responsive design.
+
+### 🎯 Business Concept
+
+A curated marketplace for coffee enthusiasts and tea lovers, offering:
+
+- **Premium Coffee Beans** - Carefully selected single-origin and specialty blends
+- **Artisan Tea Leaves** - Traditional and contemporary tea varieties
+- **Decaf Options** - Full-flavor experiences without the caffeine
+- **Limited Sales** - Exclusive deals on seasonal favorites
+
+## ✨ Features
+
+## ✨ Features
+
+### 🛒 **E-commerce Core**
+
+- **Product Catalog** - Browse premium coffee beans and tea leaves with detailed descriptions
+- **Shopping Cart** - Add/remove items with persistent localStorage storage
+- **Category Filtering** - Filter products by Coffee, Tea, Decaf, and Sale categories
+- **Stock Management** - Real-time stock tracking and low-stock warnings
+- **Responsive Design** - Seamless experience across desktop, tablet, and mobile
 
 <img width="500" alt="products" src="https://github.com/user-attachments/assets/983f03a8-040d-4557-ad34-e406197bc08e" />
 
-Shop products overview; add to cart or read more about the products
+_Product overview with category filtering and add-to-cart functionality_
+
+### 🔐 **Authentication & Security**
+
+- **NextAuth.js Integration** - Secure authentication with Google OAuth and credentials
+- **Password Security** - bcrypt hashing for secure password storage
+- **Role-based Access** - Admin and customer role management
+- **Session Management** - JWT-based session handling with configurable expiry
+
+### 🛍️ **Shopping Experience**
+
+- **Product Details** - Comprehensive product pages with high-quality images
+- **Cart Management** - Update quantities, remove items, view totals
+- **Checkout Process** - Multi-step checkout with address validation
+- **Order Confirmation** - Detailed order receipts with tracking numbers
 
 <img width="500" alt="product-details" src="https://github.com/user-attachments/assets/aed14f46-4c83-4450-83b2-57a0cede5823" />
 
-Product details page; add to cart or go back to browse
+_Detailed product pages with stock information and add-to-cart_
 
 <img width="500" alt="cart" src="https://github.com/user-attachments/assets/1fc4f73d-ddd1-4bf2-90f5-c4cc95386623" />
 
-Cart aside with cart summary; proceed to checkout or continue shopping
+_Shopping cart with summary and checkout options_
+
+### 📝 **Form Validation & UX**
+
+- **Zod Schema Validation** - Type-safe form validation throughout the app
+- **Real-time Feedback** - Instant validation feedback on form inputs
+- **Auto-fill Support** - Browser autofill compatibility for faster checkout
+- **Toast Notifications** - User-friendly success and error messages
 
 <img width="500" alt="zod" src="https://github.com/user-attachments/assets/c2581382-5dfb-40c0-9f79-f18392f21c6f" />
 
-Using Zod validation on customer delivery form; products overview and continue to payment option
+_Zod validation ensuring data integrity in forms_
 
-<img width="500" alt="confirmation" src="https://github.com/user-attachments/assets/8a8f2dff-49dd-46a1-9cd6-8c3216838c04" />
+### 📊 **Admin Dashboard**
 
-Confirmation page with delivery- and order details
+- **Product Management** - Full CRUD operations for products
+- **Order Management** - View all orders with status updates
+- **Stock Control** - Update inventory levels and track availability
+- **Category Management** - Organize products with multiple categories
 
 <img width="500" alt="admin" src="https://github.com/user-attachments/assets/aecc0e54-737a-4059-8485-a8aee499eacf" />
 
-Admin page where you can edit, add and delete products from the web shop.
+_Admin panel for complete product and order management_
 
-## Run and test the project
+### 👤 **Customer Account Features**
 
-#### Install
+- **Order History** - View past orders with detailed breakdowns
+- **Order Status Tracking** - Track order progress from pending to shipped
+- **Profile Management** - Update personal information and preferences
+- **Address Management** - Save delivery addresses for faster checkout
 
-Run
+<img width="500" alt="confirmation" src="https://github.com/user-attachments/assets/8a8f2dff-49dd-46a1-9cd6-8c3216838c04" />
+
+_Order confirmation with complete delivery and order details_
+
+## 🏗️ **Technical Architecture**
+
+### **Frontend Stack**
+
+- **Next.js 15.2.1** - React framework with App Router for optimal performance
+- **TypeScript 5.8.2** - Type-safe development with enhanced developer experience
+- **Material-UI 6.4.7** - Comprehensive component library with theming support
+- **React Hook Form** - Efficient form handling with minimal re-renders
+
+### **Backend & Database**
+
+- **Prisma 6.8.2** - Type-safe database ORM with migration support
+- **PostgreSQL** - Production-ready relational database
+- **NextAuth.js 5.0** - Complete authentication solution
+- **Server Actions** - Type-safe server-side operations
+
+### **Data Validation & Security**
+
+- **Zod 3.25.20** - Runtime type validation for forms and API endpoints
+- **bcryptjs** - Secure password hashing
+- **Rate Limiting** - API protection against abuse
+- **CSRF Protection** - Built-in security features
+
+### **Development & Testing**
+
+- **ESLint** - Code quality and consistency enforcement
+- **Cypress** - End-to-end testing automation
+- **TypeScript Strict Mode** - Maximum type safety
+- **Hot Module Replacement** - Fast development feedback
+
+## 📋 Database Schema
+
+The application uses a comprehensive relational database schema:
+
+### **Core Entities**
+
+- **Users** - Customer accounts with authentication and admin roles
+- **Products** - Coffee and tea inventory with categories and stock levels
+- **Orders** - Purchase records with items and delivery information
+- **Categories** - Product organization system
+- **Addresses** - Customer delivery information
+
+### **Key Relationships**
+
+- Users can have multiple Orders
+- Orders contain multiple OrderItems
+- Products belong to multiple Categories (many-to-many)
+- Orders are linked to delivery Addresses
+
+## 🚀 Getting Started
+
+### **Prerequisites**
+
+- Node.js 18+
+- npm or yarn package manager
+- PostgreSQL database (or compatible provider)
+
+### **Installation**
+
+1. **Clone the repository**
+
+```bash
+git clone <repository-url>
+cd nextjs-webshop-ts-react-bread-butter
+```
+
+2. **Install dependencies**
 
 ```bash
 npm install
 ```
 
-#### To run the development server:
+3. **Environment Setup**
+   Create a `.env.local` file with the following variables:
 
-```bash
-npm run dev
+```env
+# Database
+DATABASE_URL="your-postgresql-connection-string"
+DIRECT_URL="your-direct-database-url"
+
+# NextAuth.js
+AUTH_SECRET="your-secret-key"
+AUTH_GOOGLE_ID="your-google-client-id"
+AUTH_GOOGLE_SECRET="your-google-client-secret"
+
+# Admin
+ADMIN_EMAIL="admin@example.com"
 ```
 
-then open the Localhost port with your browser to see the result.
-
-#### Running the tests with Cypress:
+4. **Database Setup**
 
 ```bash
-npm test
-```
-
-### Using Prisma and sqlight db
-
-To synchronize the Prisma schema with the database schema
-
-```bash
+# Synchronize Prisma schema with database
 npm run push
-```
 
-Define and pupulate the db with mock data
-
-```bash
+# Populate database with sample data
 npm run seed
 ```
 
-Open and view the data in Prisma Studio
+### **Development Server**
 
 ```bash
-npm run studio
+# Start development server with Turbopack
+npm run dev
 ```
 
-## Learn More
+Open [http://localhost:5173](http://localhost:5173) in your browser.
 
-To learn more about Next.js, take a look at the following resources:
+### **Database Management**
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+# View and edit data in Prisma Studio
+npm run studio
 
-## Deploy on Vercel
+# Create and apply migrations
+npx prisma migrate dev
 
-We haven't deployed our project on Vercel yet because the sqlight database is not supported on Vercel.
+# Reset database (careful!)
+npx prisma migrate reset
+```
 
-## Criteria for grading
+### **Testing**
 
-- [x] Git & GitHub har använts
-- [x] Projektmappen innehåller en README.md fil
-- [x] Uppgiften lämnas in i tid!
-- [x] Ett designsystem används som exempelvis Shadcn eller MUI
+```bash
+# Run Cypress end-to-end tests
+npm test
 
-**Home**
+# Update test specifications
+npm run update
+```
 
-- [x] Ska ha en övergripande layout med header, main & footer.
-- [x] Startsidan ska lista samtliga produkter..
-- [x] Det ska gå att lägga till produkter i kundvagnen (header + toast).
-- [x] Det ska gå att klicka på en produkt och komma till en detaljsida.
-- [x] Sidan ska vara responsiv och gå att använda på mobil, tablet & desktop.
+### **Admin Setup**
 
-**Produkt**
+```bash
+# Make a user admin by email
+npx tsx scripts/make-admin.ts user@example.com
+```
 
-- [x] Ska ha en övergripande layout med header, main & footer.
-- [x] Detaljsidan ska visa all info om en produkt.
-- [x] Det ska gå att lägga till produkten i kundvagnen (header + toast).
-- [x] Sidan ska vara responsiv och gå att använda på mobil, tablet & desktop.
+## 📁 Project Structure
 
-**Kundvagn & Checkout**
+```
+├── app/                    # Next.js app directory
+│   ├── admin/             # Admin dashboard pages
+│   ├── auth/              # Authentication pages
+│   ├── cart/              # Shopping cart functionality
+│   ├── checkout/          # Checkout process
+│   ├── components/        # Reusable UI components
+│   ├── confirmation/      # Order confirmation
+│   ├── orders/            # Customer order history
+│   └── product/           # Product detail pages
+├── actions/               # Server actions
+├── context/               # React context providers
+├── hooks/                 # Custom React hooks
+├── lib/                   # Utility libraries
+├── prisma/                # Database schema and migrations
+├── public/                # Static assets
+├── scripts/               # Utility scripts
+└── types/                 # TypeScript type definitions
+```
 
-- [x] Ska ha en övergripande layout med header, main & footer.
-- [x] Det ska gå att gå till checkoutsidan och se innehållet i kundvagnen (knapp & url).
-- [x] Det ska gå att se det totala priset i kundvagnen.
-- [x] Det ska gå att ändra produkterna i kundvagnen (header + vyn + pris).
-- [x] Det ska gå att ange leveransuppgifter i ett formulär.
-- [x] Samtliga fält för checkoutsidans formulär ska ha valideringsregler.
-- [x] Formulären vid utcheckningen ska gå att automatiskt fyllas i.
-- [x] Bekräftelsesidan ska visa orderdetaljer och leveransuppgifter
+## 🛡️ Security Features
 
-**Admin**
+- **Password Hashing** - bcrypt with salt rounds for secure storage
+- **Session Security** - JWT tokens with configurable expiration
+- **Input Validation** - Comprehensive Zod schemas on all endpoints
+- **Rate Limiting** - Protection against API abuse
+- **Role-based Access** - Admin-only routes and operations
+- **CSRF Protection** - Built-in Next.js security features
 
-- [x] Det finns en admin-sida för produkthantering
-- [x] Det ska gå att se alla produkter på admin sidan
-- [x] Det går att lägga till produkter via admin sidan
-- [x] Det går att ta bort produkter via admin sidan
-- [x] Det går att redigera produkter via admin sidan
-- [x] Samtliga fält för adminsidans formulär ska ha valideringsregler
+## 🌐 API Endpoints
+
+### **Authentication**
+
+- `POST /api/auth/[...nextauth]` - NextAuth.js endpoints
+- Server actions for user registration and profile management
+
+### **Products**
+
+- Server actions for product CRUD operations (admin only)
+- Public product fetching through Prisma queries
+
+### **Orders**
+
+- Server actions for order creation and management
+- Customer order history retrieval
+
+## 🧪 Testing Strategy
+
+The application includes comprehensive testing:
+
+- **End-to-End Testing** - Cypress automation covering user journeys
+- **Component Testing** - React component behavior validation
+- **API Testing** - Server action and database operation testing
+- **Type Safety** - TypeScript compile-time validation
+
+## 📈 Performance Optimizations
+
+- **Next.js App Router** - Optimized routing and rendering
+- **Image Optimization** - Next.js built-in image optimization
+- **Bundle Splitting** - Automatic code splitting for faster loads
+- **Caching Strategy** - Prisma query optimization and Next.js caching
+- **Responsive Design** - Mobile-first approach for all devices
+
+## 🚀 Deployment
+
+### **Vercel Deployment**
+
+The application is optimized for Vercel deployment:
+
+```bash
+npm run build
+```
+
+**Note**: For production deployment, you'll need a PostgreSQL database provider (not SQLite) as Vercel doesn't support file-based databases.
+
+### **Environment Variables**
+
+Ensure all production environment variables are configured in your deployment platform.
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## 📄 License
+
+This project is licensed under the ISC License - see the [LICENSE](LICENSE) file for details.
+
+## 👥 Team
+
+Built with ❤️ by the Bread & Butter development team.
+
+## 🆘 Support
+
+If you encounter any issues or have questions:
+
+1. Check the [Issues](../../issues) section
+2. Review the documentation above
+3. Create a new issue with detailed information
+
+---
+
+<div align="center">
+
+**[🌟 Star this repository](../../stargazers) if you found it helpful!**
+
+</div>
