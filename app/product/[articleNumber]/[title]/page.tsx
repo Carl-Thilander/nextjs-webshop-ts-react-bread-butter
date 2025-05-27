@@ -17,7 +17,7 @@ export default async function ProductPage({ params }: Props) {
 	const decodedTitle = decodeURIComponent(title);
 
 
-	const product = await db.product.findUnique({
+	const product = await prisma.product.findUnique({
 		where: { articleNumber },
 		include: { categories: true },
 	});
