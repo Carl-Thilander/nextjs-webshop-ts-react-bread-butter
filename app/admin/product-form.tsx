@@ -22,6 +22,7 @@ const ProductSchema = z.object({
   title: z.string().min(1),
   image: z.string().optional(),
   price: z.coerce.number().min(1),
+  stock: z.coerce.number().min(0),
 });
 
 interface Props {
@@ -37,6 +38,7 @@ export default function ProductForm({ product }: Props) {
       description: "",
       image: "",
       price: 0,
+      stock: 0,
     },
     resolver: zodResolver(ProductSchema),
   });
@@ -104,7 +106,7 @@ export default function ProductForm({ product }: Props) {
         title="Image address"
         margin="normal"
         id="imageURL"
-        type="url"
+        type="text"
         fullWidth
         variant="outlined"
         error={!!errors.image}
@@ -164,6 +166,32 @@ export default function ProductForm({ product }: Props) {
           ) : null
         }
         {...register("price")}
+      />
+
+      <FormLabel
+        sx={{
+          textAlign: "left",
+          fontWeight: "bold",
+          color: "text.primary",
+        }}
+      >
+        Stock
+      </FormLabel>
+
+      <TextField
+        title="Stock"
+        margin="normal"
+        id="Stock"
+        type="number"
+        fullWidth
+        variant="outlined"
+        error={!!errors.stock}
+        helperText={
+          errors.stock ? (
+            <span>{"Stock cannot be negative"}</span>
+          ) : null
+        }
+        {...register("stock")}
       />
 
       <FormLabel

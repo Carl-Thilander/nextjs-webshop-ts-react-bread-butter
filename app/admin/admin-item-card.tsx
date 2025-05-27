@@ -76,6 +76,21 @@ export default function AdminItem({ product }: ProductCardProps) {
         </Typography>
       </Box>
 
+      {/* Stock */}
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          width: { xs: "100px", sm: "auto" },
+        }}
+      >
+        <Typography variant="body2">Stock:</Typography>
+        <Typography variant="body2">{product.stock}</Typography>
+      </Box>
+
+
       {/* Redigera & Ta bort-knappar (ikon för mobil, knapp för desktop) */}
       <Box
         sx={{
