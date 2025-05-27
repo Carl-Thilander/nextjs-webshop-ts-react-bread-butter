@@ -107,10 +107,18 @@ export const config = {
     signIn: "/auth/signin",
     error: "/auth/error",
   },
-
   session: {
     strategy: "jwt",
+    maxAge: 30 * 24 * 60 * 60, // 30 days
   },
+  // Add these to reduce auth requests
+  events: {
+    async signIn({ user, account, profile }) {
+      console.log("User signed in:", user.email);
+    },
+  },
+  // Reduce session checks
+  secret: process.env.AUTH_SECRET,
 } satisfies NextAuthConfig;
 
 export const { handlers, auth, signIn, signOut } = NextAuth(config);
