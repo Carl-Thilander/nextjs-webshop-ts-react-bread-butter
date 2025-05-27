@@ -4,8 +4,11 @@ import AddProductButton from "./buttons/add-product-button";
 import { Button, Typography } from "@mui/material";
 
 export default async function AdminPage() {
-  const products = await prisma.product.findMany();
-
+const products = await prisma.product.findMany({
+  include: {
+    categories: true,
+  },
+});
   return (
     <>
       <Button variant="contained" href="/admin/orders">

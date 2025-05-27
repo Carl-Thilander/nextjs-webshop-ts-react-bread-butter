@@ -1,12 +1,12 @@
 "use client";
 
-import { Box, Container, Typography } from "@mui/material";
+import { Box, Chip, Container, Typography } from "@mui/material";
 import { Product } from "@prisma/client";
 import EditButton from "./buttons/edit-admin-button";
 import DeleteButton from "./delete-product-item";
 
 type ProductCardProps = {
-  product: Product;
+  product: Product & { categories: { name: string }[] };
 };
 
 export default function AdminItem({ product }: ProductCardProps) {
@@ -74,23 +74,25 @@ export default function AdminItem({ product }: ProductCardProps) {
         >
           {product.description}
         </Typography>
+
+        {/* ✅ Categories */}
+        <Box sx={{ marginTop: 1, display: "flex", flexWrap: "wrap", gap: 1 }}>
+          {product.categories.map((category) => (
+            <Chip
+              key={category.name}
+              label={category.name}
+              variant="outlined"
+              sx={{
+                backgroundColor: "#F2E0D5",
+                color: "#9C8173",
+                borderColor: "#9C8173",
+              }}
+              size="small"
+            />
+          ))}
+        </Box>
       </Box>
-
-      {/* Stock */}
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          width: { xs: "100px", sm: "auto" },
-        }}
-      >
-        <Typography variant="body2">Stock:</Typography>
-        <Typography variant="body2">{product.stock}</Typography>
-      </Box>
-
-
+      
       {/* Redigera & Ta bort-knappar (ikon för mobil, knapp för desktop) */}
       <Box
         sx={{
@@ -104,6 +106,21 @@ export default function AdminItem({ product }: ProductCardProps) {
         <EditButton product={product} />
 
         <DeleteButton product={product} />
+
+
+      {/* Stock */}
+        <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          width: { xs: "100px", sm: "auto" },
+        }}
+      >
+        <Typography variant="body2">Stock:</Typography>
+        <Typography variant="body2">{product.stock}</Typography>
+      </Box>
       </Box>
     </Container>
   );
