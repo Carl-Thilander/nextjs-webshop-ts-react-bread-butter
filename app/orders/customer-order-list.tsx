@@ -63,14 +63,12 @@ export default function CustomerOrderList({
       <Box sx={{ position: "relative", mb: 6 }}>
         <GoBackButton href="/" />
       </Box>
-
       <Typography variant="h4" component="h1" sx={{ mb: 4 }}>
         My Orders
-      </Typography>
-
+      </Typography>{" "}
       {orders.length === 0 ? (
         <Typography variant="body1" sx={{ mt: 2 }}>
-          You don't have any orders yet.
+          You don&apos;t have any orders yet.
         </Typography>
       ) : (
         orders.map((order) => (

@@ -3,8 +3,9 @@
 import { useSearchParams } from "next/navigation";
 import { Container, Typography, Box, Paper, Button } from "@mui/material";
 import Link from "next/link";
+import { Suspense } from "react";
 
-export default function ErrorPage() {
+function ErrorContent() {
   const searchParams = useSearchParams();
   const error = searchParams?.get("error") || "Unknown error";
 
@@ -56,5 +57,40 @@ export default function ErrorPage() {
         </Box>
       </Paper>
     </Container>
+  );
+}
+
+export default function ErrorPage() {
+  return (
+    <Suspense
+      fallback={
+        <Container maxWidth="sm" sx={{ pt: 8 }}>
+          <Paper elevation={3} sx={{ p: 4, borderRadius: 2 }}>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                gap: 3,
+              }}
+            >
+              <Typography
+                variant="h4"
+                component="h1"
+                gutterBottom
+                color="error"
+              >
+                Authentication Error
+              </Typography>
+              <Typography variant="body1" align="center">
+                Loading...
+              </Typography>
+            </Box>
+          </Paper>
+        </Container>
+      }
+    >
+      <ErrorContent />
+    </Suspense>
   );
 }

@@ -65,7 +65,6 @@ export default function ProductForm({ product }: Props) {
     getAllCategories().then(setCategories);
   }, []);
 
-
   const onSubmit: SubmitHandler<ProductFormData> = async (data) => {
     const payload: Prisma.ProductCreateInput = {
       title: data.title,
@@ -203,7 +202,11 @@ export default function ProductForm({ product }: Props) {
             error={!!errors.categoryIds}
           >
             {categories.map((cat) => (
-              <MenuItem sx={{ color: "text.primary" }} key={cat.id} value={cat.id}>
+              <MenuItem
+                sx={{ color: "text.primary" }}
+                key={cat.id}
+                value={cat.id}
+              >
                 {cat.name}
               </MenuItem>
             ))}

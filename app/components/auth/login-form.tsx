@@ -129,14 +129,12 @@ export default function LoginForm() {
           }}
         >
           Google
-        </Button>
-
-        <Typography variant="body2" sx={{
+        </Button>        <Typography variant="body2" sx={{
           textAlign: 'center',
           mt: 3,
           color: 'text.secondary'
         }}>
-          Don't have an account?{' '}
+          Don&apos;t have an account?{' '}
           <Typography
             component="span"
             sx={{
