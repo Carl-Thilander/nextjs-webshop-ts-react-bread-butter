@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import ClearRoundedIcon from "@mui/icons-material/ClearRounded";
 import {
@@ -7,15 +8,17 @@ import {
   Button,
   FormLabel,
   IconButton,
+  MenuItem,
+  Select,
   TextField,
   Typography,
 } from "@mui/material";
-import { Prisma, Product } from "@prisma/client";
+import { Prisma, Product, Category } from "@prisma/client";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { SubmitHandler, useForm, Controller } from "react-hook-form";
 import z from "zod";
-import { createProduct, updateProduct } from "./action";
+import { createProduct, updateProduct, getAllCategories } from "./action";
 
 const ProductSchema = z.object({
   description: z.string().min(1),
@@ -23,7 +26,10 @@ const ProductSchema = z.object({
   image: z.string().optional(),
   price: z.coerce.number().min(1),
   stock: z.coerce.number().min(0),
+  categoryIds: z.array(z.string()).min(1, "Select at least one category"),
 });
+
+type ProductFormData = z.infer<typeof ProductSchema>;
 
 interface Props {
   product?: Product;
@@ -32,46 +38,63 @@ interface Props {
 export default function ProductForm({ product }: Props) {
   const isEdit = Boolean(product);
   const router = useRouter();
-  const form = useForm<Prisma.ProductCreateInput>({
-    defaultValues: product || {
-      title: "",
-      description: "",
-      image: "",
-      price: 0,
-      stock: 0,
+  const [categories, setCategories] = useState<Category[]>([]);
+
+  const form = useForm<ProductFormData>({
+    defaultValues: {
+      title: product?.title || "",
+      description: product?.description || "",
+      image: product?.image || "",
+      price: product?.price || 0,
+      stock: product?.stock || 0,
+      categoryIds: [],
     },
     resolver: zodResolver(ProductSchema),
   });
 
   const {
     register,
+    control,
+    handleSubmit,
+    reset,
     formState: { errors },
   } = form;
 
-  const onSubmit: SubmitHandler<Prisma.ProductCreateInput> = async (data) => {
-    if (isEdit) {
-      await updateProduct(product!.articleNumber, data);
+  useEffect(() => {
+    getAllCategories().then(setCategories);
+  }, []);
+
+  const onSubmit: SubmitHandler<ProductFormData> = async (data) => {
+    const payload: Prisma.ProductCreateInput = {
+      title: data.title,
+      description: data.description,
+      image: data.image || "",
+      price: data.price,
+      stock: data.stock,
+      categories: {
+        connect: data.categoryIds.map((id) => ({ id })),
+      },
+    };
+
+    if (isEdit && product?.articleNumber) {
+      await updateProduct(product.articleNumber, payload);
     } else {
-      await createProduct(data);
-      form.reset();
+      await createProduct(payload);
+      reset();
     }
+
     router.push("/admin");
   };
 
   return (
     <Box
       component="form"
-      onSubmit={form.handleSubmit(onSubmit)}
+      onSubmit={handleSubmit(onSubmit)}
       sx={{
         display: "flex",
         flexDirection: "column",
         padding: 2,
-        width: {
-          xs: 280,
-          sm: 400,
-          md: 500,
-          lg: 600,
-        },
+        width: { xs: 280, sm: 400, md: 500, lg: 600 },
       }}
     >
       <Typography
@@ -84,7 +107,6 @@ export default function ProductForm({ product }: Props) {
       >
         <span></span>
         {isEdit ? "Edit a product" : "Add a product"}
-
         <Link href="/admin/">
           <IconButton>
             <ClearRoundedIcon sx={{ fontSize: 30 }} />
@@ -92,151 +114,123 @@ export default function ProductForm({ product }: Props) {
         </Link>
       </Typography>
 
-      <FormLabel
-        sx={{
-          textAlign: "left",
-          fontWeight: "bold",
-          color: "text.primary",
-        }}
-      >
-        Image address to file
+      {/* Image */}
+      <FormLabel sx={{ fontWeight: "bold", color: "text.primary" }}>
+        Image address
       </FormLabel>
-
       <TextField
-        title="Image address"
         margin="normal"
-        id="imageURL"
         type="text"
         fullWidth
         variant="outlined"
         error={!!errors.image}
-        helperText={
-          errors.image ? (
-            <span>{"Add a relative path for your image"}</span>
-          ) : null
-        }
-        {...form.register("image")}
+        helperText={errors.image ? "Add a relative path for your image" : ""}
+        {...register("image")}
       />
 
-      <FormLabel
-        sx={{
-          textAlign: "left",
-          fontWeight: "bold",
-          color: "text.primary",
-        }}
-      >
+      {/* Title */}
+      <FormLabel sx={{ fontWeight: "bold", color: "text.primary" }}>
         Product name
       </FormLabel>
-
       <TextField
-        title="Product name"
         margin="normal"
-        id="ProductName"
         type="text"
         fullWidth
         variant="outlined"
-        error={!!errors.description}
-        helperText={
-          errors.title ? <span>{"Product name may not be empty"}</span> : null
-        }
+        error={!!errors.title}
+        helperText={errors.title ? "Product name may not be empty" : ""}
         {...register("title")}
       />
 
-      <FormLabel
-        sx={{
-          textAlign: "left",
-          fontWeight: "bold",
-          color: "text.primary",
-        }}
-      >
+      {/* Price */}
+      <FormLabel sx={{ fontWeight: "bold", color: "text.primary" }}>
         Price
       </FormLabel>
-
       <TextField
-        title="Price"
         margin="normal"
-        id="Price"
         type="number"
         fullWidth
         variant="outlined"
-        error={!!errors.description}
-        helperText={
-          errors.price ? (
-            <span>{"You have to add a price larger than 0"}</span>
-          ) : null
-        }
+        error={!!errors.price}
+        helperText={errors.price ? "Price must be greater than 0" : ""}
         {...register("price")}
       />
 
-      <FormLabel
-        sx={{
-          textAlign: "left",
-          fontWeight: "bold",
-          color: "text.primary",
-        }}
-      >
+      {/* Stock */}
+      <FormLabel sx={{ fontWeight: "bold", color: "text.primary" }}>
         Stock
       </FormLabel>
-
       <TextField
-        title="Stock"
         margin="normal"
-        id="Stock"
         type="number"
         fullWidth
         variant="outlined"
         error={!!errors.stock}
-        helperText={
-          errors.stock ? (
-            <span>{"Stock cannot be negative"}</span>
-          ) : null
-        }
+        helperText={errors.stock ? "Stock cannot be negative" : ""}
         {...register("stock")}
       />
 
-      <FormLabel
-        sx={{
-          textAlign: "left",
-          fontWeight: "bold",
-          color: "text.primary",
-        }}
-      >
+      {/* Description */}
+      <FormLabel sx={{ fontWeight: "bold", color: "text.primary" }}>
         Description
       </FormLabel>
-
       <TextField
-        title="Description"
         margin="normal"
-        id="Description"
         type="text"
         fullWidth
         variant="outlined"
         error={!!errors.description}
-        helperText={
-          errors.description ? (
-            <span>{"Description may not be empty"}</span>
-          ) : null
-        }
+        helperText={errors.description ? "Description may not be empty" : ""}
         {...register("description")}
       />
+
+      {/* Categories (Multi-select) */}
+      <FormLabel sx={{ fontWeight: "bold", color: "text.primary", mt: 2 }}>
+        Categories
+      </FormLabel>
+      <Controller
+        name="categoryIds"
+        control={control}
+        render={({ field }) => (
+          <Select
+            multiple
+            fullWidth
+            variant="outlined"
+            value={field.value}
+            onChange={field.onChange}
+            error={!!errors.categoryIds}
+          >
+            {categories.map((cat) => (
+              <MenuItem key={cat.id} value={cat.id}>
+                {cat.name}
+              </MenuItem>
+            ))}
+          </Select>
+        )}
+      />
+      {errors.categoryIds && (
+        <Typography color="error" variant="caption">
+          {errors.categoryIds.message}
+        </Typography>
+      )}
+
+      {/* Submit button */}
       <Box
         sx={{
           display: "flex",
-          flexDirection: "row",
-          alignItems: "center",
           justifyContent: "center",
+          mt: 3,
         }}
       >
         <Button
+          type="submit"
           sx={{
-            mt: 3,
             width: 200,
             height: 50,
             bgcolor: "primary.main",
             color: "text.primary",
             "&:hover": { bgcolor: "primary.dark", color: "background.paper" },
           }}
-          type="submit"
         >
           Save
         </Button>
