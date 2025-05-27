@@ -1,12 +1,12 @@
 "use client";
 
-import { Box, Container, Typography } from "@mui/material";
+import { Box, Chip, Container, Typography } from "@mui/material";
 import { Product } from "@prisma/client";
 import EditButton from "./buttons/edit-admin-button";
 import DeleteButton from "./delete-product-item";
 
 type ProductCardProps = {
-  product: Product;
+  product: Product & { categories: { name: string }[] };
 };
 
 export default function AdminItem({ product }: ProductCardProps) {
@@ -74,6 +74,19 @@ export default function AdminItem({ product }: ProductCardProps) {
         >
           {product.description}
         </Typography>
+
+        {/* ✅ Categories */}
+        <Box sx={{ marginTop: 1, display: "flex", flexWrap: "wrap", gap: 1 }}>
+          {product.categories.map((category) => (
+            <Chip
+              key={category.name}
+              label={category.name}
+              variant="outlined"
+              color="primary"
+              size="small"
+            />
+          ))}
+        </Box>
       </Box>
 
       {/* Stock */}
