@@ -33,7 +33,7 @@ const ProductSchema = z.object({
 type ProductFormData = z.infer<typeof ProductSchema>;
 
 interface Props {
-  product?: Product;
+  product?: Product & { categories: Category[] };
 }
 
 export default function ProductForm({ product }: Props) {
@@ -48,7 +48,7 @@ export default function ProductForm({ product }: Props) {
       image: product?.image || "",
       price: product?.price || 0,
       stock: product?.stock || 0,
-      categoryIds: [],
+      categoryIds: product?.categories?.map((c) => c.id) || [],
     },
     resolver: zodResolver(ProductSchema),
   });
@@ -64,6 +64,7 @@ export default function ProductForm({ product }: Props) {
   useEffect(() => {
     getAllCategories().then(setCategories);
   }, []);
+
 
   const onSubmit: SubmitHandler<ProductFormData> = async (data) => {
     const payload: Prisma.ProductCreateInput = {
@@ -196,13 +197,13 @@ export default function ProductForm({ product }: Props) {
           <Select
             multiple
             fullWidth
-            variant="outlined"
+            sx={{ mt: 1, mb: 2, color: "text.primary" }}
             value={field.value}
             onChange={field.onChange}
             error={!!errors.categoryIds}
           >
             {categories.map((cat) => (
-              <MenuItem key={cat.id} value={cat.id}>
+              <MenuItem sx={{ color: "text.primary" }} key={cat.id} value={cat.id}>
                 {cat.name}
               </MenuItem>
             ))}
