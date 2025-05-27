@@ -26,6 +26,10 @@ export async function deleteProduct(id: string) {
   revalidatePath("/");
 }
 
+export async function getAllCategories() {
+  return await prisma.category.findMany();
+}
+
 export async function updateProduct(
   articleNumber: string,
   data: Prisma.ProductUpdateInput
