@@ -119,7 +119,7 @@ export default function AdminItem({ product }: ProductCardProps) {
         }}
       >
         <Typography variant="body2">Stock:</Typography>
-        <Typography label={product.stock}  variant="body2">{product.stock}</Typography>
+        <Typography variant="body2">{product.stock}</Typography>
       </Box>
       </Box>
     </Container>
