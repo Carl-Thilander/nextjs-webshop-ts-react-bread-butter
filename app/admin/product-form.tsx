@@ -184,7 +184,7 @@ export default function ProductForm({ product }: Props) {
         {...register("description")}
       />
 
-      {/* Categories (Multi-select) */}
+      {/* Categories */}
       <FormLabel sx={{ fontWeight: "bold", color: "text.primary", mt: 2 }}>
         Categories
       </FormLabel>
