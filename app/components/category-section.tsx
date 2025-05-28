@@ -20,9 +20,10 @@ export default function CategorySection({ categories, selected, onSelect }: Prop
         flexDirection: "column",
         gap: "1rem",
         paddingTop: "6rem",
+        paddingLeft: { xs: "1rem", sm: "3rem" },
         alignItems: { xs: "center", sm: "flex-start" },
-       width: "100%",
-        marginTop: "3rem",
+        width: "100%",
+        marginTop: "4rem",
       }}
     >
       <Typography
