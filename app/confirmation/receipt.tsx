@@ -9,6 +9,7 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
+import Image from "next/image";
 import { styled } from "@mui/material/styles";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -70,12 +71,12 @@ export default function Receipt({ items, totalSum }: ReceiptProps) {
                     gap: "1rem",
                   }}
                 >
-                  <img
+                  <Image
                     src={item.image}
                     alt={item.title}
+                    width={50}
+                    height={50}
                     style={{
-                      width: "50px",
-                      height: "50px",
                       borderRadius: "50%",
                     }}
                   />
