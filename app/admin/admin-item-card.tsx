@@ -11,117 +11,79 @@ type ProductCardProps = {
 
 export default function AdminItem({ product }: ProductCardProps) {
   return (
-    <Container
-      key={product.id}
+    <Box
       sx={{
-        display: "flex",
-        flexDirection: { xs: "column", sm: "row" },
-        alignItems: "center",
-        justifyContent: "space-between",
-        backgroundColor: "#FAF2E9",
-        padding: 2,
+        backgroundColor: "#fff",
         borderRadius: 2,
-        boxShadow: "0px 2px 10px rgba(0, 0, 0, 0.4)",
-        gap: 1,
-        flexWrap: { xs: "wrap", md: "nowrap" },
+        boxShadow: 2,
+        overflow: "hidden",
+        display: "flex",
+        flexDirection: "column",
+        height: "100%",
       }}
     >
       <Box
+        component="img"
+        src={product.image}
+        alt={product.title}
         sx={{
-          width: { xs: "100px", md: "150px" },
-          height: { xs: "100px", md: "150px" },
+          width: "100%",
+          height: 300,
+          objectFit: "contain",
+          display: "block",
+          borderBottom: "1px solid #ddd",
+          padding: 2,
+          backgroundColor: "#f8f8f8",
         }}
-      >
-        {/* Bild */}
-        <Box
-          component="img"
-          src={product.image}
-          alt={product.title}
-          sx={{
-            borderRadius: { xs: "50%", md: "20px" },
-            padding: 0.5,
-            border: { xs: "2px solid #9C8173", md: "none" },
-            width: "100%",
-            height: "100%",
-            objectFit: "cover",
-          }}
-        />
-      </Box>
-
-      {/* Produktinformation */}
-      <Box sx={{ flex: 1, flexWrap: "wrap", width: { xs: "100%" } }}>
-        <Typography variant="h6">{product.title}</Typography>
-
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "row",
-          }}
-        >
-          <Typography variant="body2">Art Nr: </Typography>
-
-          <Typography variant="body2">{product.articleNumber}</Typography>
-        </Box>
-        <Typography variant="body2">{product.price} €</Typography>
-
-        {/* Beskrivning */}
-        <Typography variant="subtitle2" sx={{ marginTop: 1 }}>
-          Description:
+      />
+      <Box sx={{ padding: 2, flexGrow: 1 }}>
+        <Typography variant="h6" fontWeight="bold" gutterBottom>
+          {product.title}
         </Typography>
-        <Typography
-          variant="body2"
-          sx={{ borderColor: "text.secondary", borderRadius: "4px" }}
-        >
+
+        <Typography variant="body2" color="text.secondary">
+          Art Nr: {product.articleNumber}
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+          Price: {product.price} €
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+          Stock: {product.stock}
+        </Typography>
+
+        <Typography sx={{
+          display: "-webkit-box",
+          WebkitLineClamp: 2,
+          WebkitBoxOrient: "vertical",
+          overflow: "hidden",
+          textOverflow: "ellipsis",
+        }} variant="subtitle2" mt={1}>
           {product.description}
         </Typography>
 
-        {/* ✅ Categories */}
-        <Box sx={{ marginTop: 1, display: "flex", flexWrap: "wrap", gap: 1 }}>
-          {product.categories.map((category) => (
+        <Box sx={{ mt: 1, display: "flex", flexWrap: "wrap", gap: 0.5 }}>
+          {product.categories.map((cat) => (
             <Chip
-              key={category.name}
-              label={category.name}
-              variant="outlined"
-              sx={{
-                backgroundColor: "#F2E0D5",
-                color: "#9C8173",
-                borderColor: "#9C8173",
-              }}
+              key={cat.name}
+              label={cat.name}
               size="small"
+              sx={{ backgroundColor: "#F2E0D5", color: "#9C8173" }}
             />
           ))}
         </Box>
       </Box>
-      
-      {/* Redigera & Ta bort-knappar (ikon för mobil, knapp för desktop) */}
+
       <Box
         sx={{
           display: "flex",
-          flexDirection: { xs: "row", sm: "column" },
-          alignSelf: { xs: "center", sm: "flex-start" },
-          justifyContent: "flex-start",
-          gap: 2,
+          justifyContent: "space-between",
+          px: 2,
+          pb: 2,
         }}
       >
         <EditButton product={product} />
-
         <DeleteButton product={product} />
-
-
-      {/* Stock */}
-        <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          width: { xs: "100px", sm: "auto" },
-        }}
-      >
-        <Typography variant="body2">Stock:</Typography>
-        <Typography variant="body2">{product.stock}</Typography>
       </Box>
-      </Box>
-    </Container>
+    </Box>
   );
 }
