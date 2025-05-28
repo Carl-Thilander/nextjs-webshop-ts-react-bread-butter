@@ -1,4 +1,4 @@
-import { Container } from "@mui/material";
+import { Box, Container } from "@mui/material";
 
 export default async function AdminLayout({
   children,
@@ -6,19 +6,19 @@ export default async function AdminLayout({
   children: React.ReactNode;
 }) {
   return (
-    <Container
+    <Box
+      component="main"
       sx={{
         display: "flex",
         flexDirection: "column",
-        gap: 2,
+        gap: 3,
         bgcolor: "background.paper",
-        marginTop: 2,
-        marginBottom: 2,
-        borderRadius: 2,
-        padding: 4,
+        
+        minHeight: "100vh",
+        padding: { xs: 2, sm: 4 },
       }}
     >
       {children}
-    </Container>
+    </Box>
   );
 }
