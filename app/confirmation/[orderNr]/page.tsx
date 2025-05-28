@@ -63,7 +63,7 @@ export default function ConfirmationPage({
           variant="h2"
           sx={{ fontSize: "1.5rem", fontWeight: "500", pb: 2 }}
         >
-          Kundinformation
+          Customer information
         </Typography>
         <Box
           sx={{
