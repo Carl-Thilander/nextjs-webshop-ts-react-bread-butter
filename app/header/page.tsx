@@ -12,6 +12,11 @@ import {
   AppBar,
   Box,
   Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
   Divider,
   Drawer,
   IconButton,
@@ -34,6 +39,8 @@ import CartIconButton from "./cart-icon-button";
 const Header = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const isSmallScreen = useMediaQuery("(max-width:600px)");
+  const [logoutDialogOpen, setLogoutDialogOpen] = useState(false);
+
   const { data: session } = useSession();
   const pathname = usePathname();
 
@@ -42,6 +49,12 @@ const Header = () => {
   useEffect(() => {
     setDrawerOpen(false);
   }, [pathname]);
+
+  const confirmSignOut = () => {
+    setLogoutDialogOpen(false);
+    signOut({ callbackUrl: "/" });
+  };
+
 
   const drawerItems = [
     !session && {
@@ -55,16 +68,19 @@ const Header = () => {
       icon: <PersonAddIcon />,
     },
     session &&
-      !session.user?.isAdmin && {
-        text: "My Orders",
-        href: "/orders",
-        icon: <PersonIcon color="primary" />,
-      },
+    !session.user?.isAdmin && {
+      text: "My Orders",
+      href: "/orders",
+      icon: <PersonIcon color="primary" />,
+    },
     session && {
       text: "Sign Out",
       href: "#",
       icon: <LogoutIcon color="primary" />,
-      onClick: () => signOut({ callbackUrl: "/" }),
+      onClick: () => {
+        setDrawerOpen(false);
+        setLogoutDialogOpen(true);
+      },
     },
     session?.user?.isAdmin && {
       text: "Admin",
@@ -75,13 +91,13 @@ const Header = () => {
 
   return (
     <>
-<AppBar
+      <AppBar
         position="sticky"
         sx={{
           padding: { xs: 1, sm: 2 },
           bgcolor: "background.default",
           zIndex: 1100,
-          height : { xs: 70, sm: 80, md: 90 },
+          height: { xs: 70, sm: 80, md: 90 },
         }}
       >
         <Toolbar>
@@ -180,7 +196,7 @@ const Header = () => {
                 )}
 
                 <Button
-                  onClick={() => signOut({ callbackUrl: "/" })}
+                  onClick={() => setLogoutDialogOpen(true)}
                   startIcon={<LogoutIcon />}
                   sx={{
                     color: "text.primary",
@@ -253,6 +269,29 @@ const Header = () => {
           </Box>
         </Box>
       </Drawer>
+
+      {/* Logout Confirmation Dialog */}
+      <Dialog
+        open={logoutDialogOpen}
+        onClose={() => setLogoutDialogOpen(false)}
+        aria-labelledby="logout-dialog-title"
+      >
+        <DialogTitle id="logout-dialog-title">Confirm Sign Out</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Are you sure you want to sign out of your account?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setLogoutDialogOpen(false)} color="inherit">
+            Cancel
+          </Button>
+          <Button onClick={confirmSignOut} color="error" variant="contained">
+            Sign out
+          </Button>
+        </DialogActions>
+      </Dialog>
+
     </>
   );
 };
