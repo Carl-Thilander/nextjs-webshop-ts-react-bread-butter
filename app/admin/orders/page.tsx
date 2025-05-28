@@ -1,7 +1,7 @@
 import { auth } from "@/auth";
 import { prisma } from "@/prisma/db";
 import { redirect } from "next/navigation";
-import { Container } from "@mui/material";
+import { Box, Container } from "@mui/material";
 import AdminOrderTable from "./admin-order-table-client";
 
 export default async function AdminOrdersPage() {
@@ -29,19 +29,15 @@ export default async function AdminOrdersPage() {
   });
 
   return (
-    <Container
+    <Box
       sx={{
-        display: "flex",
-        flexDirection: "column",
-        gap: 2,
-        bgcolor: "background.paper",
-        marginTop: 2,
-        marginBottom: 2,
-        borderRadius: 2,
-        padding: 4,
+        px: { xs: 2, sm: 4, md: 6 },
+        py: 4,
+        bgcolor: "background.default",
+        minHeight: "100vh",
       }}
     >
       <AdminOrderTable orders={orders} />
-    </Container>
+    </Box>
   );
 }
