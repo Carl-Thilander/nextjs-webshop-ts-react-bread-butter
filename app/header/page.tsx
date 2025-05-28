@@ -20,10 +20,10 @@ import {
   ListItemIcon,
   ListItemText,
   Toolbar,
+  Tooltip,
   Typography,
   alpha,
   useMediaQuery,
-  Tooltip,
 } from "@mui/material";
 import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
@@ -81,6 +81,7 @@ const Header = () => {
           padding: { xs: 1, sm: 2 },
           bgcolor: "background.default",
           zIndex: 1100,
+          height : { xs: 70, sm: 80, md: 90 },
         }}
       >
         <Toolbar>

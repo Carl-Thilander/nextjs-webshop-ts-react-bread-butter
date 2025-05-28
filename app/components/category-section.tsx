@@ -15,15 +15,14 @@ interface Props {
 export default function CategorySection({ categories, selected, onSelect }: Props) {
   return (
     <Container id="products"
-      
       sx={{
         display: "flex",
         flexDirection: "column",
         gap: "1rem",
-        alignItems: "left",
-        padding: "5rem",
-        width: "100%",
-        marginTop: "1rem",
+        paddingTop: "6rem",
+        alignItems: { xs: "center", sm: "flex-start" },
+       width: "100%",
+        marginTop: "3rem",
       }}
     >
       <Typography
@@ -41,7 +40,9 @@ export default function CategorySection({ categories, selected, onSelect }: Prop
         sx={{
           display: "flex",
           gap: "1rem",
-          flexDirection: "row",
+          flexDirection: { xs: "column", sm: "row" },
+          width: "60%",
+          alignItems: { xs: "center", sm: "flex-start" },
         }}>
         
 
@@ -59,6 +60,8 @@ export default function CategorySection({ categories, selected, onSelect }: Prop
             fontWeight: selected.includes(category.name) ? "bold" : "normal",
             fontSize: "1rem",
             padding: "0.5rem 1rem",
+            width: { xs: "80%", sm: "auto" },
+            height: "48px",
             borderRadius: "8px",
             border: "1px solid",
             backgroundColor: selected.includes(category.name) ? "primary" : "white",
