@@ -76,8 +76,8 @@ export default function MyDrawer() {
             onClick={toggleDrawer(false)}
             sx={{
               position: "absolute",
-              top: 10,
-              right: 10,
+              top: 5,
+              right: 7,
               color: "text.primary",
             }}
           >
@@ -87,12 +87,11 @@ export default function MyDrawer() {
           <Typography
             variant="h5"
             sx={{
-              marginBottom: 2,
               fontFamily: "var(--font-montserrat)",
-              paddingLeft: 3,
+              paddingLeft: 2,
             }}
           >
-            Kundvagn
+            Cart
           </Typography>
 
           <Box
@@ -100,7 +99,7 @@ export default function MyDrawer() {
               display: "flex",
               flexDirection: "column",
               gap: 2,
-              paddingLeft: 2,
+              paddingInline: 2,
             }}
           >
             <CartList />
