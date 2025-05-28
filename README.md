@@ -1,4 +1,4 @@
-# ☕ Bread & Butter
+# ☕ Bean & Leaf
 
 <div align="center">
 
@@ -10,13 +10,11 @@
 [![Material-UI](https://img.shields.io/badge/MUI-6.4.7-007FFF?logo=mui&logoColor=white)](https://mui.com/)
 [![License: ISC](https://img.shields.io/badge/License-ISC-green.svg)](https://opensource.org/licenses/ISC)
 
-<img width="800" alt="Bread & Butter Hero Image" src="https://github.com/user-attachments/assets/fbb8dbe9-55d8-4c16-84b8-e85e04787365" />
-
 </div>
 
 ## 🌟 About
 
-**Bread & Butter** is a full-stack e-commerce platform specializing in premium coffee beans and tea leaves. Built with modern web technologies, it provides a seamless shopping experience with robust authentication, admin management, and responsive design.
+**Bean & Leaf** is a full-stack e-commerce platform specializing in premium coffee beans and tea leaves. Built with modern web technologies, it provides a seamless shopping experience with robust authentication, admin management, and responsive design.
 
 ### 🎯 Business Concept
 
@@ -29,8 +27,6 @@ A curated marketplace for coffee enthusiasts and tea lovers, offering:
 
 ## ✨ Features
 
-## ✨ Features
-
 ### 🛒 **E-commerce Core**
 
 - **Product Catalog** - Browse premium coffee beans and tea leaves with detailed descriptions
@@ -38,10 +34,6 @@ A curated marketplace for coffee enthusiasts and tea lovers, offering:
 - **Category Filtering** - Filter products by Coffee, Tea, Decaf, and Sale categories
 - **Stock Management** - Real-time stock tracking and low-stock warnings
 - **Responsive Design** - Seamless experience across desktop, tablet, and mobile
-
-<img width="500" alt="products" src="https://github.com/user-attachments/assets/983f03a8-040d-4557-ad34-e406197bc08e" />
-
-_Product overview with category filtering and add-to-cart functionality_
 
 ### 🔐 **Authentication & Security**
 
@@ -57,24 +49,12 @@ _Product overview with category filtering and add-to-cart functionality_
 - **Checkout Process** - Multi-step checkout with address validation
 - **Order Confirmation** - Detailed order receipts with tracking numbers
 
-<img width="500" alt="product-details" src="https://github.com/user-attachments/assets/aed14f46-4c83-4450-83b2-57a0cede5823" />
-
-_Detailed product pages with stock information and add-to-cart_
-
-<img width="500" alt="cart" src="https://github.com/user-attachments/assets/1fc4f73d-ddd1-4bf2-90f5-c4cc95386623" />
-
-_Shopping cart with summary and checkout options_
-
 ### 📝 **Form Validation & UX**
 
 - **Zod Schema Validation** - Type-safe form validation throughout the app
 - **Real-time Feedback** - Instant validation feedback on form inputs
 - **Auto-fill Support** - Browser autofill compatibility for faster checkout
 - **Toast Notifications** - User-friendly success and error messages
-
-<img width="500" alt="zod" src="https://github.com/user-attachments/assets/c2581382-5dfb-40c0-9f79-f18392f21c6f" />
-
-_Zod validation ensuring data integrity in forms_
 
 ### 📊 **Admin Dashboard**
 
@@ -83,20 +63,12 @@ _Zod validation ensuring data integrity in forms_
 - **Stock Control** - Update inventory levels and track availability
 - **Category Management** - Organize products with multiple categories
 
-<img width="500" alt="admin" src="https://github.com/user-attachments/assets/aecc0e54-737a-4059-8485-a8aee499eacf" />
-
-_Admin panel for complete product and order management_
-
 ### 👤 **Customer Account Features**
 
 - **Order History** - View past orders with detailed breakdowns
 - **Order Status Tracking** - Track order progress from pending to shipped
 - **Profile Management** - Update personal information and preferences
 - **Address Management** - Save delivery addresses for faster checkout
-
-<img width="500" alt="confirmation" src="https://github.com/user-attachments/assets/8a8f2dff-49dd-46a1-9cd6-8c3216838c04" />
-
-_Order confirmation with complete delivery and order details_
 
 ## 🏗️ **Technical Architecture**
 
@@ -124,7 +96,6 @@ _Order confirmation with complete delivery and order details_
 ### **Development & Testing**
 
 - **ESLint** - Code quality and consistency enforcement
-- **Cypress** - End-to-end testing automation
 - **TypeScript Strict Mode** - Maximum type safety
 - **Hot Module Replacement** - Fast development feedback
 
@@ -219,16 +190,6 @@ npx prisma migrate dev
 npx prisma migrate reset
 ```
 
-### **Testing**
-
-```bash
-# Run Cypress end-to-end tests
-npm test
-
-# Update test specifications
-npm run update
-```
-
 ### **Admin Setup**
 
 ```bash
@@ -288,7 +249,6 @@ npx tsx scripts/make-admin.ts user@example.com
 
 The application includes comprehensive testing:
 
-- **End-to-End Testing** - Cypress automation covering user journeys
 - **Component Testing** - React component behavior validation
 - **API Testing** - Server action and database operation testing
 - **Type Safety** - TypeScript compile-time validation
