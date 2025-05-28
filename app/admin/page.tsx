@@ -26,7 +26,9 @@ const products = await prisma.product.findMany({
         </Button>
       </Box>
 
-      <AddProductButton />
+      <Box sx={{ mb: 2 }}>
+        <AddProductButton />
+      </Box>
       
       <Box
         sx={{
