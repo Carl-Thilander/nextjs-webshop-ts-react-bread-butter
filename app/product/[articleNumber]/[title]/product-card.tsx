@@ -61,7 +61,7 @@ export default function ProductCard({ product }: ProductCardProps) {
 						{product.title}
 					</Typography>
 					<CardActions sx={{ pt: 0, mt: 0 }}>
-						<AddToCartButton product={product} />
+						<AddToCartButton product={product} disabled={product.stock === 0} />
 					</CardActions>
 				</Box>
 				<Typography variant="body2">{product.price} €</Typography>

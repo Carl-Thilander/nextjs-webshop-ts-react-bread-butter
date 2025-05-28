@@ -8,11 +8,13 @@ import { Product } from "@prisma/client";
 interface AddToCartButtonProps {
 	label?: string;
 	product: Product;
+	disabled?: boolean;
 }
 
 const AddToCartButton: React.FC<AddToCartButtonProps> = ({
 	label = "Lägg i kundvagn",
 	product,
+	disabled,
 }) => {
 	const { addToCart, showToast } = useCart();
 
@@ -26,6 +28,7 @@ const AddToCartButton: React.FC<AddToCartButtonProps> = ({
 	return (
 		<IconButton
 			onClick={handleAddToCart}
+			disabled={disabled}
 			sx={{
         p: 0,
 				color: "text.primary",

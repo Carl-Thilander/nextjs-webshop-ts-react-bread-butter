@@ -115,7 +115,7 @@ export default async function ProductPage({ params }: Props) {
               mt: 2,
             }}
           >
-            <AddToCartButton product={product} />
+            <AddToCartButton product={product} disabled={product.stock === 0} />
           </Box>
         </Box>
       </Box>
