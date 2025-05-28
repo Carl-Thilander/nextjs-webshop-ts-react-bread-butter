@@ -19,7 +19,6 @@ import { useRouter } from "next/navigation";
 import { SubmitHandler, useForm, Controller } from "react-hook-form";
 import z from "zod";
 import { createProduct, updateProduct, getAllCategories } from "./action";
-import { products } from "@/data";
 
 const ProductSchema = z.object({
   description: z.string().min(1),

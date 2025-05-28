@@ -86,12 +86,7 @@ export function CartProvider(props: PropsWithChildren) {
     setCartItems([]);
     localStorage.removeItem("cart");
   };
-
   const cartCount = cartItems.reduce((total, item) => total + item.quantity, 0);
-
-  useEffect(() => {
-    console.log("cartCount updated:", cartCount);
-  }, [cartCount]);
 
   const totalSum = cartItems.reduce(
     (sum, item) => sum + item.quantity * item.price,
