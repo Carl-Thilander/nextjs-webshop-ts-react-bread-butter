@@ -42,10 +42,9 @@ export default function CategorySection({ categories, selected, onSelect }: Prop
           display: "flex",
           gap: "1rem",
           flexDirection: "row",
+          flexWrap: "wrap"
         }}>
         
-
-      
       {categories.map((category) => (
         <Chip
           key={category.id}
