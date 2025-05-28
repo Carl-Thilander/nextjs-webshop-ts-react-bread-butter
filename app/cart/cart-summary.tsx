@@ -33,7 +33,7 @@ export default function CartSummary() {
           Sum:
         </Typography>
         <Typography variant="h5" sx={{ paddingX: 2 }}>
-          {totalSum.toFixed(2)} kr
+          {totalSum.toFixed(2)} €
         </Typography>
       </Box>
       <Box
