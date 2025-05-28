@@ -37,18 +37,26 @@ export default function AdminItem({ product }: ProductCardProps) {
         }}
       />
       <Box sx={{ padding: 2, flexGrow: 1 }}>
-        <Typography variant="h6" fontWeight="bold" gutterBottom>
-          {product.title}
-        </Typography>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            gap: 2,
+            mb: 1,
+          }}
+        >
+          <Typography variant="h6" fontWeight="bold" sx={{ whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+            {product.title}
+          </Typography>
 
-        <Typography variant="body2" color="text.secondary">
-          Art Nr: {product.articleNumber}
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          Price: {product.price} €
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          Stock: {product.stock}
+          <Typography variant="caption" color="text.secondary" sx={{ whiteSpace: "nowrap" }}>
+              Article #: {product.articleNumber}
+          </Typography>
+        </Box>
+
+        <Typography variant="body2" fontWeight={"bold"} color="text.primary"  >
+          Price: € {product.price}
         </Typography>
 
         <Typography sx={{
@@ -76,14 +84,29 @@ export default function AdminItem({ product }: ProductCardProps) {
       <Box
         sx={{
           display: "flex",
+          alignItems: "center",
           justifyContent: "space-between",
           px: 2,
           pb: 2,
+          gap: 1,
         }}
       >
         <EditButton product={product} />
+
+        <Chip
+          label={`Stock: ${product.stock}`}
+          size="small"
+          sx={{
+            bgcolor: "#E0F2F1",
+            color: "#004D40",
+            fontWeight: 500,
+            fontSize: "0.85rem",
+          }}
+        />
+
         <DeleteButton product={product} />
       </Box>
+
     </Box>
   );
 }
