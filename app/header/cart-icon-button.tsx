@@ -36,18 +36,16 @@ export default function MyDrawer() {
       >
         <CartBadge />
       </IconButton>
-
-      {/* Backdrop for darkened background */}
+      {/* Backdrop for darkened background */}{" "}
       <Backdrop
         open={open}
         sx={{
-          zIndex: 1300, // Should be behind the drawer but in front of the rest of the page
+          zIndex: 1300,
           color: "#fff",
-          backgroundColor: "rgba(0, 0, 0, 0.5)", // Dark background for everything behind the drawer
+          backgroundColor: "rgba(0, 0, 0, 0.5)",
         }}
-        onClick={toggleDrawer(false)} // Close the drawer when backdrop is clicked
+        onClick={toggleDrawer(false)}
       />
-
       {/* Drawer */}
       <Drawer
         anchor="right"

@@ -18,15 +18,12 @@ export const userSchema = z.object({
   city: z.string().min(1, "City cannot be empty"),
   email: z.string().email("Invalid email address"),
   phone: z.string().regex(/^\+?\d{7,15}$/, "Invalid phone number"),
-  // password: z.string().min(6, "Password must be at least 6 characters"), // if needed
 });
 
-// Category validation
 export const categorySchema = z.object({
   name: z.string().min(1, "Category name cannot be empty"),
 });
 
-// OrderItem validation
 export const orderItemSchema = z.object({
   image: z.string().url("Image must be a valid URL"),
   title: z.string().min(1, "Product name cannot be empty"),
@@ -34,7 +31,6 @@ export const orderItemSchema = z.object({
   quantity: z.number().int().positive("Quantity must be at least 1"),
 });
 
-// Order validation
 export const orderSchema = z.object({
   userId: z.number().int().positive("Invalid user ID"),
   items: z

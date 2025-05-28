@@ -3,7 +3,7 @@ import { Badge } from "@mui/material";
 import { useCart } from "@/hooks/useCart";
 
 const CartBadge = () => {
-  const { cartCount } = useCart(); // Dynamically get the cart count
+  const { cartCount } = useCart();
 
   return (
     <Badge

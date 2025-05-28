@@ -20,15 +20,12 @@ export default function DeleteButton({ product }: ProductCardProps) {
   const handleClose = () => {
     setOpen(false);
   };
-
   return (
     <>
-      {/* Knapp som visar alert */}
       <IconButton onClick={handleClick} sx={{ color: "#9C8173" }}>
         <Delete />
       </IconButton>
 
-      {/* Alert som visas vid klick */}
       <Snackbar open={open} autoHideDuration={4000} onClose={handleClose}>
         <Alert
           onClose={handleClose}

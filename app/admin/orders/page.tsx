@@ -11,12 +11,10 @@ export default async function AdminOrdersPage() {
     redirect("/auth/signin");
   }
 
-  // Ensure only admins can access this page
   if (!session.user.isAdmin) {
     redirect("/");
   }
 
-  // Get all orders for admin view
   const orders = await prisma.order.findMany({
     include: {
       user: true,

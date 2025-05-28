@@ -9,8 +9,8 @@ export function middleware(request: NextRequest) {
     request.headers.get("x-forwarded-for") ??
     request.headers.get("x-real-ip") ??
     "127.0.0.1";
-  const limit = 100; // Increased from 5 to 50 requests per 15 minutes
-  const windowMs = 15 * 60 * 1000; // 15 minutes
+  const limit = 100;
+  const windowMs = 15 * 60 * 1000;
 
   if (request.nextUrl.pathname.startsWith("/api/auth")) {
     const now = Date.now();
