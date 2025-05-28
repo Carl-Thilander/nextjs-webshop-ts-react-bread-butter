@@ -8,18 +8,18 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Typography,
   Button,
   FormControl,
-  InputLabel,
   Select,
   MenuItem,
+  Paper,
+  Typography,
 } from "@mui/material";
 import { useState } from "react";
 import { Order, User, Address, OrderItem, OrderStatus } from "@prisma/client";
 import { SelectChangeEvent } from "@mui/material";
 import { updateOrderStatus } from "@/app/admin/action";
-import GoBackButton from "@/app/components/go-back-button";
+import ArrowBackwardIosIcon from "@mui/icons-material/ArrowBackIos";
 
 type ExtendedOrder = Order & {
   user: User | null;
@@ -53,133 +53,151 @@ export default function AdminOrderTable({
   };
 
   return (
-    <Box
-      sx={{
-        width: "100%",
-        px: { xs: 1, sm: 2, md: 6 },
-      }}
-    >
-      <Box sx={{ position: "relative", mb: 6 }}>
-        <GoBackButton href="/admin" />
+    <Box>
+      <Box sx={{ mb: 4 }}>
+        <Button
+          variant="contained"
+          href="/admin"
+          startIcon={<ArrowBackwardIosIcon sx={{ fontSize: 16 }} />}
+        >
+          Inventory Management
+        </Button>
       </Box>
 
-      <Typography variant="h1">Order Management</Typography>
-      <Box
+      <Box sx={{ mb: 2 }}>
+        <Typography variant="h4" fontWeight="bold">
+          Order Management
+        </Typography>
+      </Box>
+
+      <TableContainer
+        component={Paper}
         sx={{
-          backgroundColor: "background.default",
-          mt: 2,
-          maxWidth: { xs: "310px", sm: "100%" },
+          borderRadius: 3,
+          overflowX: "auto",
+          maxWidth: "100%",
         }}
       >
-        <TableContainer>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell sx={{ p: 1, color: "text.secondary", fontSize: 16 }}>
-                  Order-ID
-                </TableCell>
-                <TableCell
-                  align="left"
-                  sx={{ p: 1, color: "text.secondary", fontSize: 16 }}
-                >
-                  Date
-                </TableCell>
-                <TableCell
-                  align="left"
-                  sx={{ p: 1, color: "text.secondary", fontSize: 16 }}
-                >
-                  Customer
-                </TableCell>
-                <TableCell
-                  align="left"
-                  sx={{ p: 1, color: "text.secondary", fontSize: 16 }}
-                >
-                  Address
-                </TableCell>
-                <TableCell
-                  align="left"
-                  sx={{ p: 1, color: "text.secondary", fontSize: 16 }}
-                >
-                  Email
-                </TableCell>
-                <TableCell
-                  align="left"
-                  sx={{ p: 1, color: "text.secondary", fontSize: 16 }}
-                >
-                  Items
-                </TableCell>
-                <TableCell
-                  align="center"
-                  sx={{ p: 1, color: "text.secondary", fontSize: 16 }}
-                >
-                  Status
-                </TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {ordersState.map((order) => (
-                <TableRow key={order.id}>
+        <Table stickyHeader>
+          <TableHead>
+            <TableRow>
+              {["Order ID", "Date", "Customer", "Address", "Email", "Items", "Status"].map(
+                (header) => (
                   <TableCell
-                    component="th"
-                    scope="row"
+                    key={header}
                     sx={{
                       fontWeight: "bold",
+                      bgcolor: "#FAF2E9",
+                      color: "#3E291E",
+                      fontSize: 14,
+                      py: 1.5,
                     }}
                   >
-                    {order.orderNr}
+                    {header}
                   </TableCell>
-                  <TableCell align="left">
-                    {new Date(order.date).toLocaleDateString("en-US")}
-                  </TableCell>
-                  <TableCell align="left">{order.user?.name}</TableCell>
-                  <TableCell align="left">{order.address?.address}</TableCell>
-                  <TableCell align="left">{order.user?.email}</TableCell>
-                  <TableCell align="left">{order.items.length}</TableCell>
-                  <TableCell align="center">
-                    <FormControl fullWidth size="small">
-                      <Select
-                        sx={{
-                          backgroundColor:
-                            order.status === "PENDING"
-                              ? "primary.main"
+                )
+              )}
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {ordersState.map((order) => (
+              <TableRow
+                key={order.id}
+                hover
+                sx={{
+                  transition: "background 0.2s",
+                  "&:hover": {
+                    backgroundColor: "#FAFAFA",
+                  },
+                }}
+              >
+                <TableCell sx={{ fontWeight: 600 }}>{order.orderNr}</TableCell>
+                <TableCell>
+                  {new Date(order.date).toLocaleDateString("en-US")}
+                </TableCell>
+                <TableCell>{order.user?.name || "-"}</TableCell>
+                <TableCell>{order.address?.address || "-"}</TableCell>
+                <TableCell>{order.user?.email || "-"}</TableCell>
+                <TableCell>{order.items.length}</TableCell>
+                <TableCell align="center">
+                  <FormControl fullWidth size="small">
+                    <Select
+                      value={order.status}
+                      onChange={(e) => handleChange(e, order.id)}
+                      sx={{
+                        fontWeight: 600,
+                        borderRadius: "999px",
+                        fontSize: "0.8rem",
+                        minWidth: 110,
+                        textAlign: "center",
+                        px: 2,
+                        py: 0.5,
+                        backgroundColor:
+                          order.status === "PENDING"
+                            ? "#FFF4E5"
+                            : order.status === "SHIPPED"
+                              ? "#E3F2FD"
                               : order.status === "DELIVERED"
-                              ? "success.main"
+                                ? "#E8F5E9"
+                                : order.status === "CANCELLED"
+                                  ? "#FFEBEE"
+                                  : "#E0E0E0",
+                        color:
+                          order.status === "PENDING"
+                            ? "#B26A00"
+                            : order.status === "SHIPPED"
+                              ? "#1565C0"
+                              : order.status === "DELIVERED"
+                                ? "#2E7D32"
+                                : order.status === "CANCELLED"
+                                  ? "#C62828"
+                                  : "#555",
+                        "& .MuiSelect-icon": {
+                          color:
+                            order.status === "PENDING"
+                              ? "#B26A00"
                               : order.status === "SHIPPED"
-                              ? "secondary.main"
-                              : order.status === "CANCELLED"
-                              ? "error.main"
-                              : "grey.100",
-                          borderRadius: 4,
-                          "& .MuiSelect-select": {
-                            padding: "8px",
+                                ? "#1565C0"
+                                : order.status === "DELIVERED"
+                                  ? "#2E7D32"
+                                  : order.status === "CANCELLED"
+                                    ? "#C62828"
+                                    : "#555",
+                        },
+                        "& fieldset": {
+                          border: "none",
+                        },
+                      }}
+                      MenuProps={{
+                        PaperProps: {
+                          sx: {
+                            borderRadius: 2,
+                            mt: 1,
+                            boxShadow: 2,
+                            bgcolor: "#ffffff",
+                            color: "#3E291E",
                           },
-                          "&:hover": {
-                            backgroundColor: "action.hover",
-                          },
-                        }}
-                        labelId={`status-${order.id}`}
-                        id={`status-${order.id}`}
-                        value={order.status}
-                        onChange={(event) => handleChange(event, order.id)}
-                      >
-                        {Object.values(OrderStatus).map((status) => (
-                          <MenuItem
-                            key={status}
-                            value={status}
-                            sx={{ color: "text.primary" }}
-                          >
-                            {status}
-                          </MenuItem>
-                        ))}
-                      </Select>
-                    </FormControl>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </Box>
+                        },
+                      }}
+                    >
+                      {Object.values(OrderStatus).map((status) => (
+                        <MenuItem
+                          key={status}
+                          value={status}
+                          sx={{ fontWeight: 500, fontSize: "0.85rem", color: "#3E291E" }}
+                        >
+                          {status}
+                        </MenuItem>
+                      ))}
+                    </Select>
+
+                  </FormControl>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
     </Box>
   );
 }
