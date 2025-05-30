@@ -9,7 +9,6 @@ export async function registerUser(formData: FormData) {
   const email = formData.get("email") as string;
   const password = formData.get("password") as string;
 
-  // Validate input data
   const validationResult = registerSchema.safeParse({ name, email, password });
   if (!validationResult.success) {
     return { error: "Invalid input data" };

@@ -22,7 +22,6 @@ import {
   default as OutOfStockModal,
 } from "./out-of-stock-modal";
 
-// Use the centralized userSchema as customerSchema
 const customerSchema = userSchema;
 
 export default function CustomerForm() {
@@ -71,7 +70,6 @@ export default function CustomerForm() {
     }
   };
   const generateOrderNumber = () => {
-    // Use crypto.randomUUID() for better security or nanoid
     return `ORD-${Math.random().toString(36).substr(2, 9).toUpperCase()}`;
   };
   const orderNr = generateOrderNumber();

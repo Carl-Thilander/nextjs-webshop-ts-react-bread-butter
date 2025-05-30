@@ -113,7 +113,6 @@ export const config = {
   },
   events: {
     async signIn({ user, account, profile }) {
-      // Only log in development
       if (process.env.NODE_ENV === "development") {
         console.log("User signed in:", user.email);
       }

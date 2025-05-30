@@ -39,7 +39,6 @@ export const orderSchema = z.object({
   addressId: z.number().int().positive("Invalid address ID").optional(),
 });
 
-// ID validation schemas
 export const productIdSchema = z.string().cuid("Invalid product ID");
 export const articleNumberSchema = z
   .string()
@@ -49,7 +48,6 @@ export const orderNumberSchema = z
   .string()
   .regex(/^ORD-[A-Z0-9]{10}$/, "Invalid order number format");
 
-// Address validation schema
 export const addressSchema = z.object({
   address: z
     .string()
@@ -60,7 +58,6 @@ export const addressSchema = z.object({
   phone: z.string().regex(/^\+?\d{7,15}$/, "Invalid phone number format"),
 });
 
-// Cart item validation schema
 export const cartItemSchema = z.object({
   id: z.string().cuid("Invalid product ID"),
   title: z.string().min(1, "Product title is required"),
