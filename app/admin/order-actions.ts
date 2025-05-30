@@ -5,30 +5,12 @@ import { CartItem } from "@/context/CartContext";
 import { prisma } from "@/prisma/db";
 import { OrderStatus } from "@prisma/client";
 import { customAlphabet } from "nanoid";
-import { z } from "zod";
-
-const addressSchema = z.object({
-  address: z
-    .string()
-    .min(1, "Address is required")
-    .max(255, "Address too long"),
-  zipcode: z.string().regex(/^\d{5}$/, "Zip code must be exactly 5 digits"),
-  city: z.string().min(1, "City is required").max(100, "City name too long"),
-  phone: z.string().regex(/^\+?\d{7,15}$/, "Invalid phone number format"),
-});
-
-const cartItemSchema = z.object({
-  id: z.string().cuid("Invalid product ID"),
-  title: z.string().min(1, "Product title is required"),
-  price: z.number().positive("Price must be positive"),
-  quantity: z.number().int().positive("Quantity must be a positive integer"),
-  image: z.string().url("Image must be a valid URL"),
-});
-
-const orderIdSchema = z.string().cuid("Invalid order ID");
-const orderNumberSchema = z
-  .string()
-  .regex(/^ORD-[A-Z0-9]{10}$/, "Invalid order number format");
+import {
+  addressSchema,
+  cartItemSchema,
+  orderIdSchema,
+  orderNumberSchema,
+} from "./validation";
 
 export interface AddressData {
   address: string;

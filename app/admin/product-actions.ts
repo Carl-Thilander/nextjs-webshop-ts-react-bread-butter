@@ -5,11 +5,7 @@ import { prisma } from "@/prisma/db";
 import { Prisma } from "@prisma/client";
 import { customAlphabet } from "nanoid";
 import { revalidatePath } from "next/cache";
-import { productSchema } from "./validation";
-import { z } from "zod";
-
-const productIdSchema = z.string().cuid("Invalid product ID");
-const articleNumberSchema = z.string().min(1, "Article number is required");
+import { productSchema, productIdSchema, articleNumberSchema } from "./validation";
 
 export async function createProduct(product: Prisma.ProductCreateInput) {
   const session = await auth();

@@ -38,3 +38,31 @@ export const orderSchema = z.object({
     .min(1, "Order must contain at least one product"),
   addressId: z.number().int().positive("Invalid address ID").optional(),
 });
+
+// ID validation schemas
+export const productIdSchema = z.string().cuid("Invalid product ID");
+export const articleNumberSchema = z.string().min(1, "Article number is required");
+export const orderIdSchema = z.string().cuid("Invalid order ID");
+export const orderNumberSchema = z
+  .string()
+  .regex(/^ORD-[A-Z0-9]{10}$/, "Invalid order number format");
+
+// Address validation schema
+export const addressSchema = z.object({
+  address: z
+    .string()
+    .min(1, "Address is required")
+    .max(255, "Address too long"),
+  zipcode: z.string().regex(/^\d{5}$/, "Zip code must be exactly 5 digits"),
+  city: z.string().min(1, "City is required").max(100, "City name too long"),
+  phone: z.string().regex(/^\+?\d{7,15}$/, "Invalid phone number format"),
+});
+
+// Cart item validation schema
+export const cartItemSchema = z.object({
+  id: z.string().cuid("Invalid product ID"),
+  title: z.string().min(1, "Product title is required"),
+  price: z.number().positive("Price must be positive"),
+  quantity: z.number().int().positive("Quantity must be a positive integer"),
+  image: z.string().url("Image must be a valid URL"),
+});
