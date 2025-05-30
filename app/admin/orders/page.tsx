@@ -27,15 +27,17 @@ export default async function AdminOrdersPage() {
   });
 
   return (
-    <Box
-      sx={{
-        px: { xs: 2, sm: 4, md: 6 },
-        py: 4,
-        bgcolor: "background.default",
-        minHeight: "100vh",
-      }}
-    >
-      <AdminOrderTable orders={orders} />
-    </Box>
+    <Container disableGutters>
+      <Box
+        sx={{
+          px: { xs: 2, sm: 4, md: 6 },
+          py: 4,
+          bgcolor: "background.default",
+          minHeight: "100vh",
+        }}
+      >
+        <AdminOrderTable orders={orders} />
+      </Box>
+    </Container>
   );
 }

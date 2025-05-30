@@ -65,9 +65,7 @@ export default function AdminOrderTable({
       </Box>
 
       <Box sx={{ mb: 2 }}>
-        <Typography variant="h4" fontWeight="bold">
-          Order Management
-        </Typography>
+        <Typography variant="h4">Order Management</Typography>
       </Box>
 
       <TableContainer
@@ -81,22 +79,28 @@ export default function AdminOrderTable({
         <Table stickyHeader>
           <TableHead>
             <TableRow>
-              {["Order ID", "Date", "Customer", "Address", "Email", "Items", "Status"].map(
-                (header) => (
-                  <TableCell
-                    key={header}
-                    sx={{
-                      fontWeight: "bold",
-                      bgcolor: "#FAF2E9",
-                      color: "#3E291E",
-                      fontSize: 14,
-                      py: 1.5,
-                    }}
-                  >
-                    {header}
-                  </TableCell>
-                )
-              )}
+              {[
+                "Order ID",
+                "Date",
+                "Customer",
+                "Address",
+                "Email",
+                "Items",
+                "Status",
+              ].map((header) => (
+                <TableCell
+                  key={header}
+                  sx={{
+                    fontWeight: "bold",
+                    bgcolor: "#FAF2E9",
+                    color: "#3E291E",
+                    fontSize: 14,
+                    py: 1.5,
+                  }}
+                >
+                  {header}
+                </TableCell>
+              ))}
             </TableRow>
           </TableHead>
           <TableBody>
@@ -136,33 +140,33 @@ export default function AdminOrderTable({
                           order.status === "PENDING"
                             ? "#FFF4E5"
                             : order.status === "SHIPPED"
-                              ? "#E3F2FD"
-                              : order.status === "DELIVERED"
-                                ? "#E8F5E9"
-                                : order.status === "CANCELLED"
-                                  ? "#FFEBEE"
-                                  : "#E0E0E0",
+                            ? "#E3F2FD"
+                            : order.status === "DELIVERED"
+                            ? "#E8F5E9"
+                            : order.status === "CANCELLED"
+                            ? "#FFEBEE"
+                            : "#E0E0E0",
                         color:
                           order.status === "PENDING"
                             ? "#B26A00"
                             : order.status === "SHIPPED"
-                              ? "#1565C0"
-                              : order.status === "DELIVERED"
-                                ? "#2E7D32"
-                                : order.status === "CANCELLED"
-                                  ? "#C62828"
-                                  : "#555",
+                            ? "#1565C0"
+                            : order.status === "DELIVERED"
+                            ? "#2E7D32"
+                            : order.status === "CANCELLED"
+                            ? "#C62828"
+                            : "#555",
                         "& .MuiSelect-icon": {
                           color:
                             order.status === "PENDING"
                               ? "#B26A00"
                               : order.status === "SHIPPED"
-                                ? "#1565C0"
-                                : order.status === "DELIVERED"
-                                  ? "#2E7D32"
-                                  : order.status === "CANCELLED"
-                                    ? "#C62828"
-                                    : "#555",
+                              ? "#1565C0"
+                              : order.status === "DELIVERED"
+                              ? "#2E7D32"
+                              : order.status === "CANCELLED"
+                              ? "#C62828"
+                              : "#555",
                         },
                         "& fieldset": {
                           border: "none",
@@ -184,13 +188,16 @@ export default function AdminOrderTable({
                         <MenuItem
                           key={status}
                           value={status}
-                          sx={{ fontWeight: 500, fontSize: "0.85rem", color: "#3E291E" }}
+                          sx={{
+                            fontWeight: 500,
+                            fontSize: "0.85rem",
+                            color: "#3E291E",
+                          }}
                         >
                           {status}
                         </MenuItem>
                       ))}
                     </Select>
-
                   </FormControl>
                 </TableCell>
               </TableRow>

@@ -1,35 +1,32 @@
 import { prisma } from "@/prisma/db";
 import AdminItem from "./admin-item-card";
 import AddProductButton from "./buttons/add-product-button";
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Container, Button, Typography } from "@mui/material";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 
-
 export default async function AdminPage() {
-const products = await prisma.product.findMany({
-  include: {
-    categories: true,
-  },
-});
+  const products = await prisma.product.findMany({
+    include: {
+      categories: true,
+    },
+  });
   return (
-    <Box>
+    <Container disableGutters>
       <Box sx={{ display: "flex", justifyContent: "space-between", mb: 3 }}>
-        <Typography variant="h4" fontWeight="bold">
-          Inventory Management
-        </Typography>
+        <Typography variant="h4">Inventory Management</Typography>
         <Button
           variant="contained"
           href="/admin/orders"
           endIcon={<ArrowForwardIosIcon sx={{ fontSize: 16 }} />}
         >
-          Orders Management
+          Order Management
         </Button>
       </Box>
 
       <Box sx={{ mb: 2 }}>
         <AddProductButton />
       </Box>
-      
+
       <Box
         sx={{
           display: "grid",
@@ -48,6 +45,6 @@ const products = await prisma.product.findMany({
           <AdminItem key={product.id} product={product} />
         ))}
       </Box>
-    </Box>
+    </Container>
   );
 }
