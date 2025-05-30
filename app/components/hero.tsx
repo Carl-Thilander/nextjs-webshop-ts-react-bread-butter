@@ -1,6 +1,6 @@
 "use client";
 
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { Box, Typography } from "@mui/material";
 import Image from "next/image";
 
@@ -21,13 +21,13 @@ const Hero = () => {
           width: "100%",
           height: "100%",
           overflow: "hidden",
-          animation: "zoomIn 4s ease-out forwards", // Animationen appliceras direkt här
+          animation: "zoomIn 4s ease-out forwards",
           "@keyframes zoomIn": {
             "0%": {
-              transform: "scale(1)", // Startar utan zoom
+              transform: "scale(1)",
             },
             "100%": {
-              transform: "scale(1.1)", // Zoomar in till 1.1
+              transform: "scale(1.1)",
             },
           },
           "& img": {
@@ -36,11 +36,12 @@ const Hero = () => {
           },
         }}
       >
+        {" "}
         <Image
           src="/images/hero.png"
           alt="Hero image"
-          priority={true} // Viktig bild, Next.js optimerar laddning
-          quality={90} // Förbättrar bildkvaliteten
+          priority={true}
+          quality={90}
           layout="fill"
         />
       </Box>
@@ -75,50 +76,42 @@ const Hero = () => {
         >
           Exclusive coffee beans and tea leaves, shipping worldwide!
         </Typography>
-
-          
-         
-          
-          
-
       </Box>
-          <Box
-          sx={{
-            position: "absolute",
-            bottom: "0.5rem",
-            left: "50%",
-            transform: "translateX(-50%)",
-            "@keyframes bounce": {
+      <Box
+        sx={{
+          position: "absolute",
+          bottom: "0.5rem",
+          left: "50%",
+          transform: "translateX(-50%)",
+          "@keyframes bounce": {
             "0%, 100%": {
-            transform: "translateY(0)",
-             },
-            "50%": {
-            transform: "translateY(-15px)",
-              },
+              transform: "translateY(0)",
             },
+            "50%": {
+              transform: "translateY(-15px)",
+            },
+          },
+        }}
+      >
+        <KeyboardArrowDownIcon
+          onClick={() => {
+            const element = document.getElementById("products");
+            if (element) {
+              element.scrollIntoView({ behavior: "smooth" });
+            }
           }}
-          >
-
-          <KeyboardArrowDownIcon 
-           onClick={() => {
-      const element = document.getElementById("products");
-      if (element) {
-        element.scrollIntoView({ behavior: "smooth" });
-      }
-    }}
-           sx={{
+          sx={{
             color: "white",
-             fontSize: "10rem",
-             marginTop: "2rem",
-             animation: "bounce 2s infinite",
+            fontSize: "10rem",
+            marginTop: "2rem",
+            animation: "bounce 2s infinite",
             cursor: "pointer",
             "&:hover": {
-               transform: "scale(1.1)",
-             },
-            
-           }}
-          />
-          </Box>
+              transform: "scale(1.1)",
+            },
+          }}
+        />
+      </Box>
     </Box>
   );
 };

@@ -11,9 +11,9 @@ export default function PublicNumberField({
   price: number;
 }) {
   const { cartItems, updateQuantity } = useCart();
-  const cartItem = cartItems.find((cartItem) => cartItem.id === id); // find product in cart
+  const cartItem = cartItems.find((cartItem) => cartItem.id === id);
 
-  const quantity = cartItem?.quantity || 0; // default to 1 if not found
+  const quantity = cartItem?.quantity || 0;
 
   return (
     <Box sx={{ pt: 1, pb: 0.5, pl: 0.5, pr: 0.5, border: "1px solid white" }}>

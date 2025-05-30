@@ -1,4 +1,4 @@
-export const runtime = "nodejs"; // Make sure Prisma doesn't run in Edge
+export const runtime = "nodejs";
 
 import { prisma } from "@/prisma/db";
 import bcrypt from "bcryptjs";
@@ -109,15 +109,13 @@ export const config = {
   },
   session: {
     strategy: "jwt",
-    maxAge: 30 * 24 * 60 * 60, // 30 days
+    maxAge: 30 * 24 * 60 * 60,
   },
-  // Add these to reduce auth requests
   events: {
     async signIn({ user, account, profile }) {
       console.log("User signed in:", user.email);
     },
   },
-  // Reduce session checks
   secret: process.env.AUTH_SECRET,
 } satisfies NextAuthConfig;
 

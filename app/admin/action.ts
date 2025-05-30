@@ -44,7 +44,7 @@ export async function submitOrder(
   cartItems: CartItem[],
   addressData: AddressData
 ) {
-  const session = await auth(); // ✅ get logged-in session
+  const session = await auth();
 
   if (!session?.user?.id) {
     throw new Error("You need to be logged in to place and order.");
@@ -73,10 +73,8 @@ export async function createOrder(
   ) {
     throw new Error("All address fields are required");
   }
-
   const orderNr = `${Date.now()}`;
 
-  // Check to see that product exists and is in stock
   for (const item of cartItems) {
     const product = await prisma.product.findUnique({
       where: { id: item.id },
@@ -89,7 +87,6 @@ export async function createOrder(
     }
   }
 
-  // if product exists and is in stock, update stock according to the items in order
   for (const item of cartItems) {
     await prisma.product.update({
       where: { id: item.id },
