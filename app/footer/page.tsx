@@ -24,7 +24,7 @@ export default function Footer() {
     <Box
       component="footer"
       sx={{
-        bgcolor: "primary.main",
+        bgcolor: "background.paper",
         py: 4,
         px: 2,
 
@@ -32,12 +32,7 @@ export default function Footer() {
       }}
     >
       <Box id="contact" sx={{ maxWidth: 900, mx: "auto", textAlign: "center" }}>
-        <Typography
-          variant="h4"
-          color="text.primary"
-          paddingBottom={5}
-          gutterBottom
-        >
+        <Typography variant="h5" color="text.primary" gutterBottom>
           Contact Us
         </Typography>
 
@@ -55,12 +50,12 @@ export default function Footer() {
             <LocationOn
               sx={{
                 fontSize: 40,
-                color: "background.paper",
+                color: "primary.main",
                 transition: "transform 0.3s",
                 "&:hover": { transform: "scale(1.5)" },
               }}
             />
-            <Typography variant="h6">Find us here:</Typography>
+            <Typography variant="h6">Find us:</Typography>
             <Typography variant="body2">
               Beanleaf Lane, 444 44 TreeHouse
             </Typography>
@@ -70,7 +65,7 @@ export default function Footer() {
             <AccessTime
               sx={{
                 fontSize: 40,
-                color: "background.paper",
+                color: "primary.main",
                 transition: "transform 0.3s",
                 "&:hover": { transform: "scale(1.5)" },
               }}
@@ -86,7 +81,7 @@ export default function Footer() {
             <Email
               sx={{
                 fontSize: 40,
-                color: "background.paper",
+                color: "primary.main",
                 transition: "transform 0.3s",
                 "&:hover": { transform: "scale(1.5)" },
               }}
@@ -99,7 +94,7 @@ export default function Footer() {
             <Phone
               sx={{
                 fontSize: 40,
-                color: "background.paper",
+                color: "primary.main",
                 transition: "transform 0.3s",
                 "&:hover": { transform: "scale(1.5)" },
               }}
@@ -121,6 +116,7 @@ export default function Footer() {
             display: "flex",
             justifyContent: "center",
             mt: 2,
+            gap: 2,
           }}
         >
           <TextField
