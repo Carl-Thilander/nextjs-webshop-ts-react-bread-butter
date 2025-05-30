@@ -20,13 +20,14 @@ export default function CheckoutPage() {
       >
         <Typography
           variant="h1"
-          sx={{ mt: { xs: 2 }, ml: { xs: 1, sm: 3, md: 6 } }}
+          sx={{ ml: { xs: 1, sm: 3, md: 4.5 } }}
+          paddingTop={2}
         >
           Checkout
         </Typography>
 
         <Box
-          sx={{ width: "95%", py: 3, px: { xs: 0, sm: 2, md: 6 }, mx: "auto" }}
+          sx={{ py: 2, px: { xs: 1, sm: 2, md: 4.5 }, mx: "auto" }}
         >
           <CartList />
         </Box>
