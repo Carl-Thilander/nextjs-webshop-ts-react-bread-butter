@@ -1,9 +1,8 @@
 "use client";
 import { CartItem } from "@/context/CartContext";
 import { useCart } from "@/hooks/useCart";
-import { Delete } from "@mui/icons-material";
-import { Box, Button, Card, Typography } from "@mui/material";
-import CardMedia from "@mui/material/CardMedia";
+import DeleteIcon from "@mui/icons-material/Delete";
+import { Box, IconButton, Typography } from "@mui/material";
 import PublicNumberField from "../components/numberfield-component";
 
 interface Props {
@@ -14,128 +13,117 @@ export default function CartItemComponent({ cartItem }: Props) {
 	const { removeFromCart } = useCart();
 
 	return (
-		<Card
+		<Box
 			sx={{
-				maxWidth: { xs: "295px", sm: "100%" },
+				width: "100%",
 				position: "relative",
 				padding: 1,
 				my: 2,
 				boxShadow: 2,
+				display: "flex",
+				flexDirection: "row",
+				paddingBlock: 2,
+				background: "#fafafa",
 			}}
 		>
 			<Box
 				sx={{
 					display: "flex",
-					flexDirection: "row",
-					paddingTop: 1,
-					paddingBottom: 1,
+					flexDirection: { xs: "column", sm: "row" },
+					alignItems: "center",
+					mb: 1,
 				}}
 			>
 				<Box
 					sx={{
+						width: 100,
+						height: 100,
+						mr: 2,
 						display: "flex",
-						flexDirection: { xs: "column", sm: "row" },
 						alignItems: "center",
-						mb: 1,
+						justifyContent: "center",
 					}}
 				>
 					<Box
+						component="img"
 						sx={{
-							width: 100,
-							height: 100,
-							borderRadius: "50%",
-							padding: 0.5,
-							mr: 2,
-							display: "flex",
-							alignItems: "center",
-							justifyContent: "center",
-							flexShrink: 0,
+							width: "100%",
+							height: "100%",
+							objectFit: "contain",
 						}}
-					>
-						<CardMedia
-							component="img"
-							sx={{
-								width: "100%",
-								height: "100%",
-								borderRadius: "50%",
-								objectFit: "cover",
-								padding: 0.5,
-								border: "2px solid #9C8173",
-							}}
-							image={cartItem.image}
-							title={cartItem.title}
-						/>
-					</Box>
+						src={cartItem.image}
+						alt={cartItem.title}
+					/>
+				</Box>
 
-					<Box
+				<Box
+					sx={{
+						paddingBottom: 0.5,
+					}}
+				>
+					<Typography
+						gutterBottom
+						variant="body2"
+						component="div"
 						sx={{
+							fontSize: "1rem",
+							fontWeight: "bold",
+							mb: 0.5,
+							mt: 1,
 							paddingBottom: 0.5,
 						}}
 					>
+						{cartItem.title}
+					</Typography>
+
+					<Typography variant="body2" sx={{ fontWeight: "medium" }}>
+						{cartItem.price} €
+					</Typography>
+					{cartItem.stock === 0 && (
 						<Typography
-							gutterBottom
-							variant="body2"
-							component="div"
-							sx={{
-								fontSize: "1rem",
-								fontWeight: "bold",
-								mb: 0.5,
-								paddingBottom: 0.5,
-							}}
+							variant="caption"
+							sx={{ color: "error.main", fontWeight: "bold" }}
 						>
-							{cartItem.title}
+							Out of stock
 						</Typography>
-
-						<Typography variant="body2" sx={{ fontWeight: "medium" }}>
-							{cartItem.price} €
+					)}
+					{cartItem.stock > 0 && cartItem.stock < 5 && (
+						<Typography
+							variant="caption"
+							sx={{ color: "error.main", fontWeight: "bold" }}
+						>
+							Only {cartItem.stock} left
 						</Typography>
-						{cartItem.stock === 0 && (
-							<Typography
-								variant="caption"
-								sx={{ color: "error.main", fontWeight: "bold" }}
-							>
-								Out of stock
-							</Typography>
-						)}
-						{cartItem.stock > 0 && cartItem.stock < 5 && (
-							<Typography
-								variant="caption"
-								sx={{ color: "error.main", fontWeight: "bold" }}
-							>
-								Only {cartItem.stock} left
-							</Typography>
-						)}
-					</Box>
-				</Box>
-
-				<Box
-					sx={{
-						position: "absolute",
-						bottom: 8,
-						right: 16,
-						zIndex: 1,
-					}}
-				>
-					<PublicNumberField id={cartItem.id} price={cartItem.price} />
-				</Box>
-
-				<Box
-					sx={{
-						position: "absolute",
-						top: 10,
-						right: 0,
-						zIndex: 1,
-					}}
-				>
-					<Button
-						sx={{
-							color: "#61371E",
-						}}
-						onClick={() => removeFromCart(cartItem.id)}
-						startIcon={<Delete />}
-					></Button>
+					)}
 				</Box>
 			</Box>
-		</Card>
+
+			<Box
+				sx={{
+					position: "absolute",
+					bottom: 30,
+					right: 25,
+				}}
+			>
+				<PublicNumberField id={cartItem.id} price={cartItem.price} />
+			</Box>
+
+			<Box
+				sx={{
+					position: "absolute",
+					top: 10,
+					right: 15,
+				}}
+			>
+				<IconButton
+					sx={{
+						color: "#61371E",
+					}}
+					onClick={() => removeFromCart(cartItem.id)}
+				>
+					<DeleteIcon />
+				</IconButton>
+			</Box>
+		</Box>
 	);
 }
