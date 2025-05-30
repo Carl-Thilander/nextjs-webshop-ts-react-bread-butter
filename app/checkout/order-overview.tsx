@@ -87,7 +87,7 @@ export default function OrderOverview() {
                   <strong>Total</strong>
                 </TableCell>
                 <TableCell align="right">
-                  <strong>{totalSum.toFixed(2)} kr</strong>
+                  <strong>{totalSum.toFixed(2)} €</strong>
                 </TableCell>
               </TableRow>
             </TableBody>
