@@ -76,9 +76,9 @@ export default function CustomerForm() {
       setErrors(newErrors);
     }
   };
-
   const generateOrderNumber = () => {
-    return `${Date.now()}`;
+    // Use crypto.randomUUID() for better security or nanoid
+    return `ORD-${Math.random().toString(36).substr(2, 9).toUpperCase()}`;
   };
   const orderNr = generateOrderNumber();
 

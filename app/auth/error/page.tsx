@@ -32,13 +32,6 @@ function ErrorContent() {
               ? "There is a problem with the server configuration. If this issue persists, please contact support."
               : error === "CredentialsSignin"
               ? "The email or password you entered is incorrect. Please try again."
-              : `An error occurred during authentication: ${error}`}
-            {error === "AccessDenied"
-              ? "You don't have permission to access this page."
-              : error === "Configuration"
-              ? "There is a problem with the server configuration. Please contact the administrator."
-              : error === "Verification"
-              ? "The login link is invalid or has expired."
               : error === "OAuthSignin" ||
                 error === "OAuthCallback" ||
                 error === "OAuthCreateAccount"

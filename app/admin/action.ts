@@ -15,6 +15,12 @@ interface AddressData {
 }
 
 export async function createProduct(product: Prisma.ProductCreateInput) {
+  const session = await auth();
+
+  if (!session?.user?.isAdmin) {
+    throw new Error("Unauthorized: Admin access required");
+  }
+
   const nanoid = customAlphabet("1234567890", 4);
   product.articleNumber = nanoid();
   await prisma.product.create({ data: product });
@@ -22,6 +28,12 @@ export async function createProduct(product: Prisma.ProductCreateInput) {
 }
 
 export async function deleteProduct(id: string) {
+  const session = await auth();
+
+  if (!session?.user?.isAdmin) {
+    throw new Error("Unauthorized: Admin access required");
+  }
+
   await prisma.product.delete({ where: { id: id } });
   revalidatePath("/");
 }
@@ -34,6 +46,12 @@ export async function updateProduct(
   articleNumber: string,
   data: Prisma.ProductUpdateInput
 ) {
+  const session = await auth();
+
+  if (!session?.user?.isAdmin) {
+    throw new Error("Unauthorized: Admin access required");
+  }
+
   await prisma.product.update({
     where: { articleNumber },
     data,
@@ -73,7 +91,8 @@ export async function createOrder(
   ) {
     throw new Error("All address fields are required");
   }
-  const orderNr = `${Date.now()}`;
+  const nanoid = customAlphabet("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ", 10);
+  const orderNr = `ORD-${nanoid()}`;
 
   for (const item of cartItems) {
     const product = await prisma.product.findUnique({
@@ -165,6 +184,12 @@ export async function getOrderByOrderNr(orderNr: string) {
 }
 
 export async function updateOrderStatus(orderId: string, status: OrderStatus) {
+  const session = await auth();
+
+  if (!session?.user?.isAdmin) {
+    throw new Error("Unauthorized: Admin access required");
+  }
+
   try {
     await prisma.order.update({
       where: { id: orderId },

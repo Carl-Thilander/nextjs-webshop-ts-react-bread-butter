@@ -1,10 +1,22 @@
 import { Box, Container } from "@mui/material";
+import { auth } from "@/auth";
+import { redirect } from "next/navigation";
 
 export default async function AdminLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const session = await auth();
+
+  // Protect all admin routes at layout level
+  if (!session?.user) {
+    redirect("/auth/signin");
+  }
+
+  if (!session.user.isAdmin) {
+    redirect("/");
+  }
   return (
     <Box
       component="main"
@@ -13,7 +25,7 @@ export default async function AdminLayout({
         flexDirection: "column",
         gap: 3,
         bgcolor: "background.paper",
-        
+
         minHeight: "100vh",
         padding: { xs: 2, sm: 4 },
       }}
