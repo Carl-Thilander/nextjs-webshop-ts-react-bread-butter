@@ -15,21 +15,14 @@ import {
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { z } from "zod";
 import { submitOrder } from "../admin/action";
+import { userSchema } from "../admin/validation";
 import {
   OutOfStockItems,
   default as OutOfStockModal,
 } from "./out-of-stock-modal";
 
-const customerSchema = z.object({
-  name: z.string().min(1, "You must enter your name"),
-  address: z.string().min(1, "You must enter an address"),
-  zipcode: z.string().regex(/^\d{5}$/, "Zip code must be exactly 5 digits"),
-  city: z.string().min(1, "You must enter a city"),
-  email: z.string().email("Invalid email address"),
-  phone: z.string().regex(/^\+?\d{7,15}$/, "Invalid phone number"),
-});
+const customerSchema = userSchema;
 
 export default function CustomerForm() {
   const [outOfStockItems, setOutOfStockItems] = useState<OutOfStockItems[]>([]);
@@ -77,7 +70,6 @@ export default function CustomerForm() {
     }
   };
   const generateOrderNumber = () => {
-    // Use crypto.randomUUID() for better security or nanoid
     return `ORD-${Math.random().toString(36).substr(2, 9).toUpperCase()}`;
   };
   const orderNr = generateOrderNumber();

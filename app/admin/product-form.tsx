@@ -19,17 +19,17 @@ import { useRouter } from "next/navigation";
 import { SubmitHandler, useForm, Controller } from "react-hook-form";
 import z from "zod";
 import { createProduct, updateProduct, getAllCategories } from "./action";
+import { productSchema } from "./validation";
 
-const ProductSchema = z.object({
-  description: z.string().min(1),
-  title: z.string().min(1),
-  image: z.string().optional(),
-  price: z.coerce.number().min(1),
-  stock: z.coerce.number().min(0),
-  categoryIds: z.array(z.string()).min(1, "Select at least one category"),
-});
+const ProductFormSchema = productSchema
+  .extend({
+    categoryIds: z.array(z.string()).min(1, "Select at least one category"),
+    price: z.coerce.number().min(1),
+    stock: z.coerce.number().min(0),
+  })
+  .omit({ categories: true });
 
-type ProductFormData = z.infer<typeof ProductSchema>;
+type ProductFormData = z.infer<typeof ProductFormSchema>;
 
 interface Props {
   product?: Product & { categories: Category[] };
@@ -49,7 +49,7 @@ export default function ProductForm({ product }: Props) {
       stock: product?.stock || 0,
       categoryIds: product?.categories?.map((c) => c.id) || [],
     },
-    resolver: zodResolver(ProductSchema),
+    resolver: zodResolver(ProductFormSchema),
   });
 
   const {

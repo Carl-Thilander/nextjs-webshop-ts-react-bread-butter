@@ -9,7 +9,6 @@ export default async function AdminLayout({
 }) {
   const session = await auth();
 
-  // Protect all admin routes at layout level
   if (!session?.user) {
     redirect("/auth/signin");
   }
