@@ -141,7 +141,7 @@ export const products: ProductMock[] = [
 		image: "/images/rosewood-chai.png",
 		title: "Rosewood Chai",
 		description:
-			"A bold and aromatic chai with a romantic twist — rose petals, cardamom, and warm spices over rich Assam black tea.",
+			"A bold and aromatic chai with a romantic twist — rose petals, cinnamon, and warm spices over rich Assam black tea.",
 		price: 49,
 		stock: 4,
 		categories: ["Tea", "Sale"],
