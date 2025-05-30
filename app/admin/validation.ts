@@ -41,7 +41,9 @@ export const orderSchema = z.object({
 
 // ID validation schemas
 export const productIdSchema = z.string().cuid("Invalid product ID");
-export const articleNumberSchema = z.string().min(1, "Article number is required");
+export const articleNumberSchema = z
+  .string()
+  .min(1, "Article number is required");
 export const orderIdSchema = z.string().cuid("Invalid order ID");
 export const orderNumberSchema = z
   .string()

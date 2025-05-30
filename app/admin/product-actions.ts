@@ -5,7 +5,11 @@ import { prisma } from "@/prisma/db";
 import { Prisma } from "@prisma/client";
 import { customAlphabet } from "nanoid";
 import { revalidatePath } from "next/cache";
-import { productSchema, productIdSchema, articleNumberSchema } from "./validation";
+import {
+  productSchema,
+  productIdSchema,
+  articleNumberSchema,
+} from "./validation";
 
 export async function createProduct(product: Prisma.ProductCreateInput) {
   const session = await auth();

@@ -22,11 +22,13 @@ import { createProduct, updateProduct, getAllCategories } from "./action";
 import { productSchema } from "./validation";
 
 // Create a form schema that extends the productSchema for form handling
-const ProductFormSchema = productSchema.extend({
-  categoryIds: z.array(z.string()).min(1, "Select at least one category"),
-  price: z.coerce.number().min(1),
-  stock: z.coerce.number().min(0),
-}).omit({ categories: true }); // Remove categories field since we use categoryIds for the form
+const ProductFormSchema = productSchema
+  .extend({
+    categoryIds: z.array(z.string()).min(1, "Select at least one category"),
+    price: z.coerce.number().min(1),
+    stock: z.coerce.number().min(0),
+  })
+  .omit({ categories: true }); // Remove categories field since we use categoryIds for the form
 
 type ProductFormData = z.infer<typeof ProductFormSchema>;
 
