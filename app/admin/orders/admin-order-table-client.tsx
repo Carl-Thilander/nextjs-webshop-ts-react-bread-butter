@@ -18,7 +18,7 @@ import {
 import { useState } from "react";
 import { Order, User, Address, OrderItem, OrderStatus } from "@prisma/client";
 import { SelectChangeEvent } from "@mui/material";
-import { updateOrderStatus } from "@/app/admin/action";
+import { updateOrderStatus } from "@/app/admin/order-actions";
 import ArrowBackwardIosIcon from "@mui/icons-material/ArrowBackIos";
 
 type ExtendedOrder = Order & {
