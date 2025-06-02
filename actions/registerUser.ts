@@ -4,29 +4,51 @@ import { prisma } from "@/prisma/db";
 import { registerSchema } from "@/lib/auth-validation";
 import bcrypt from "bcryptjs";
 
-export async function registerUser(formData: FormData) {
-  const name = formData.get("name") as string;
-  const email = formData.get("email") as string;
-  const password = formData.get("password") as string;
+type RegisterResult = { success: true } | { error: string };
 
-  const validationResult = registerSchema.safeParse({ name, email, password });
-  if (!validationResult.success) {
-    return { error: "Invalid input data" };
-  }
+export async function registerUser(
+  formData: FormData
+): Promise<RegisterResult> {
+  try {
+    const name = (formData.get("name") as string)?.trim();
+    const email = (formData.get("email") as string)?.trim().toLowerCase();
+    const password = formData.get("password") as string;
 
-  const existing = await prisma.user.findUnique({ where: { email } });
-  if (existing) return { error: "User already exists" };
-
-  const hashedPassword = await bcrypt.hash(password, 10);
-
-  await prisma.user.create({
-    data: {
+    const validationResult = registerSchema.safeParse({
       name,
       email,
-      password: hashedPassword,
-      isAdmin: email === process.env.ADMIN_EMAIL,
-    },
-  });
+      password,
+    });
+    if (!validationResult.success) {
+      const firstError = validationResult.error.issues[0];
+      return { error: firstError?.message || "Invalid input data" };
+    }
 
-  return { success: true };
+    const existing = await prisma.user.findUnique({
+      where: { email },
+      select: { id: true },
+    });
+
+    if (existing) {
+      return { error: "User already exists" };
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 12);
+
+    await prisma.user.create({
+      data: {
+        name: validationResult.data.name,
+        email: validationResult.data.email,
+        password: hashedPassword,
+        isAdmin:
+          email === process.env.ADMIN_EMAIL &&
+          process.env.NODE_ENV === "production",
+      },
+    });
+
+    return { success: true };
+  } catch (error) {
+    console.error("Registration error:", error);
+    return { error: "Registration failed. Please try again." };
+  }
 }
