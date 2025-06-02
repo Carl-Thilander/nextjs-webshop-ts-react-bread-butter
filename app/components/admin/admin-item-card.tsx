@@ -2,8 +2,8 @@
 
 import { Box, Chip, Container, Typography } from "@mui/material";
 import { Product } from "@prisma/client";
-import EditButton from "../components/buttons/edit-admin-button";
-import DeleteButton from "../components/buttons/delete-product-item";
+import EditButton from "../buttons/edit-admin-button";
+import DeleteButton from "../buttons/delete-product-item";
 
 type ProductCardProps = {
   product: Product & { categories: { name: string }[] };

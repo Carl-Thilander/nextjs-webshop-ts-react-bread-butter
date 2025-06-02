@@ -2,7 +2,7 @@ import { auth } from "@/auth";
 import { prisma } from "@/prisma/db";
 import { redirect } from "next/navigation";
 import { Box, Container } from "@mui/material";
-import AdminOrderTable from "./admin-order-table-client";
+import AdminOrderTable from "../../components/admin/admin-order-table-client";
 
 export default async function AdminOrdersPage() {
   const session = await auth();

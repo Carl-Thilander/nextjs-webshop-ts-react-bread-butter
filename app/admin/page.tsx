@@ -1,5 +1,5 @@
 import { prisma } from "@/prisma/db";
-import AdminItem from "./admin-item-card";
+import AdminItem from "../components/admin/admin-item-card";
 import AddProductButton from "../components/buttons/add-product-button";
 import { Box, Container, Button, Typography } from "@mui/material";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
