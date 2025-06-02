@@ -15,8 +15,9 @@ import {
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { submitOrder } from "@/lib/actions/order";
+import { submitOrder } from "@/lib/actions";
 import { userSchema } from "@/lib/validations/user";
+import { generateOrderNumber } from "@/lib/utils";
 import {
   OutOfStockItems,
   default as OutOfStockModal,
@@ -68,9 +69,6 @@ export default function CustomerForm() {
 
       setErrors(newErrors);
     }
-  };
-  const generateOrderNumber = () => {
-    return `ORD-${Math.random().toString(36).substr(2, 9).toUpperCase()}`;
   };
   const orderNr = generateOrderNumber();
 

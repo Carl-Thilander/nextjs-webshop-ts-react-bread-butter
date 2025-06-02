@@ -7,20 +7,21 @@ import NextAuth from "next-auth";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import CredentialsProvider from "next-auth/providers/credentials";
 import Google from "next-auth/providers/google";
+import { APP_CONFIG } from "@/lib/config";
 
 export const config = {
   adapter: PrismaAdapter(prisma),
   providers: [
     Google({
-      clientId: process.env.AUTH_GOOGLE_ID ?? "",
-      clientSecret: process.env.AUTH_GOOGLE_SECRET ?? "",
+      clientId: APP_CONFIG.AUTH_GOOGLE_ID,
+      clientSecret: APP_CONFIG.AUTH_GOOGLE_SECRET,
       profile(profile) {
         return {
           id: profile.sub,
           name: profile.name,
           email: profile.email,
           image: profile.picture,
-          isAdmin: profile.email === process.env.ADMIN_EMAIL,
+          isAdmin: profile.email === APP_CONFIG.ADMIN_EMAIL,
         };
       },
     }),
@@ -68,9 +69,8 @@ export const config = {
           let dbUser = await prisma.user.findUnique({
             where: { email },
           });
-
           if (!dbUser && user.email) {
-            const isAdmin = user.email === process.env.ADMIN_EMAIL;
+            const isAdmin = user.email === APP_CONFIG.ADMIN_EMAIL;
             dbUser = await prisma.user.create({
               data: {
                 email: user.email,
