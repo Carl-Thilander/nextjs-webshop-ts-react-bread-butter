@@ -1,6 +1,6 @@
 import { prisma } from "@/prisma/db";
-import Hero from "./components/hero";
-import ProductFilter from "./components/product-filter";
+import Hero from "@/app/components/layout/Hero";
+import ProductFilter from "./components/products/product-filter";
 
 export default async function Home() {
   const categories = await prisma.category.findMany();

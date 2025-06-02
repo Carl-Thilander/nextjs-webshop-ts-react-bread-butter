@@ -1,8 +1,8 @@
-import GoBackButton from "@/app/components/go-back-button";
+import GoBackButton from "@/app/components/buttons/go-back-button";
 import { prisma } from "@/prisma/db";
 import { Box, Container, Typography } from "@mui/material";
 import Image from "next/image";
-import AddToCartButton from "../../../components/add-to-cart-button";
+import AddToCartButton from "../../../components/buttons/add-to-cart-button";
 
 interface Props {
   params: Promise<{ articleNumber: string; title: string }>;

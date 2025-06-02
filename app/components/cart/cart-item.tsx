@@ -4,7 +4,7 @@ import { useCart } from "@/hooks/useCart";
 import { Delete } from "@mui/icons-material";
 import { Box, Button, Card, Typography } from "@mui/material";
 import CardMedia from "@mui/material/CardMedia";
-import PublicNumberField from "../components/numberfield-component";
+import PublicNumberField from "./numberfield-component";
 
 interface Props {
 	cartItem: CartItem;

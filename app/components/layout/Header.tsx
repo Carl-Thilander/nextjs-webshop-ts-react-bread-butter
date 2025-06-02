@@ -34,7 +34,7 @@ import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import CartIconButton from "./cart-icon-button";
+import CartIconButton from "@/app/components/buttons/cart-icon-button";
 
 const Header = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
