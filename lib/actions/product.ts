@@ -1,6 +1,6 @@
 "use server";
 
-import { auth } from "@/auth";
+import { auth } from "@/lib/auth";
 import { prisma } from "@/prisma/db";
 import { Prisma } from "@prisma/client";
 import { customAlphabet } from "nanoid";
