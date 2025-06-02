@@ -1,5 +1,5 @@
 import { prisma } from "@/prisma/db";
-import Hero from "@/app/components/layout/hero";
+import Hero from "@/app/components/layout/Hero";
 import ProductFilter from "./components/product-filter";
 
 export default async function Home() {
