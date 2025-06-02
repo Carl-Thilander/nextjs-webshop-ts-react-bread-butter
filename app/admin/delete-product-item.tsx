@@ -4,7 +4,7 @@ import { Delete } from "@mui/icons-material";
 import { Alert, IconButton, Snackbar } from "@mui/material";
 import { Product } from "@prisma/client";
 import { useState } from "react";
-import ConfirmDeleteProduct from "./buttons/confirm-delete-button";
+import ConfirmDeleteProduct from "../components/buttons/confirm-delete-button";
 
 type ProductCardProps = {
   product: Product;

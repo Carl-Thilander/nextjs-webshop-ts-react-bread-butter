@@ -1,4 +1,4 @@
-import AddToCartButton from "@/app/components/add-to-cart-button";
+import AddToCartButton from "@/app/components/buttons/add-to-cart-button";
 import { Box } from "@mui/material";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";

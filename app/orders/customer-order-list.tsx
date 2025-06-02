@@ -18,7 +18,7 @@ import {
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { Order, Address, OrderItem, OrderStatus } from "@prisma/client";
 import { useState } from "react";
-import GoBackButton from "@/app/components/go-back-button";
+import GoBackButton from "@/app/components/buttons/go-back-button";
 
 type CustomerOrder = Order & {
   address: Address | null;

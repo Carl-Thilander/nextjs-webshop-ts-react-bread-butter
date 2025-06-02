@@ -2,7 +2,7 @@
 
 import { Box, Chip, Container, Typography } from "@mui/material";
 import { Product } from "@prisma/client";
-import EditButton from "./buttons/edit-admin-button";
+import EditButton from "../components/buttons/edit-admin-button";
 import DeleteButton from "./delete-product-item";
 
 type ProductCardProps = {

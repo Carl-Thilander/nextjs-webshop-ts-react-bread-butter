@@ -2,7 +2,7 @@ import { Box, Container, Typography } from "@mui/material";
 import CustomerForm from "./customer-form";
 import OrderOverview from "./order-overview";
 import CartList from "../cart/cart-list";
-import GoBackButton from "../components/go-back-button";
+import GoBackButton from "../components/buttons/go-back-button";
 
 export default function CheckoutPage() {
   return (
