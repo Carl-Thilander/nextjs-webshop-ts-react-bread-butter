@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 export const orderItemSchema = z.object({
-  image: z.string().url("Image must be a valid URL"),
+  image: z.string().min(1, "Image path is required"),
   title: z.string().min(1, "Product name cannot be empty"),
   price: z.number().positive("Price must be greater than 0"),
   quantity: z.number().int().positive("Quantity must be at least 1"),
@@ -25,5 +25,5 @@ export const cartItemSchema = z.object({
   title: z.string().min(1, "Product title is required"),
   price: z.number().positive("Price must be positive"),
   quantity: z.number().int().positive("Quantity must be a positive integer"),
-  image: z.string().url("Image must be a valid URL"),
+  image: z.string().min(1, "Image path is required"),
 });

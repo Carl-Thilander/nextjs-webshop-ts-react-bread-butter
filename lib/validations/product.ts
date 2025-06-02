@@ -8,7 +8,7 @@ export const productSchema = z.object({
   categories: z
     .array(z.string().cuid())
     .min(1, "At least one category is required"),
-  image: z.string().url("Image must be a valid URL"),
+  image: z.string().min(1, "Image path is required"),
 });
 
 export const productIdSchema = z.string().cuid("Invalid product ID");
