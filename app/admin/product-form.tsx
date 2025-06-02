@@ -18,8 +18,12 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { SubmitHandler, useForm, Controller } from "react-hook-form";
 import z from "zod";
-import { createProduct, updateProduct, getAllCategories } from "./product-actions";
-import { productSchema } from "./validation";
+import {
+  createProduct,
+  updateProduct,
+  getAllCategories,
+} from "@/lib/actions/product";
+import { productSchema } from "@/lib/validations/product";
 
 const ProductFormSchema = productSchema
   .extend({
