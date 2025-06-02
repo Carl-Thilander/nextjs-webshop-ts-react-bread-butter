@@ -1,4 +1,4 @@
-import { auth } from "@/auth";
+import { auth } from "@/lib/auth";
 import { prisma } from "@/prisma/db";
 import { redirect } from "next/navigation";
 import { Box, Container } from "@mui/material";
