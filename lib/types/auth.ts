@@ -1,4 +1,3 @@
-// Auth-related types
 export interface AuthSession {
   user: {
     id: string;

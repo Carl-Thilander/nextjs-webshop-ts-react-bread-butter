@@ -2,9 +2,6 @@
 
 import { auth } from "@/lib/auth";
 import { prisma } from "@/prisma/db";
-import { OrderStatus } from "@prisma/client";
-import { revalidatePath } from "next/cache";
-import { orderIdSchema, orderNumberSchema } from "@/lib/validations/order";
 
 async function requireAdmin() {
   const session = await auth();
