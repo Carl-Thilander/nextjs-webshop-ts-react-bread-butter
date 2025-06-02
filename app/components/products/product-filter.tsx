@@ -1,7 +1,7 @@
 "use client";
 import { Box, Container, Grid2, Link } from "@mui/material";
 import { useState } from "react";
-import ProductCard from "../product/[articleNumber]/[title]/product-card";
+import ProductCard from "./product-card";
 import CategorySection from "./category-section";
 
 interface Category {

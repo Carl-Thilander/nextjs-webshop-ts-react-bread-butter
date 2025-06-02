@@ -1,6 +1,6 @@
 import { prisma } from "@/prisma/db";
 import { Dialog } from "@mui/material";
-import ProductForm from "../../product-form";
+import ProductForm from "../../../components/products/product-form";
 
 interface Props {
   params: Promise<{ articleNumber: string }>;
