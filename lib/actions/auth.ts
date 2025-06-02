@@ -1,7 +1,7 @@
 "use server";
 
 import { prisma } from "@/prisma/db";
-import { registerSchema } from "@/lib/auth-validation";
+import { registerSchema } from "@/lib/validations/auth";
 import bcrypt from "bcryptjs";
 
 type RegisterResult = { success: true } | { error: string };

@@ -9,7 +9,7 @@ import {
   productSchema,
   productIdSchema,
   articleNumberSchema,
-} from "./validation";
+} from "@/lib/validations/product";
 
 export async function createProduct(product: Prisma.ProductCreateInput) {
   const session = await auth();

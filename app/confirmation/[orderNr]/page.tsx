@@ -1,6 +1,6 @@
 "use client";
 
-import { getOrderByOrderNr } from "@/app/admin/order-actions";
+import { getOrderByOrderNr } from "@/lib/actions/order";
 import Receipt from "@/app/confirmation/receipt";
 import { Box, Button, Container, Link, Typography } from "@mui/material";
 import { useEffect, useState, use } from "react";

@@ -6,11 +6,11 @@ import { prisma } from "@/prisma/db";
 import { OrderStatus } from "@prisma/client";
 import { customAlphabet } from "nanoid";
 import {
-  addressSchema,
   cartItemSchema,
   orderIdSchema,
   orderNumberSchema,
-} from "./validation";
+} from "@/lib/validations/order";
+import { addressSchema } from "@/lib/validations/user";
 
 export interface AddressData {
   address: string;
