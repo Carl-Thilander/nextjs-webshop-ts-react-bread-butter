@@ -1,6 +1,6 @@
 "use server";
 
-import { auth } from "@/lib/auth";
+import { auth } from "@/auth";
 import { CartItem } from "@/context/CartContext";
 import { prisma } from "@/prisma/db";
 import { OrderStatus } from "@prisma/client";
