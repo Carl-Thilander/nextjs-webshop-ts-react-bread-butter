@@ -15,7 +15,7 @@ import {
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { submitOrder } from "../admin/action";
+import { submitOrder } from "../admin/order-actions";
 import { userSchema } from "../admin/validation";
 import {
   OutOfStockItems,

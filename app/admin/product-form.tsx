@@ -18,7 +18,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { SubmitHandler, useForm, Controller } from "react-hook-form";
 import z from "zod";
-import { createProduct, updateProduct, getAllCategories } from "./action";
+import { createProduct, updateProduct, getAllCategories } from "./product-actions";
 import { productSchema } from "./validation";
 
 const ProductFormSchema = productSchema
