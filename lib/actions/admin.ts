@@ -1,153 +1,56 @@
 "use server";
 
 import { auth } from "@/lib/auth";
-import { CartItem } from "@/context/CartContext";
 import { prisma } from "@/prisma/db";
-import { OrderStatus, Prisma } from "@prisma/client";
-import { customAlphabet } from "nanoid";
+import { OrderStatus } from "@prisma/client";
 import { revalidatePath } from "next/cache";
+import { orderIdSchema, orderNumberSchema } from "@/lib/validations/order";
 
-interface AddressData {
-  address: string;
-  zipcode: string;
-  city: string;
-  phone: string;
-}
-
-function assertIsAdmin() {}
-
-export async function createProduct(product: Prisma.ProductCreateInput) {
-  assertIsAdmin();
-
-  const nanoid = customAlphabet("1234567890", 4);
-  product.articleNumber = nanoid();
-  await prisma.product.create({ data: product });
-  revalidatePath("/admin");
-}
-
-export async function deleteProduct(id: string) {
-  await prisma.product.delete({ where: { id: id } });
-  revalidatePath("/");
-}
-
-export async function getAllCategories() {
-  return await prisma.category.findMany();
-}
-
-export async function updateProduct(
-  articleNumber: string,
-  data: Prisma.ProductUpdateInput
-) {
-  await prisma.product.update({
-    where: { articleNumber },
-    data,
-  });
-  revalidatePath("/admin");
-}
-export async function submitOrder(
-  cartItems: CartItem[],
-  addressData: AddressData
-) {
-  const session = await auth(); // ✅ get logged-in session
-
-  if (!session?.user?.id) {
-    throw new Error("You need to be logged in to place and order.");
+async function requireAdmin() {
+  const session = await auth();
+  if (!session?.user?.isAdmin) {
+    throw new Error("Unauthorized: Admin access required");
   }
-
-  const userId = session.user.id;
-
-  const order = await createOrder(userId, cartItems, addressData);
-  return order;
+  return session;
 }
 
-export async function createOrder(
-  userId: string,
-  cartItems: CartItem[],
-  addressData: AddressData
-) {
-  if (!cartItems || !Array.isArray(cartItems)) {
-    throw new Error("cartItems must be a valid array");
-  }
+export async function getAllOrders() {
+  await requireAdmin();
 
-  if (
-    !addressData.address ||
-    !addressData.zipcode ||
-    !addressData.city ||
-    !addressData.phone
-  ) {
-    throw new Error("All address fields are required");
-  }
-
-  const orderNr = `${Date.now()}`;
-
-  // Check to see that product exists and is in stock
-  for (const item of cartItems) {
-    const product = await prisma.product.findUnique({
-      where: { id: item.id },
-    });
-    if (!product) {
-      throw new Error(`Product with id: ${item.id} can't be found`);
-    }
-    if (product.stock < item.quantity) {
-      throw new Error(`Product ${item.title} is out of stock`);
-    }
-  }
-
-  // if product exists and is in stock, update stock according to the items in order
-  for (const item of cartItems) {
-    await prisma.product.update({
-      where: { id: item.id },
-      data: {
-        stock: {
-          decrement: item.quantity,
-        },
-      },
-    });
-  }
-
-  const address = await prisma.address.create({
-    data: addressData,
-  });
-
-  const order = await prisma.order.create({
-    data: {
-      user: { connect: { id: userId } },
-      address: { connect: { id: address.id } },
-      orderNr,
-      items: {
-        create: cartItems.map((item) => ({
-          image: item.image,
-          title: item.title,
-          price: item.price,
-          quantity: item.quantity,
-        })),
-      },
-    },
-    include: { items: true },
-  });
-
-  return order;
-}
-
-export async function getOrderById(id: string) {
-  const order = await prisma.order.findUnique({
-    where: {
-      id: id,
-    },
+  return await prisma.order.findMany({
     include: {
       items: true,
       user: true,
+      address: true,
     },
+    orderBy: {
+      date: "desc",
+    },
+  });
+}
+
+export async function getOrderById(id: string) {
+  await requireAdmin();
+
+  const validatedId = orderIdSchema.parse(id);
+
+  const order = await prisma.order.findUnique({
+    where: { id: validatedId },
+    include: { items: true, user: true, address: true },
   });
 
   return order;
 }
 
 export async function getOrderByOrderNr(orderNr: string) {
+  await requireAdmin();
+
+  const validatedOrderNr = orderNumberSchema.parse(orderNr);
+
   try {
     const order = await prisma.order.findFirst({
       where: {
-        orderNr: orderNr,
+        orderNr: validatedOrderNr,
       },
       include: {
         items: true,
@@ -172,14 +75,19 @@ export async function getOrderByOrderNr(orderNr: string) {
 }
 
 export async function updateOrderStatus(orderId: string, status: OrderStatus) {
+  await requireAdmin();
+
+  const validatedOrderId = orderIdSchema.parse(orderId);
+
   try {
     await prisma.order.update({
-      where: { id: orderId },
+      where: { id: validatedOrderId },
       data: { status },
     });
+    revalidatePath("/admin/orders");
     return { success: true };
   } catch (error) {
     console.error("Failed to update order status:", error);
-    return { error: "Kunde inte uppdatera orderstatus." };
+    throw new Error("Failed to update order status");
   }
 }
