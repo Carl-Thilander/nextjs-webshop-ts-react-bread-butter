@@ -9,7 +9,6 @@ import {
     orderNumberSchema,
 } from "@/lib/validations/order";
 import { createOrder } from "./createOrder";
-import { addressSchema } from "@/lib/validations/user";
 
 export interface AddressData {
     address: string;
