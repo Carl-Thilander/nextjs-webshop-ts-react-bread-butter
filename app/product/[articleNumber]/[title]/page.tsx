@@ -8,6 +8,15 @@ interface Props {
   params: Promise<{ articleNumber: string; title: string }>;
 }
 
+export async function generateStaticParams() {
+  const products = await prisma.product.findMany();
+
+  return products.map((p) => ({
+    articleNumber: p.articleNumber,
+    title: p.title,
+  }));
+}
+
 export default async function ProductPage({ params }: Props) {
   const { articleNumber, title } = await params;
   if (!articleNumber) {

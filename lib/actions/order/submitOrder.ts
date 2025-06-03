@@ -23,7 +23,7 @@ export async function submitOrder(
 ) {
     const session = await auth();
     if (!session?.user?.id) {
-        throw new Error("You need to be logged in to place and order.");
+        throw new Error("You need to be logged in to place an order.");
     }
 
     return await createOrder(session.user.id, cartItems, addressData);

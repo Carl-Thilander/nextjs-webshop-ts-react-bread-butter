@@ -1,6 +1,4 @@
-"use client";
 import { Box, Container, Grid2, Link } from "@mui/material";
-import { useState } from "react";
 import ProductCard from "./product-card";
 import CategorySection from "./category-section";
 
@@ -29,27 +27,13 @@ interface ProductFilterProps {
 export default function ProductFilter({
   products,
   categories,
+  currentCategoryName,
 }: ProductFilterProps) {
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-
-  const filteredProducts = selectedCategory
-    ? products.filter((product) =>
-        product.categories.some((cat) => cat.name === selectedCategory)
-      )
-    : products;
-
-  // Handler for category selection
-  const handleSelectCategory = (categoryName: string) => {
-    setSelectedCategory((prev) => (prev === categoryName ? null : categoryName));
-  };
-
   return (
     <>
       <CategorySection
         categories={categories}
-        selected={selectedCategory ? [selectedCategory] : []}
-        onSelect={handleSelectCategory}
-        currentCategoryName={selectedCategory || "Our Products"}
+        currentCategoryName={currentCategoryName || "Our Products"}
       />
       <Container
         disableGutters
@@ -75,7 +59,7 @@ export default function ProductFilter({
             rowSpacing={{ xs: 3, sm: 4, md: 5 }}
             columnSpacing={{ xs: 12, sm: 4, md: 4 }}
           >
-            {filteredProducts.map((product) => (
+            {products.map((product) => (
               <Link
                 key={product.id}
                 href={`/product/${product.articleNumber}/${encodeURIComponent(
