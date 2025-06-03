@@ -71,7 +71,7 @@ export default function ConfirmationPage({
             borderRadius: "8px",
             padding: "1.5rem",
             marginBottom: "2rem",
-            backgroundColor: "background.paper",
+            backgroundColor: "background.default",
           }}
         >
           <Typography>Name: {customer.name}</Typography>
