@@ -20,6 +20,7 @@ import { Order, User, Address, OrderItem, OrderStatus } from "@prisma/client";
 import { SelectChangeEvent } from "@mui/material";
 import { updateOrderStatus } from "@/lib/actions";
 import ArrowBackwardIosIcon from "@mui/icons-material/ArrowBackIos";
+import { toast } from "sonner";
 
 type ExtendedOrder = Order & {
   user: User | null;
@@ -46,8 +47,10 @@ export default function AdminOrderTable({
     );
     const result = await updateOrderStatus(orderId, newStatus);
     if (result?.success) {
+      toast.success("Order status updated successfully!");
       console.log("Order updated successfully!");
     } else {
+      toast.error(result?.error || "Failed to update order status");
       console.error(result?.error);
     }
   };
