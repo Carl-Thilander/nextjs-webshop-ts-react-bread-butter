@@ -1,5 +1,4 @@
 "use client";
-import Category from "@/app/category/[id]/page";
 import { Box, Chip, Container, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
 
@@ -10,18 +9,18 @@ interface Category {
 
 interface Props {
   categories: Category[];
-  selected?: string[];
-  onSelect?: (category: string) => void;
   currentCategoryName?: string;
 }
 
-
-export default function CategorySection({ categories, selected, onSelect, currentCategoryName }: Props) {
+export default function CategorySection({
+  categories,
+  currentCategoryName,
+}: Props) {
   const router = useRouter();
 
-
   return (
-    <Container id="products"
+    <Container
+      id="products"
       sx={{
         display: "flex",
         flexDirection: "column",
@@ -33,7 +32,6 @@ export default function CategorySection({ categories, selected, onSelect, curren
         marginTop: "4rem",
       }}
     >
-
       <Typography
         variant="h2"
         sx={{
@@ -52,23 +50,27 @@ export default function CategorySection({ categories, selected, onSelect, curren
           flexDirection: { xs: "column", sm: "row" },
           width: "60%",
           alignItems: { xs: "center", sm: "flex-start" },
-        }}>
-
-
-
+        }}
+      >
         {categories.map((category) => (
           <Chip
             key={category.id}
             label={category.name}
             clickable
-            onClick={() => onSelect && onSelect(category.name)}
+            onClick={() =>
+              router.push(`/category/${category.name}`, { scroll: false })
+            }
             sx={{
-              backgroundColor: selected?.includes(category.name)
-                ? "primary.main"
-                : "transparent",
-              color: selected?.includes(category.name)
-                ? "white"
-                : "text.primary",
+              backgroundColor:
+                currentCategoryName?.toLowerCase() ===
+                category.name.toLowerCase()
+                  ? "primary.main"
+                  : "transparent",
+              color:
+                currentCategoryName?.toLowerCase() ===
+                category.name.toLowerCase()
+                  ? "white"
+                  : "text.primary",
               fontWeight: "normal",
               fontSize: "1rem",
               padding: "0.5rem 1rem",
