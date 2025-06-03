@@ -1,5 +1,6 @@
 "use client";
 import { Box, Chip, Container, Typography } from "@mui/material";
+import { useRouter } from "next/navigation";
 
 interface Category {
   id: string;
@@ -8,12 +9,15 @@ interface Category {
 
 interface Props {
   categories: Category[];
-  selected: string[];
-  onSelect: (category: string) => void;
+  selected?: string[];
+  onSelect?: (category: string) => void;
 }
 
-export default function CategorySection({ categories, selected, onSelect }: Props) {
-  
+
+export default function CategorySection({ categories }: Props) {
+  const router = useRouter();
+
+
   return (
     <Container id="products"
       sx={{
@@ -54,19 +58,15 @@ export default function CategorySection({ categories, selected, onSelect }: Prop
             key={category.id}
             label={category.name}
             clickable
-            color={selected.includes(category.name) ? "primary" : "default"}
-            onClick={() => {
-              onSelect(category.name);
-            }}
+            onClick={() => router.push(`/category/${category.id}`)}
             sx={{
-              fontWeight: selected.includes(category.name) ? "bold" : "normal",
+              fontWeight: "normal",
               fontSize: "1rem",
               padding: "0.5rem 1rem",
               width: { xs: "80%", sm: "auto" },
               height: "48px",
               borderRadius: "8px",
               border: "1px solid",
-              backgroundColor: selected.includes(category.name) ? "primary" : "white",
             }}
           />
         ))}
