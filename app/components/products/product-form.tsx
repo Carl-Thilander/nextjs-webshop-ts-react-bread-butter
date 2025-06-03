@@ -124,7 +124,7 @@ export default function ProductForm({ product }: Props) {
       </FormLabel>
       <TextField
         margin="normal"
-        type="url"
+        type="text"
         fullWidth
         variant="outlined"
         error={!!errors.image}

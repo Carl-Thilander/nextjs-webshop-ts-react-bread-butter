@@ -8,8 +8,8 @@ interface Category {
 
 interface Props {
   categories: Category[];
-  selected: string [];
-  onSelect: (category: string ) => void;
+  selected: string[];
+  onSelect: (category: string) => void;
 }
 
 export default function CategorySection({ categories, selected, onSelect }: Props) {
@@ -46,30 +46,30 @@ export default function CategorySection({ categories, selected, onSelect }: Prop
           width: "60%",
           alignItems: { xs: "center", sm: "flex-start" },
         }}>
-        
 
-      
-      {categories.map((category) => (
-        <Chip
-          key={category.id}
-          label={category.name}
-          clickable
-           color={selected.includes(category.name) ? "primary" : "default"}
-          onClick={() => {
-            onSelect(category.name);
-          }}
-          sx={{
-            fontWeight: selected.includes(category.name) ? "bold" : "normal",
-            fontSize: "1rem",
-            padding: "0.5rem 1rem",
-            width: { xs: "80%", sm: "auto" },
-            height: "48px",
-            borderRadius: "8px",
-            border: "1px solid",
-            backgroundColor: selected.includes(category.name) ? "primary" : "white",
-          }}
-        />
-      ))}
+
+
+        {categories.map((category) => (
+          <Chip
+            key={category.id}
+            label={category.name}
+            clickable
+            color={selected.includes(category.name) ? "primary" : "default"}
+            onClick={() => {
+              onSelect(category.name);
+            }}
+            sx={{
+              fontWeight: selected.includes(category.name) ? "bold" : "normal",
+              fontSize: "1rem",
+              padding: "0.5rem 1rem",
+              width: { xs: "80%", sm: "auto" },
+              height: "48px",
+              borderRadius: "8px",
+              border: "1px solid",
+              backgroundColor: selected.includes(category.name) ? "primary" : "white",
+            }}
+          />
+        ))}
       </Box>
     </Container>
   );

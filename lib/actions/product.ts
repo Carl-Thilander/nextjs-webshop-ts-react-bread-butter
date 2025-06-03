@@ -10,15 +10,19 @@ import {
   productIdSchema,
   articleNumberSchema,
 } from "@/lib/validations/product";
+import { title } from "process";
 
-export async function createProduct(product: Prisma.ProductCreateInput) {
+export async function createProduct(product: any) {
   const session = await auth();
 
   if (!session?.user?.isAdmin) {
     throw new Error("Unauthorized: Admin access required");
   }
 
-  const validatedProduct = productSchema.parse(product);
+  const validatedProduct = productSchema.parse({
+    ...product,
+    categories: product.categories.connect.map((c: { id: string }) => c.id),
+  });
 
   const nanoid = customAlphabet("1234567890", 4);
   const productData = {
@@ -48,7 +52,7 @@ export async function deleteProduct(id: string) {
 
 export async function updateProduct(
   articleNumber: string,
-  data: Prisma.ProductUpdateInput
+  data: any
 ) {
   const session = await auth();
 
@@ -58,7 +62,7 @@ export async function updateProduct(
 
   const validatedArticleNumber = articleNumberSchema.parse(articleNumber);
 
-  const validatedData = productSchema.partial().parse(data);
+  const validatedData = productSchema.partial().parse({ ...data, categories: data.categories.connect.map((c: { id: string }) => c.id) });
 
   const updateData: Prisma.ProductUpdateInput = {
     title: validatedData.title,
