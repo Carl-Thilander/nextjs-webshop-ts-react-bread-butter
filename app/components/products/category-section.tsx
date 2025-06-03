@@ -16,7 +16,7 @@ interface Props {
 }
 
 
-export default function CategorySection({ categories, currentCategoryName }: Props) {
+export default function CategorySection({ categories, selected, onSelect, currentCategoryName }: Props) {
   const router = useRouter();
 
 
@@ -33,7 +33,7 @@ export default function CategorySection({ categories, currentCategoryName }: Pro
         marginTop: "4rem",
       }}
     >
-      
+
       <Typography
         variant="h2"
         sx={{
@@ -42,7 +42,7 @@ export default function CategorySection({ categories, currentCategoryName }: Pro
           color: "text.primary",
         }}
       >
-        {currentCategoryName}
+        {currentCategoryName || "Our Products"}
       </Typography>
 
       <Box
@@ -61,8 +61,14 @@ export default function CategorySection({ categories, currentCategoryName }: Pro
             key={category.id}
             label={category.name}
             clickable
-            onClick={() => router.push(`/category/${category.id}`)}
+            onClick={() => onSelect && onSelect(category.name)}
             sx={{
+              backgroundColor: selected?.includes(category.name)
+                ? "primary.main"
+                : "transparent",
+              color: selected?.includes(category.name)
+                ? "white"
+                : "text.primary",
               fontWeight: "normal",
               fontSize: "1rem",
               padding: "0.5rem 1rem",
