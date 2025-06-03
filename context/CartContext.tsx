@@ -86,12 +86,7 @@ export function CartProvider(props: PropsWithChildren) {
     setCartItems([]);
     localStorage.removeItem("cart");
   };
-
   const cartCount = cartItems.reduce((total, item) => total + item.quantity, 0);
-
-  useEffect(() => {
-    console.log("cartCount updated:", cartCount);
-  }, [cartCount]);
 
   const totalSum = cartItems.reduce(
     (sum, item) => sum + item.quantity * item.price,
@@ -116,7 +111,7 @@ export function CartProvider(props: PropsWithChildren) {
         <Snackbar
           open
           autoHideDuration={2000}
-          anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+          anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
           sx={{
             width: "auto",
             maxWidth: "350px",
@@ -127,13 +122,12 @@ export function CartProvider(props: PropsWithChildren) {
           <Alert
             onClose={() => setToastMessage(null)}
             severity="success"
-            variant="outlined"
+            variant="filled"
             sx={{
               width: "100%",
               borderRadius: "0.5rem",
-              borderColor: "success.main",
-              color: "success.main",
-              backgroundColor: "white",
+              color: "white",
+              backgroundColor: "success.main",
               fontSize: "1rem",
               fontWeight: "bold",
               padding: "6px 16px",

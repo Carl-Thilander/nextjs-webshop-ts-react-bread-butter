@@ -18,7 +18,7 @@ import {
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { Order, Address, OrderItem, OrderStatus } from "@prisma/client";
 import { useState } from "react";
-import GoBackButton from "@/app/components/go-back-button";
+import GoBackButton from "@/app/components/buttons/go-back-button";
 
 type CustomerOrder = Order & {
   address: Address | null;
@@ -77,10 +77,11 @@ export default function CustomerOrderList({
             expanded={expanded === order.id}
             onChange={handleChange(order.id)}
             sx={{
+              bgcolor: "background.default",
               mb: 2,
               borderRadius: "8px",
               "&::before": { display: "none" },
-              boxShadow: "rgba(0, 0, 0, 0.04) 0px 3px 5px",
+              boxShadow: 2,
             }}
           >
             <AccordionSummary
@@ -125,7 +126,7 @@ export default function CustomerOrderList({
                   color="text.secondary"
                   sx={{ fontWeight: "bold" }}
                 >
-                  {calculateTotal(order.items)} kr
+                  {calculateTotal(order.items)} €
                 </Typography>
                 <Chip
                   label={order.status}
@@ -180,9 +181,9 @@ export default function CustomerOrderList({
                           <Typography variant="body2">{item.title}</Typography>
                         </TableCell>
                         <TableCell align="right">{item.quantity}</TableCell>
-                        <TableCell align="right">{item.price} kr</TableCell>
+                        <TableCell align="right">{item.price} €</TableCell>
                         <TableCell align="right">
-                          {(item.price * item.quantity).toFixed(2)} kr
+                          {(item.price * item.quantity).toFixed(2)} €
                         </TableCell>
                       </TableRow>
                     ))}
@@ -192,7 +193,7 @@ export default function CustomerOrderList({
                       </TableCell>
                       <TableCell align="right">
                         <Typography variant="subtitle2">
-                          {calculateTotal(order.items)} kr
+                          {calculateTotal(order.items)} €
                         </Typography>
                       </TableCell>
                     </TableRow>

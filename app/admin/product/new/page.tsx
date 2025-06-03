@@ -1,5 +1,5 @@
 import { Dialog } from "@mui/material";
-import AddProductForm from "../../product-form";
+import AddProductForm from "../../../components/products/product-form";
 
 export default function NewProductPage() {
   return (

@@ -1,4 +1,4 @@
-import { auth } from "./auth";
+import { auth } from "./lib/auth";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
@@ -9,8 +9,8 @@ export function middleware(request: NextRequest) {
     request.headers.get("x-forwarded-for") ??
     request.headers.get("x-real-ip") ??
     "127.0.0.1";
-  const limit = 100; // Increased from 5 to 50 requests per 15 minutes
-  const windowMs = 15 * 60 * 1000; // 15 minutes
+  const limit = 100;
+  const windowMs = 15 * 60 * 1000;
 
   if (request.nextUrl.pathname.startsWith("/api/auth")) {
     const now = Date.now();
@@ -37,7 +37,7 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: "/api/auth/:path*",
+  matcher: ["/api/auth/:path*", "/admin/:path*"],
 };
 
 export default auth((req) => {
