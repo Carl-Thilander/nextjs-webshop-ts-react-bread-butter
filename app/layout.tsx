@@ -8,6 +8,7 @@ import Header from "./components/layout/Header";
 import { CartProvider } from "../context/CartContext";
 import theme from "./theme";
 import { SessionProvider } from "next-auth/react";
+import { Toaster } from "sonner";
 
 const poppins = Poppins({
   weight: ["300", "400", "500", "700"],
@@ -46,6 +47,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
                   <Header />
 
                   <Box component="main" sx={{ flex: "1" }}>
+                    <Toaster />
                     {children}
                   </Box>
 
