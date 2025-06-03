@@ -71,12 +71,12 @@ const Header = () => {
     !session.user?.isAdmin && {
       text: "My Orders",
       href: "/orders",
-      icon: <PersonIcon color="primary" />,
+      icon: <PersonIcon sx={{color: "#61371E"}} />,
     },
     session && {
       text: "Sign Out",
       href: "#",
-      icon: <LogoutIcon color="primary" />,
+      icon: <LogoutIcon sx={{color: "#61371E"}} />,
       onClick: () => {
         setDrawerOpen(false);
         setLogoutDialogOpen(true);
@@ -264,7 +264,7 @@ const Header = () => {
             ))}
           </List>
           <Divider sx={{ my: 2 }} />
-          <Box sx={{ px: 2 }}>
+          <Box sx={{ px: 1.3 }}>
             <CartIconButton />
           </Box>
         </Box>
