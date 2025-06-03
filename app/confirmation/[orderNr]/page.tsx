@@ -107,7 +107,7 @@ export default function ConfirmationPage({
               "&:hover": { bgcolor: "primary.dark", color: "background.paper" },
             }}
           >
-            Back to start page
+            Continue shopping
           </Button>
         </Box>
       </Box>
