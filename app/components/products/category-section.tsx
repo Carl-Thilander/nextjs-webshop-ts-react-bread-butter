@@ -1,4 +1,5 @@
 "use client";
+import Category from "@/app/category/[id]/page";
 import { Box, Chip, Container, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
 
@@ -11,10 +12,11 @@ interface Props {
   categories: Category[];
   selected?: string[];
   onSelect?: (category: string) => void;
+  currentCategoryName?: string;
 }
 
 
-export default function CategorySection({ categories }: Props) {
+export default function CategorySection({ categories, currentCategoryName }: Props) {
   const router = useRouter();
 
 
@@ -31,6 +33,7 @@ export default function CategorySection({ categories }: Props) {
         marginTop: "4rem",
       }}
     >
+      
       <Typography
         variant="h2"
         sx={{
@@ -39,7 +42,7 @@ export default function CategorySection({ categories }: Props) {
           color: "text.primary",
         }}
       >
-        Our products
+        {currentCategoryName}
       </Typography>
 
       <Box

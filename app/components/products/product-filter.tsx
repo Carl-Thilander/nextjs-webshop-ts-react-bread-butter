@@ -23,6 +23,7 @@ interface Product {
 interface ProductFilterProps {
   products: Product[];
   categories: Category[];
+  currentCategoryName?: string;
 }
 
 export default function ProductFilter({
