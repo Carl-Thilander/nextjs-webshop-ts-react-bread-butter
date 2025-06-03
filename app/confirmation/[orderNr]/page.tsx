@@ -71,7 +71,7 @@ export default function ConfirmationPage({
             borderRadius: "8px",
             padding: "1.5rem",
             marginBottom: "2rem",
-            backgroundColor: "background.paper",
+            backgroundColor: "background.default",
           }}
         >
           <Typography>Name: {customer.name}</Typography>
@@ -107,7 +107,7 @@ export default function ConfirmationPage({
               "&:hover": { bgcolor: "primary.dark", color: "background.paper" },
             }}
           >
-            Back to start page
+            Continue shopping
           </Button>
         </Box>
       </Box>

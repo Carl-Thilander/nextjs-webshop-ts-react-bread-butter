@@ -48,7 +48,9 @@ export default function Receipt({ items, totalSum }: ReceiptProps) {
       >
         Your order
       </Typography>
-      <TableContainer component={Paper}>
+      <TableContainer component={Paper} sx={{
+        bgcolor: "background.default"
+      }}>
         <Table sx={{ minWidth: 700 }} aria-label="order-overview">
           <TableHead>
             <TableRow>

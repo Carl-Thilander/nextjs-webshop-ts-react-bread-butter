@@ -73,7 +73,7 @@ export default function CartSummary() {
           }}
           onClick={handleCheckout}
         >
-          Continue to cart overview
+          Checkout
         </Button>
       </Box>
     </Container>

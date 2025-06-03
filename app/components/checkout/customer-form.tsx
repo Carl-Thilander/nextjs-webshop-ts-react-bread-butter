@@ -367,7 +367,7 @@ export default function CustomerForm() {
         >
           <Box display="flex" justifyContent="space-between">
             <Typography variant="body1">Subtotal:</Typography>
-            <Typography variant="body1">{totalSum.toFixed(2)}</Typography>
+            <Typography variant="body1">{totalSum.toFixed(2)} €</Typography>
           </Box>
           <Divider sx={{ my: 1, borderColor: "rgba(255, 255, 255, 0.5)" }} />
 
@@ -380,7 +380,7 @@ export default function CustomerForm() {
           <Box display="flex" justifyContent="space-between">
             <Typography variant="body1">Total:</Typography>
             <Typography variant="body1" fontWeight={700}>
-              {totalSum.toFixed(2)}
+              {totalSum.toFixed(2)} €
             </Typography>
           </Box>
           <Divider sx={{ my: 1, borderColor: "rgba(255, 255, 255, 0.5)" }} />

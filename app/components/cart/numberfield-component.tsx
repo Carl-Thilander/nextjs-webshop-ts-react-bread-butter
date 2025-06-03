@@ -16,7 +16,7 @@ export default function PublicNumberField({
   const quantity = cartItem?.quantity || 0;
 
   return (
-    <Box sx={{ pt: 1, pb: 0.5, pl: 0.5, pr: 0.5, border: "1px solid white" }}>
+    <Box>
       <NumberField.Root
         id={id}
         value={quantity}
