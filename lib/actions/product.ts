@@ -34,7 +34,13 @@ export async function createProduct(product: any) {
   };
 
   await prisma.product.create({ data: productData });
+  // toast
+
+
+
   revalidatePath("/admin");
+  return { success: true, message: "Product created successfully!" };
+
 }
 
 export async function deleteProduct(id: string) {
@@ -48,6 +54,7 @@ export async function deleteProduct(id: string) {
 
   await prisma.product.delete({ where: { id: validatedId } });
   revalidatePath("/");
+  return { success: true, message: "Product deleted successfully!" };
 }
 
 export async function updateProduct(
@@ -82,6 +89,8 @@ export async function updateProduct(
     data: updateData,
   });
   revalidatePath("/admin");
+
+  return { success: true, message: "Product updated successfully!" };
 }
 
 export async function getAllCategories() {

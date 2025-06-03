@@ -5,6 +5,7 @@ import { Alert, IconButton, Snackbar } from "@mui/material";
 import { Product } from "@prisma/client";
 import { useState } from "react";
 import ConfirmDeleteProduct from "./confirm-delete-button";
+import { toast } from "sonner";
 
 type ProductCardProps = {
   product: Product;
@@ -19,7 +20,9 @@ export default function DeleteButton({ product }: ProductCardProps) {
 
   const handleClose = () => {
     setOpen(false);
+    toast.error("Product deleted successfully!");
   };
+  
   return (
     <>
       <IconButton onClick={handleClick} sx={{ color: "#9C8173" }}>

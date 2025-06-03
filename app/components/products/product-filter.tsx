@@ -38,7 +38,6 @@ export default function ProductFilter({
       )
     : products;
 
-  // Handler for category selection
   const handleSelectCategory = (categoryName: string) => {
     setSelectedCategory((prev) => (prev === categoryName ? null : categoryName));
   };

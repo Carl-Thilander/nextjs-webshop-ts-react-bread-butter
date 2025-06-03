@@ -24,6 +24,7 @@ import {
   getAllCategories,
 } from "@/lib/actions/product";
 import { productSchema } from "@/lib/validations/product";
+import { toast } from "sonner";
 
 const ProductFormSchema = productSchema
   .extend({
@@ -80,10 +81,16 @@ export default function ProductForm({ product }: Props) {
       },
     };
 
+
+
     if (isEdit && product?.articleNumber) {
-      await updateProduct(product.articleNumber, payload);
+      const result = await updateProduct(product.articleNumber, payload);
+      if (result?.success) toast.success(result.message);
+  else toast.error(result?.message || "Failed to update product");
     } else {
-      await createProduct(payload);
+      const result = await createProduct(payload);
+      if (result?.success) toast.success(result.message);
+  else toast.error(result?.message || "Failed to create product");
       reset();
     }
 
