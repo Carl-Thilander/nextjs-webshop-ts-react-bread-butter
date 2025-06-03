@@ -2,7 +2,7 @@ import { prisma } from "@/prisma/db";
 import Hero from "@/app/components/layout/Hero";
 import ProductFilter from "../../components/products/product-filter";
 
-export default async function Home() {
+export default async function Category() {
   const categories = await prisma.category.findMany();
   const products = await prisma.product.findMany({
     include: {
@@ -10,11 +10,13 @@ export default async function Home() {
     },
   });
 
+
+
   return (
     <>
       <Hero />
 
-      <ProductFilter categories={categories} products={products} />
+      <ProductFilter products={products} categories={categories} />
     </>
   );
 }

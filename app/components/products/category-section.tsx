@@ -1,5 +1,7 @@
 "use client";
+import Category from "@/app/category/[id]/page";
 import { Box, Chip, Container, Typography } from "@mui/material";
+import { useRouter } from "next/navigation";
 
 interface Category {
   id: string;
@@ -8,12 +10,16 @@ interface Category {
 
 interface Props {
   categories: Category[];
-  selected: string[];
-  onSelect: (category: string) => void;
+  selected?: string[];
+  onSelect?: (category: string) => void;
+  currentCategoryName?: string;
 }
 
-export default function CategorySection({ categories, selected, onSelect }: Props) {
-  
+
+export default function CategorySection({ categories, selected, onSelect, currentCategoryName }: Props) {
+  const router = useRouter();
+
+
   return (
     <Container id="products"
       sx={{
@@ -27,6 +33,7 @@ export default function CategorySection({ categories, selected, onSelect }: Prop
         marginTop: "4rem",
       }}
     >
+
       <Typography
         variant="h2"
         sx={{
@@ -35,7 +42,7 @@ export default function CategorySection({ categories, selected, onSelect }: Prop
           color: "text.primary",
         }}
       >
-        Our products
+        {currentCategoryName || "Our Products"}
       </Typography>
 
       <Box
@@ -54,19 +61,21 @@ export default function CategorySection({ categories, selected, onSelect }: Prop
             key={category.id}
             label={category.name}
             clickable
-            color={selected.includes(category.name) ? "primary" : "default"}
-            onClick={() => {
-              onSelect(category.name);
-            }}
+            onClick={() => onSelect && onSelect(category.name)}
             sx={{
-              fontWeight: selected.includes(category.name) ? "bold" : "normal",
+              backgroundColor: selected?.includes(category.name)
+                ? "primary.main"
+                : "transparent",
+              color: selected?.includes(category.name)
+                ? "white"
+                : "text.primary",
+              fontWeight: "normal",
               fontSize: "1rem",
               padding: "0.5rem 1rem",
               width: { xs: "80%", sm: "auto" },
               height: "48px",
               borderRadius: "8px",
               border: "1px solid",
-              backgroundColor: selected.includes(category.name) ? "primary" : "white",
             }}
           />
         ))}

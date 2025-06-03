@@ -23,36 +23,33 @@ interface Product {
 interface ProductFilterProps {
   products: Product[];
   categories: Category[];
+  currentCategoryName?: string;
 }
 
 export default function ProductFilter({
   products,
   categories,
 }: ProductFilterProps) {
-  const [selected, setSelected] = useState<string[]>([]);
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
-  const handleSelect = (category: string) => {
-    setSelected((prev) =>
-      prev.includes(category)
-        ? prev.filter((c) => c !== category)
-        : [...prev, category]
-    );
+  const filteredProducts = selectedCategory
+    ? products.filter((product) =>
+        product.categories.some((cat) => cat.name === selectedCategory)
+      )
+    : products;
+
+  // Handler for category selection
+  const handleSelectCategory = (categoryName: string) => {
+    setSelectedCategory((prev) => (prev === categoryName ? null : categoryName));
   };
-
-  const filteredProducts =
-    selected.length > 0
-      ? products.filter((p) =>
-          p.categories.some((c) => selected.includes(c.name))
-        )
-      : products;
-  const id = "test";
 
   return (
     <>
       <CategorySection
         categories={categories}
-        selected={selected}
-        onSelect={handleSelect}
+        selected={selectedCategory ? [selectedCategory] : []}
+        onSelect={handleSelectCategory}
+        currentCategoryName={selectedCategory || "Our Products"}
       />
       <Container
         disableGutters
@@ -64,7 +61,6 @@ export default function ProductFilter({
         }}
       >
         <Box
-          id={id}
           component="main"
           sx={{
             flexGrow: 1,
