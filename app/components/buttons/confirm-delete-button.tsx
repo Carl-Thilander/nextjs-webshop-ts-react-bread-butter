@@ -19,7 +19,9 @@ export default function ConfirmDeleteProduct(props: Props) {
         border: "1px solid #9C8173",
         "&:hover": { backgroundColor: "#E8DACD" },
       }}
-      onClick={() => deleteProduct(props.product.id)}
+      onClick={() => deleteProduct(props.product.id)
+        
+      }
     >
       Delete
     </Button>
