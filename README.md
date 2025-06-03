@@ -4,10 +4,11 @@
 
 **A premium coffee & tea e-commerce platform built with Next.js**
 
-[![Next.js](https://img.shields.io/badge/Next.js-15.2.1-black?logo=next.js&logoColor=white)](https://nextjs.org/)
+[![Next.js](https://img.shields.io/badge/Next.js-15.3.3-black?logo=next.js&logoColor=white)](https://nextjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.8.2-blue?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![Prisma](https://img.shields.io/badge/Prisma-6.8.2-2D3748?logo=prisma&logoColor=white)](https://www.prisma.io/)
 [![Material-UI](https://img.shields.io/badge/MUI-6.4.7-007FFF?logo=mui&logoColor=white)](https://mui.com/)
+[![React](https://img.shields.io/badge/React-19.0.0-61DAFB?logo=react&logoColor=white)](https://reactjs.org/)
 [![License: ISC](https://img.shields.io/badge/License-ISC-green.svg)](https://opensource.org/licenses/ISC)
 
 </div>
@@ -54,7 +55,8 @@ A curated marketplace for coffee enthusiasts and tea lovers, offering:
 - **Zod Schema Validation** - Type-safe form validation throughout the app
 - **Real-time Feedback** - Instant validation feedback on form inputs
 - **Auto-fill Support** - Browser autofill compatibility for faster checkout
-- **Toast Notifications** - User-friendly success and error messages
+- **Toast Notifications** - User-friendly success and error messages via Sonner
+- **Out-of-Stock Handling** - Intelligent stock validation during checkout
 
 ### 📊 **Admin Dashboard**
 
@@ -74,16 +76,18 @@ A curated marketplace for coffee enthusiasts and tea lovers, offering:
 
 ### **Frontend Stack**
 
-- **Next.js 15.2.1** - React framework with App Router for optimal performance
+- **Next.js 15.3.3** - React framework with App Router for optimal performance
 - **TypeScript 5.8.2** - Type-safe development with enhanced developer experience
 - **Material-UI 6.4.7** - Comprehensive component library with theming support
+- **React 19.0.0** - Latest React with enhanced features and performance
 - **React Hook Form** - Efficient form handling with minimal re-renders
+- **Base UI Components** - Low-level UI primitives for custom components
 
 ### **Backend & Database**
 
 - **Prisma 6.8.2** - Type-safe database ORM with migration support
 - **PostgreSQL** - Production-ready relational database
-- **NextAuth.js 5.0** - Complete authentication solution
+- **NextAuth.js 5.0.0-beta.28** - Complete authentication solution
 - **Server Actions** - Type-safe server-side operations
 
 ### **Data Validation & Security**
@@ -98,6 +102,7 @@ A curated marketplace for coffee enthusiasts and tea lovers, offering:
 - **ESLint** - Code quality and consistency enforcement
 - **TypeScript Strict Mode** - Maximum type safety
 - **Hot Module Replacement** - Fast development feedback
+- **Sonner** - Toast notification system for user feedback
 
 ## 📋 Database Schema
 
@@ -117,6 +122,17 @@ The application uses a comprehensive relational database schema:
 - Orders contain multiple OrderItems
 - Products belong to multiple Categories (many-to-many)
 - Orders are linked to delivery Addresses
+
+### **Order Status Flow**
+
+Orders progress through the following statuses:
+
+- **PENDING** - Order placed, awaiting confirmation
+- **SHIPPED** - Order has been shipped to customer
+- **DELIVERED** - Order successfully delivered
+- **CANCELLED** - Order cancelled
+
+For detailed schema information, see [erd-diagram.md](erd-diagram.md) and the image
 
 ## 🚀 Getting Started
 
@@ -209,7 +225,6 @@ npx tsx scripts/make-admin.ts user@example.com
 │   ├── confirmation/      # Order confirmation
 │   ├── orders/            # Customer order history
 │   └── product/           # Product detail pages
-├── actions/               # Server actions
 ├── context/               # React context providers
 ├── hooks/                 # Custom React hooks
 ├── lib/                   # Utility libraries
@@ -291,7 +306,7 @@ This project is licensed under the ISC License - see the [LICENSE](LICENSE) file
 
 ## 👥 Team
 
-Built with ❤️ by the Bread & Butter development team.
+Built with ❤️ by the Bean & Leaf development team.
 
 ## 🆘 Support
 
