@@ -96,7 +96,7 @@ export default function LoginForm() {
             sx={{
               height: 40,
               backgroundColor: 'primary.main',
-              color: 'common.white',
+              color: 'text.primary',
               '&:hover': { backgroundColor: 'primary.dark' }
             }}
           >
@@ -138,7 +138,7 @@ export default function LoginForm() {
           <Typography
             component="span"
             sx={{
-              color: 'primary.main',
+              color: 'success.main',
               cursor: 'pointer',
               '&:hover': { textDecoration: 'underline' }
             }}

@@ -85,7 +85,7 @@ export default function RegisterForm({ fromCart }: Props) {
             sx={{
               height: 40,
               backgroundColor: "primary.main",
-              color: "common.white",
+              color: "text.primary",
               "&:hover": { backgroundColor: "primary.dark" },
             }}
           >
@@ -106,7 +106,7 @@ export default function RegisterForm({ fromCart }: Props) {
           <Typography
             component="span"
             sx={{
-              color: "primary.main",
+              color: "success.main",
               cursor: "pointer",
               "&:hover": { textDecoration: "underline" },
             }}
