@@ -69,7 +69,7 @@ export default function CategorySection({
               color:
                 currentCategoryName?.toLowerCase() ===
                 category.name.toLowerCase()
-                  ? "white"
+                  ? "text.primary"
                   : "text.primary",
               fontWeight: "normal",
               fontSize: "1rem",
