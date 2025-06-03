@@ -13,6 +13,7 @@ interface Props {
 }
 
 export default function CategorySection({ categories, selected, onSelect }: Props) {
+  
   return (
     <Container id="products"
       sx={{
