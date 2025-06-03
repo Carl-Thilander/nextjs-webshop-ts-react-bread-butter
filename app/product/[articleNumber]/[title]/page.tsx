@@ -88,7 +88,7 @@ export default async function ProductPage({ params }: Props) {
         >
           <Typography
             variant="h1"
-            sx={{ fontSize: { sx: 40, sm: 40, md: 50 } }}
+            sx={{ fontSize: { sx: 40, sm: 40, md: 50 }, marginTop: {md: "1.5rem"}}}
           >
             {product.title}
           </Typography>{" "}
