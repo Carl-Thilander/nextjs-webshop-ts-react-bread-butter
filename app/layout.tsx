@@ -9,6 +9,7 @@ import { CartProvider } from "../context/CartContext";
 import theme from "./theme";
 import { SessionProvider } from "next-auth/react";
 import { Toaster } from "sonner";
+import { Analytics } from "@vercel/analytics/next";
 
 const poppins = Poppins({
   weight: ["300", "400", "500", "700"],
@@ -49,6 +50,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
                   <Box component="main" sx={{ flex: "1" }}>
                     <Toaster />
                     {children}
+                    <Analytics />
                   </Box>
 
                   <Footer />
