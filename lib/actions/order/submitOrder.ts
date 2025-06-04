@@ -27,6 +27,7 @@ export async function submitOrder(
         throw new Error("You need to be logged in to place an order.");
     }
     revalidatePath("/");
+    revalidatePath("/product/[articleNumber]");
     return await createOrder(session.user.id, cartItems, addressData);
 }
 

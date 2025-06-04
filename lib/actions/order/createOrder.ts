@@ -59,6 +59,8 @@ export async function createOrder(
     });
 
     revalidatePath("/");
+    revalidatePath("/product/[articleNumber]");
+
 
     return order;
 
