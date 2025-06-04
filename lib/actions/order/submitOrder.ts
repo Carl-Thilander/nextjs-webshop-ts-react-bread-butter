@@ -9,6 +9,7 @@ import {
     orderNumberSchema,
 } from "@/lib/validations/order";
 import { createOrder } from "./createOrder";
+import { revalidatePath } from "next/cache";
 
 export interface AddressData {
     address: string;
@@ -25,7 +26,7 @@ export async function submitOrder(
     if (!session?.user?.id) {
         throw new Error("You need to be logged in to place an order.");
     }
-
+    revalidatePath("/");
     return await createOrder(session.user.id, cartItems, addressData);
 }
 

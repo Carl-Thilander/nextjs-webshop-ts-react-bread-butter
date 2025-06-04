@@ -6,6 +6,7 @@ import { customAlphabet } from "nanoid";
 import { cartItemSchema } from "@/lib/validations/order";
 import { addressSchema } from "@/lib/validations/user";
 import { AddressData } from "./submitOrder";
+import { revalidatePath } from "next/cache";
 
 export async function createOrder(
     userId: string,
@@ -57,5 +58,8 @@ export async function createOrder(
         });
     });
 
+    revalidatePath("/");
+
     return order;
+
 }
