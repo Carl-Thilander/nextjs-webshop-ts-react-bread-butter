@@ -323,3 +323,26 @@ If you encounter any issues or have questions:
 **[🌟 Star this repository](../../stargazers) if you found it helpful!**
 
 </div>
+
+---
+## Course specific documentation: API development @ Medieinstitutet June 2025
+- [x] Alla sidor skall vara responsiva. (G) 
+- [x] Arbetet ska implementeras med NextJS. (G)
+- [x] Backenden ska ha validering på samtliga endpoints (även Server Actions). (G) 
+- [x] Skapa ett ER diagram som ska ha visats vid idégodkännandet (G)
+- [x] Beskriv er företagsidé i en kort textuell presentation, detta ska ha visats vid idégodkännandet (G)
+- [x] All data som programmet utnyttjar ska vara sparat i en SQL databas (produkter, beställningar, konton, mm) med undantaget av bilder. (G)
+- [x] Man ska kunna logga in som administratör i systemet (G)
+- [x] Inga Lösenord får sparas i klartext i databasen (G)
+- [x] En besökare ska kunna beställa produkter från sidan, detta ska uppdatera lagersaldot i databasen (G)
+- [x] Administratörer ska kunna uppdatera antalet produkter i lager från admin delen av sidan (G)
+- [x] Administratörer ska kunna se en lista på alla gjorda beställningar (G)
+- [x] Sidans produkter ska delas upp i kategorier, en produkt ska tillhöra minst en kategori, men kan tillhöra flera (G)
+- [x] Från hemsidan ska man kunna se en lista över alla produkter, och man ska kunna lista bara dom produkter som tillhör en kategori (G)
+- [x] Besökare ska kunna lägga produkterna i en kundkorg, som är sparad i local-storage på klienten (G)
+- [x] En besökare som gör en beställning ska få möjligheten att registrera sig samt logga in och måste vara inloggad som kund innan beställningen skapas (G)
+- [x] Checkoutflödet i frontendapplikationen ska ha validering på samtliga fält (G)
+- [x] När man är inloggad som kund ska man kunna se sina gjorda beställning och om det är skickade eller inte (G)
+- [x] Administratörer ska kunna redigera produkt (G)
+- [x] Administratörer ska kunna lägga till och ta bort produkter (G)
+- [x] Administratörer ska kunna markera beställningar som skickade (G
