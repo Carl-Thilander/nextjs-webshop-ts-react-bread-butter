@@ -33,7 +33,7 @@ export default function ProductFilter({
     <>
       <CategorySection
         categories={categories}
-        currentCategoryName={currentCategoryName || "Our Products"}
+        currentCategoryName={currentCategoryName}
       />
       <Container
         disableGutters

@@ -50,6 +50,7 @@ export default function CategorySection({
           flexDirection: { xs: "column", sm: "row" },
           width: "60%",
           alignItems: { xs: "center", sm: "flex-start" },
+          flexWrap: "wrap",
         }}
       >
         {categories.map((category) => (
@@ -81,6 +82,24 @@ export default function CategorySection({
             }}
           />
         ))}
+        <Chip
+          clickable
+          label="Show all"
+          onClick={() => router.push("/", { scroll: false })}
+          sx={{
+            backgroundColor: !currentCategoryName
+              ? "primary.main"
+              : "transparent",
+            color: !currentCategoryName ? "text.primary" : "text.primary",
+            fontWeight: "normal",
+            fontSize: "1rem",
+            padding: "0.5rem 1rem",
+            width: { xs: "80%", sm: "auto" },
+            height: "48px",
+            borderRadius: "8px",
+            border: "1px solid",
+          }}
+        />
       </Box>
     </Container>
   );
