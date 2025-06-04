@@ -84,6 +84,7 @@ export async function updateProduct(
     data: updateData,
   });
   revalidatePath("/admin");
+  revalidatePath("/");
   return { success: true, message: "Product updated successfully!" };
 }
 
